@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { MCP_URL } from '@/lib/urls';
 
 export const runtime = 'nodejs';
 export const maxDuration = 30;
@@ -11,7 +12,7 @@ export const maxDuration = 30;
  * A protocol adapter over the public REST API: every tool call self-fetches
  * /api/v1/* with the caller's Authorization header passed through, so auth,
  * rate limits, quotas, and validation are enforced by exactly one code path.
- * Connect with: Authorization: Bearer ghost_sk_test_... (same keys as the API).
+ * Connect with: Authorization: Bearer osms_sk_test_... (same keys as the API).
  */
 
 const PROTOCOL_VERSION = '2025-03-26';
@@ -249,10 +250,10 @@ export async function POST(req: NextRequest) {
       return rpcResult(rpc.id, {
         protocolVersion: PROTOCOL_VERSION,
         capabilities: { tools: {} },
-        serverInfo: { name: 'ghost-api', version: '1.0.0' },
+        serverInfo: { name: 'opensms', version: '1.0.0' },
         instructions:
           'OpenSMS MCP server: programmable SMS, phone numbers, and spam lookup. ' +
-          'Authenticate with your API key (Authorization: Bearer ghost_sk_...). ' +
+          'Authenticate with your API key (Authorization: Bearer osms_sk_...). ' +
           'Free sandbox keys: https://opensms.dev/console. ' +
           'Docs: https://opensms.dev/docs/quickstart',
       });
@@ -279,7 +280,7 @@ export async function POST(req: NextRequest) {
         return rpcError(
           rpc.id,
           -32001,
-          'Authentication required: pass your API key as Authorization: Bearer ghost_sk_...'
+          'Authentication required: pass your API key as Authorization: Bearer osms_sk_...'
         );
       }
       const name = String(rpc.params?.name || '');
@@ -312,11 +313,11 @@ export async function POST(req: NextRequest) {
 export async function GET() {
   return NextResponse.json(
     {
-      name: 'ghost-api',
+      name: 'opensms',
       transport: 'streamable-http',
       mode: 'stateless',
-      endpoint: '/api/mcp',
-      hint: 'POST JSON-RPC 2.0 (initialize, tools/list, tools/call) with Authorization: Bearer ghost_sk_...',
+      endpoint: MCP_URL,
+      hint: 'POST JSON-RPC 2.0 (initialize, tools/list, tools/call) with Authorization: Bearer osms_sk_...',
     },
     { status: 405 }
   );

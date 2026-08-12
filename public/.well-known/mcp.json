@@ -2,14 +2,14 @@
   "version": "1.0",
   "servers": [
     {
-      "name": "ghost-api",
+      "name": "opensms",
       "description": "OpenSMS — programmable SMS, phone verification, phone numbers, and spam lookup for developers. Send/receive texts, verify phones with one-time codes, provision numbers, and screen spam. Free sandbox keys at https://opensms.dev/console",
       "url": "https://mcp.opensms.dev",
       "alternate_urls": ["https://opensms.dev/api/mcp"],
       "transport": "streamable-http",
       "authentication": {
         "type": "bearer",
-        "description": "OpenSMS key (ghost_sk_test_... or ghost_sk_live_...) as Authorization: Bearer"
+        "description": "OpenSMS key (osms_sk_test_... or osms_sk_live_...) as Authorization: Bearer"
       },
       "documentation": "https://opensms.dev/docs/quickstart"
     }

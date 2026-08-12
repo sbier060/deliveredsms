@@ -39,8 +39,8 @@ ${docsLines}
 - **MCP Discovery** - ${BASE}/.well-known/mcp.json
 
 ## Skills
-- **Install** - npx skills add sbier060/ghost-skills — works with Claude Code, Cursor, Codex, Devin, Copilot
-- **Repository** - https://github.com/sbier060/ghost-skills
+- **Install** - npx skills add sbier060/opensms — works with Claude Code, Cursor, Codex, Devin, Copilot
+- **Repository** - https://github.com/sbier060/opensms
 - **Skills Discovery** - ${BASE}/.well-known/agent-skills/index.json
 - **opensms** - ${BASE}/skills/opensms/SKILL.md — send SMS, get numbers, screen spam
 - **opensms-verify** - ${BASE}/skills/opensms-verify/SKILL.md — phone verification (OTP/2FA) in two calls

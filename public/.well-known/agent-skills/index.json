@@ -1,7 +1,7 @@
 {
   "version": "1.0",
-  "repository": "https://github.com/sbier060/ghost-skills",
-  "install": "npx skills add sbier060/ghost-skills",
+  "repository": "https://github.com/sbier060/opensms",
+  "install": "npx skills add sbier060/opensms",
   "skills": [
     {
       "name": "opensms",

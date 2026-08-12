@@ -130,7 +130,7 @@ export default function AgentsPage() {
             carrier so agents can iterate for free.
           </p>
           <pre className={`mt-5 ${CODE_BLOCK}`}><code>{`MCP     https://opensms.dev/api/mcp
-Skills  npx skills add sbier060/ghost-skills
+Skills  npx skills add sbier060/opensms
 Docs    https://opensms.dev/docs/llms-full.txt
 Spec    https://api.opensms.dev/v1/openapi.yaml`}</code></pre>
           <div className="mt-8 flex flex-wrap items-center gap-6">

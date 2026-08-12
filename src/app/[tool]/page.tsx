@@ -44,7 +44,7 @@ const MCP_SNIPPET = `{
   }
 }`;
 
-const SKILLS_SNIPPET = `npx skills add sbier060/ghost-skills`;
+const SKILLS_SNIPPET = `npx skills add sbier060/opensms`;
 
 const PROMPT_SNIPPET = `Add phone verification to signup using OpenSMS Verify
 (POST /v1/verify, then /v1/verify/check). Docs:
