@@ -65,6 +65,10 @@ ${docsLines}
 - **Changelog (Markdown)** - ${BASE}/docs/changelog.md
 - **Changelog (HTML)** - ${BASE}/docs/changelog
 
+## Legal
+- **Terms of Service** - ${BASE}/terms — operated by Truelabel LLC
+- **Privacy Policy** - ${BASE}/privacy
+
 ## Product
 - **Landing page** - ${BASE}/developers
 - **Pricing (HTML)** - ${BASE}/pricing

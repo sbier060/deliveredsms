@@ -38,8 +38,8 @@ const COLUMNS: Array<{ title: string; links: Array<{ label: string; href: string
   {
     title: 'Legal',
     links: [
-      { label: 'Terms', href: '/terms-of-service' },
-      { label: 'Privacy', href: '/privacy-policy' },
+      { label: 'Terms', href: '/terms' },
+      { label: 'Privacy', href: '/privacy' },
       { label: 'Privacy choices', href: '/privacy-choices' },
     ],
   },
@@ -71,7 +71,7 @@ export default function DevFooter() {
           ))}
         </div>
         <p className="mt-12 text-[13px] text-[#918E86]">
-          © {new Date().getFullYear()} Delivered
+          © {new Date().getFullYear()} Truelabel LLC, d/b/a Delivered
         </p>
       </div>
     </footer>

@@ -38,6 +38,8 @@ let main = URLSET_OPEN;
 main += entry(`${BASE}/`, '1.0');
 main += entry(`${BASE}/pricing`, '0.9');
 main += entry(`${BASE}/agents`, '0.8');
+main += entry(`${BASE}/terms`, '0.4');
+main += entry(`${BASE}/privacy`, '0.4');
 for (const slug of toolSlugs) main += entry(`${BASE}/${slug}`, '0.7');
 main += '</urlset>';
 
