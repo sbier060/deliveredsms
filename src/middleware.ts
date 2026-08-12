@@ -1,12 +1,42 @@
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import type { NextRequest, NextFetchEvent } from 'next/server';
 import { resolveGeoConsentRequirement } from './lib/consent';
 
 const SITE_DOMAIN = process.env.NEXT_PUBLIC_SITE_DOMAIN || 'deliveredsms.com';
 
-export function middleware(request: NextRequest) {
+// AI crawlers/agents identify themselves; analytics never sees them because
+// they don't run JS. Counted server-side instead ("check your server logs").
+const AGENT_UA =
+  /GPTBot|OAI-SearchBot|ChatGPT-User|ClaudeBot|Claude-Web|anthropic-ai|PerplexityBot|Google-Extended|Applebot-Extended|cohere-ai|Bytespider|CCBot|meta-externalagent|Amazonbot|YouBot|DuckAssistBot|MistralAI/i;
+
+// Pages (not docs) that have markdown twins served from /md/[slug].
+const MD_TWIN: Record<string, string> = {
+  '/': '/md/index',
+  '/agents': '/md/agents',
+  '/claude': '/md/claude',
+  '/claude-code': '/md/claude-code',
+  '/cursor': '/md/cursor',
+  '/codex': '/md/codex',
+  '/devin': '/md/devin',
+  '/copilot': '/md/copilot',
+};
+
+export function middleware(request: NextRequest, event: NextFetchEvent) {
   const { pathname } = request.nextUrl;
   const host = request.headers.get('host') || '';
+
+  // Server-side agent-traffic beacon (fire-and-forget; never blocks a page).
+  const ua = request.headers.get('user-agent') || '';
+  const botMatch = ua.match(AGENT_UA);
+  if (botMatch && request.method === 'GET' && !pathname.startsWith('/api/')) {
+    event.waitUntil(
+      fetch(`${request.nextUrl.origin}/api/agent-log`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bot: botMatch[0], path: pathname }),
+      }).catch(() => {})
+    );
+  }
 
   // api.<domain>/ serves the API index. This lives in middleware rather than
   // vercel.json because vercel.json rewrites are applied AFTER the filesystem
@@ -24,14 +54,29 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(new URL('/api/mcp', request.url));
   }
 
-  // Content negotiation for agents: Accept: text/markdown on a docs or
-  // pricing page serves the markdown twin without knowing the .md convention.
+  // Content negotiation for agents: Accept: text/markdown on ANY content
+  // page serves its markdown twin — docs/pricing have .md sibling routes,
+  // everything else maps through /md/[slug].
   if (
     request.method === 'GET' &&
-    (request.headers.get('accept') || '').includes('text/markdown') &&
-    (/^\/docs\/[a-z0-9-]+$/.test(pathname) || pathname === '/pricing')
+    (request.headers.get('accept') || '').includes('text/markdown')
   ) {
-    return NextResponse.rewrite(new URL(`${pathname}.md`, request.url));
+    if (/^\/docs\/[a-z0-9-]+$/.test(pathname) || pathname === '/pricing') {
+      return NextResponse.rewrite(new URL(`${pathname}.md`, request.url));
+    }
+    if (MD_TWIN[pathname]) {
+      return NextResponse.rewrite(new URL(MD_TWIN[pathname], request.url));
+    }
+  }
+
+  // Direct .md URLs for the non-docs pages (/claude-code.md, /agents.md, /index.md).
+  if (request.method === 'GET' && pathname.endsWith('.md')) {
+    const base = pathname.slice(0, -3) || '/';
+    if (MD_TWIN[base === '/index' ? '/' : base]) {
+      return NextResponse.rewrite(
+        new URL(MD_TWIN[base === '/index' ? '/' : base], request.url)
+      );
+    }
   }
 
   // Geo-consent cookie for the analytics gate (EU/EEA + US consent states).

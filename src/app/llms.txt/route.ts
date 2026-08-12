@@ -20,6 +20,12 @@ Base URL: https://api.deliveredsms.com/v1
 Auth: Authorization: Bearer ghost_sk_test_... (free sandbox keys, instant)
 Console: ${BASE}/console
 
+## Markdown twins of site pages
+- **Landing (Markdown)** - ${BASE}/index.md
+- **Agents page (Markdown)** - ${BASE}/agents.md
+- **Per-tool pages** - append .md to any tool page, e.g. ${BASE}/claude-code.md
+- Every page also supports \`Accept: text/markdown\` content negotiation.
+
 ## Documentation
 - **Full documentation (single file)** - ${BASE}/docs/llms-full.txt
 ${docsLines}
