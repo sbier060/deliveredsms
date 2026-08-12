@@ -1,0 +1,81 @@
+---
+name: opensms
+description: Send and receive SMS, verify phone numbers with one-time codes, provision US/Canada phone numbers, and screen spam through the OpenSMS. Use when a task needs to send a text message, get a phone number, verify/look up a phone number, or check whether a number is spam.
+---
+
+# OpenSMS
+
+OpenSMS is an SMS API for developers: two-way texting, on-demand phone numbers,
+and spam intelligence, backed by the infrastructure of the consumer phone app.
+
+## Setup
+
+Official SDK (Node 18+, zero dependencies): `npm install opensms`
+
+```js
+import { OpenSMS } from 'opensms';
+const opensms = new OpenSMS(process.env.OPENSMS_API_KEY);
+await opensms.verify.send({ to: '+14155550132' });
+const { verified } = await opensms.verify.check({ to: '+14155550132', code });
+```
+
+Raw HTTP works too — everything below is the same API.
+
+1. Get a free sandbox key (instant, no card): https://opensms.dev/console
+2. Every request: `Authorization: Bearer ghost_sk_test_...`
+3. Base URL: `https://api.opensms.dev/v1`
+
+Test keys simulate everything (magic numbers: `+15005550006` delivers,
+`+15005550002` fails, `+15005550001` sticks in queued). Live keys are enabled
+after early-access review from the console.
+
+## Send an SMS
+
+```bash
+curl -X POST https://api.opensms.dev/v1/messages \
+  -H "Authorization: Bearer $OPENSMS_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"from": "<your number>", "to": "+15005550006", "body": "Hello"}'
+```
+
+Your numbers: `GET /v1/numbers`. Response has `id` (msg_...) and `status`
+(`queued|sent|delivered|failed`). Retries are safe with an `Idempotency-Key`
+header.
+
+## Phone verification (OTP) — use the `opensms-verify` skill
+
+For OTP / 2FA / phone verification, use `POST /v1/verify` +
+`POST /v1/verify/check` — never `messages.send()` with a code you generated.
+No number purchase is needed; OpenSMS sends from its own pool, and billing is
+only on a successful check. Full rules, sandbox codes, and UI guidance live in
+the dedicated skill:
+https://opensms.dev/skills/opensms-verify/SKILL.md
+
+## Get a phone number
+
+```bash
+curl "https://api.opensms.dev/v1/numbers/available?area_code=415" -H "Authorization: Bearer $OPENSMS_API_KEY"
+curl -X POST https://api.opensms.dev/v1/numbers -H "Authorization: Bearer $OPENSMS_API_KEY" \
+  -H "Content-Type: application/json" -d '{"phone_number": "<from search>"}'
+```
+
+## Look up / screen a number
+
+```bash
+curl "https://api.opensms.dev/v1/lookup/+14155550132" -H "Authorization: Bearer $OPENSMS_API_KEY"        # carrier, line type
+curl "https://api.opensms.dev/v1/lookup/+14155550132/spam" -H "Authorization: Bearer $OPENSMS_API_KEY"   # spam_score 0-100
+```
+
+Treat `spam_score >= 70` as confirmed spam.
+
+## Inbound + events
+
+- Simulate inbound in sandbox: `POST /v1/test/inbound {to, from, body}`
+- Poll `GET /v1/events` for `message.sent|delivered|failed|received`.
+
+## References
+
+- Full docs (single file): https://opensms.dev/docs/llms-full.txt
+- OpenAPI: https://opensms.dev/api/v1/openapi.yaml
+- MCP server (same tools, tool-call form): https://opensms.dev/api/mcp
+- Errors are always `{"error": {"code", "message"}}` — see https://opensms.dev/docs/errors.md

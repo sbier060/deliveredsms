@@ -1,0 +1,74 @@
+import { NextResponse } from 'next/server';
+import { SITE_URL, API_URL, MCP_URL } from '@/lib/urls';
+import { DOCS_PAGES } from '@/lib/dev-docs/content';
+
+export const runtime = 'nodejs';
+
+const BASE = SITE_URL;
+
+export async function GET() {
+  const docsLines = DOCS_PAGES.map(
+    (p) => `- **${p.title}** - ${BASE}/docs/${p.slug}.md — ${p.description}`
+  ).join('\n');
+
+  const body = `# OpenSMS — SMS for Developers
+
+OpenSMS is the SMS API for developers: send and receive texts, provision real
+US/Canada phone numbers, and screen spam with one REST API.
+
+Base URL: https://api.opensms.dev/v1
+Auth: Authorization: Bearer ghost_sk_test_... (free sandbox keys, instant)
+Console: ${BASE}/console
+
+## Documentation
+- **Full documentation (single file)** - ${BASE}/docs/llms-full.txt
+${docsLines}
+
+## Command line tool
+- **CLI** - npx opensms — send, verify, numbers, lookup, events from the terminal; --json for scripts and agents; key via OPENSMS_API_KEY or \`opensms login\`
+
+## SDKs
+- **Node.js / TypeScript** - npm install opensms — zero dependencies, works on Node 18+, Bun, Deno, Workers and Edge; ships the CLI as its bin
+
+## OpenAPI spec
+- **OpenAPI spec (YAML)** - ${BASE}/api/v1/openapi.yaml
+- **OpenAPI spec (JSON)** - ${BASE}/api/v1/openapi.json
+
+## MCP Server
+- **Streamable HTTP MCP server** - ${BASE}/api/mcp — send/receive SMS, numbers, lookup, and events as MCP tools; authenticate with your API key
+- **MCP Discovery** - ${BASE}/.well-known/mcp.json
+
+## Skills
+- **Install** - npx skills add sbier060/ghost-skills — works with Claude Code, Cursor, Codex, Devin, Copilot
+- **Repository** - https://github.com/sbier060/ghost-skills
+- **Skills Discovery** - ${BASE}/.well-known/agent-skills/index.json
+- **opensms** - ${BASE}/skills/opensms/SKILL.md — send SMS, get numbers, screen spam
+- **opensms-verify** - ${BASE}/skills/opensms-verify/SKILL.md — phone verification (OTP/2FA) in two calls
+- **sms-best-practices** - ${BASE}/skills/sms-best-practices/SKILL.md — consent, opt-out, segments, 10DLC
+
+## For AI agents
+- **Agents overview** - ${BASE}/agents — phone numbers, SMS inboxes, and verification for agents
+- **Use OpenSMS with Claude** - ${BASE}/claude
+- **Use OpenSMS with Claude Code** - ${BASE}/claude-code
+- **Use OpenSMS with Cursor** - ${BASE}/cursor
+- **Use OpenSMS with Codex** - ${BASE}/codex
+- **Use OpenSMS with Devin** - ${BASE}/devin
+- **Use OpenSMS with GitHub Copilot** - ${BASE}/copilot
+
+## Changelog
+- **Changelog (Markdown)** - ${BASE}/docs/changelog.md
+- **Changelog (HTML)** - ${BASE}/docs/changelog
+
+## Product
+- **Landing page** - ${BASE}/developers
+- **Pricing (HTML)** - ${BASE}/pricing
+- **Pricing (Markdown)** - ${BASE}/docs/pricing.md
+`;
+
+  return new NextResponse(body, {
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Cache-Control': 'public, max-age=300, s-maxage=3600',
+    },
+  });
+}

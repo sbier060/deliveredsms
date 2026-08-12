@@ -1,0 +1,37 @@
+{
+  "name": "opensms-web",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "postbuild": "node scripts/generate-sitemap.js && node scripts/generate-robots.js",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "firebase": "^10.14.1",
+    "firebase-admin": "^13.0.1",
+    "lucide-react": "^0.263.1",
+    "mixpanel-browser": "^2.56.0",
+    "next": "13.4.12",
+    "nodemailer": "^6.9.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
+    "stripe": "17.3.1"
+  },
+  "devDependencies": {
+    "@types/mixpanel-browser": "^2.49.0",
+    "@types/node": "20.4.5",
+    "@types/nodemailer": "^6.4.0",
+    "@types/react": "18.2.18",
+    "@types/react-dom": "18.2.7",
+    "autoprefixer": "10.4.14",
+    "dotenv": "^17.0.0",
+    "postcss": "8.4.27",
+    "tailwindcss": "3.3.3",
+    "typescript": "5.1.6"
+  }
+}

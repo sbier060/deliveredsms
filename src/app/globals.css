@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* OpenSMS hero glow — the one loud element on the landing page. */
+.hero-glow {
+  background:
+    radial-gradient(58% 58% at 50% 0%, rgba(0, 210, 106, 0.16) 0%, rgba(0, 158, 79, 0.05) 42%, transparent 72%),
+    linear-gradient(180deg, rgba(0, 210, 106, 0.04) 0%, transparent 55%);
+}
+
+.hover-underline-gradient {
+  position: relative;
+}
+.hover-underline-gradient::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, #00d26a, #009e4f);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 180ms ease;
+}
+.hover-underline-gradient:hover::after {
+  transform: scaleX(1);
+}

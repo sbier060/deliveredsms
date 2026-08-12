@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "installCommand": "npm ci",
+  "framework": "nextjs",
+  "rewrites": [
+    {
+      "source": "/v1/:path*",
+      "destination": "/api/v1/:path*",
+      "has": [{ "type": "host", "value": "api.opensms.dev" }]
+    },
+    {
+      "source": "/mp/:path*",
+      "destination": "https://api.mixpanel.com/:path*"
+    }
+  ]
+}
