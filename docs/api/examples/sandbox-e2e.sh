@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Sandbox E2E for the OpenSMS (/api/v1). Run against a dev server:
+# Sandbox E2E for the Delivered (/api/v1). Run against a dev server:
 #   BASE=http://localhost:3457 ADMIN_SECRET=$CRON_SECRET bash docs/api/examples/sandbox-e2e.sh
 # Creates one test tenant (api-e2e@ghostforge-e2e.test) and exercises every
 # sandbox endpoint + error code. Requires: curl, jq.

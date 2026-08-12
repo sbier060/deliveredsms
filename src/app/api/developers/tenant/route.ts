@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
   const ban = await checkBanned(user.uid, user.email, getClientIp(req));
   if (ban.banned) {
     return NextResponse.json(
-      { error: 'This account is not permitted to use OpenSMS.' },
+      { error: 'This account is not permitted to use Delivered.' },
       { status: 403 }
     );
   }
@@ -51,13 +51,13 @@ export async function POST(req: NextRequest) {
   if (result.isNew && process.env.DEV_API_EMAILS_ENABLED === 'true' && user.email) {
     sendNoReplyMail({
       to: user.email,
-      subject: 'Your OpenSMS sandbox is live',
+      subject: 'Your Delivered sandbox is live',
       html: buildDevWelcomeEmailHtml({
         name: user.name === 'Developer' ? null : user.name,
         keyLast4: result.initialKey ? result.initialKey.secret.slice(-4) : '????',
         sandboxNumber: result.sandboxNumber || '+1 500-555-XXXX',
-        consoleUrl: 'https://opensms.dev/console',
-        quickstartUrl: 'https://opensms.dev/docs/quickstart',
+        consoleUrl: 'https://deliveredsms.com/console',
+        quickstartUrl: 'https://deliveredsms.com/docs/quickstart',
       }),
     }).catch(() => {});
   }

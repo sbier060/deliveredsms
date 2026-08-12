@@ -1,6 +1,6 @@
-const CONSENT_COOKIE = 'osms_tracking_consent';
-const GEO_COOKIE = 'osms_geo_requires_consent';
-const GEO_DETECTION_FAILED_COOKIE = 'osms_geo_detection_failed';
+const CONSENT_COOKIE = 'dsms_tracking_consent';
+const GEO_COOKIE = 'dsms_geo_requires_consent';
+const GEO_DETECTION_FAILED_COOKIE = 'dsms_geo_detection_failed';
 
 export type ConsentStatus = 'accepted' | 'declined' | 'pending';
 

@@ -84,7 +84,7 @@ export default function ConsoleShell({ children }: { children: React.ReactNode }
         <header className="border-b border-[#2E2C28]">
           <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
             <Link href="/" className="flex items-center gap-2">
-              <span className="text-[15px] text-[#EFEEEC]">OpenSMS</span>
+              <span className="text-[15px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
               <span className="text-[15px] text-[#918E86]">Console</span>
             </Link>
             <Link
@@ -106,7 +106,7 @@ export default function ConsoleShell({ children }: { children: React.ReactNode }
       <aside className="hidden w-[230px] flex-shrink-0 flex-col border-r border-[#2E2C28] md:flex">
         <div className="flex h-full flex-col px-3 py-4">
           <Link href="/" className="flex items-center gap-2 px-3 pb-5">
-            <span className="text-[15px] text-[#EFEEEC]">OpenSMS</span>
+            <span className="text-[15px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
             <span className="text-[15px] text-[#918E86]">API</span>
           </Link>
           <NavLinks pathname={pathname} />

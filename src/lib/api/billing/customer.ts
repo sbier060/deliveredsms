@@ -37,7 +37,7 @@ export async function getOrCreateApiCustomer(tenant: ApiTenant): Promise<string>
   const stripe = apiBillingStripe();
   const customer = await stripe.customers.create({
     email: tenant.email,
-    name: `OpenSMS — ${tenant.name || tenant.id}`,
+    name: `Delivered — ${tenant.name || tenant.id}`,
     description: `Ghost developer API tenant ${tenant.id}`,
     metadata,
   });

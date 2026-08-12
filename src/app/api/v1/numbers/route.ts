@@ -65,7 +65,7 @@ export const POST = withApiKey(async (req: NextRequest, ctx: ApiContext) => {
 
   if (ctx.mode === 'live') {
     try {
-      await carrierPurchaseNumber(e164, `OpenSmsApi_${ctx.tenantId}`);
+      await carrierPurchaseNumber(e164, `DeliveredApi_${ctx.tenantId}`);
     } catch (error) {
       console.error('[v1/numbers] carrier purchase failed:', error);
       return apiError(502, 'carrier_error', 'This number could not be activated. Pick another from GET /v1/numbers/available.');

@@ -1,6 +1,6 @@
 import { SITE_URL, API_URL, MCP_URL } from '@/lib/urls';
 /**
- * OpenAPI 3.0 spec for the OpenSMS — the machine-readable source of truth.
+ * OpenAPI 3.0 spec for the Delivered — the machine-readable source of truth.
  * Served at /api/v1/openapi.json and /api/v1/openapi.yaml (small local YAML
  * serializer — no yaml dependency in this repo).
  */
@@ -59,7 +59,7 @@ const errorResponses = {
 export const openApiSpec = {
   openapi: '3.0.3',
   info: {
-    title: 'OpenSMS',
+    title: 'Delivered',
     description:
       'Programmable SMS and phone numbers for developers. Send and receive texts, provision numbers, and screen spam with one REST API. Test keys (ghost_sk_test_...) work instantly against the sandbox; live keys are enabled during early access review.',
     version: '1.0.0',
@@ -131,7 +131,7 @@ export const openApiSpec = {
         operationId: 'sendVerification',
         summary: 'Send a verification code',
         description:
-          'Generates a one-time code, sends it, and enforces expiry, attempt limits and anti-pumping controls. You do NOT need to own a phone number — OpenSMS sends from its own verification pool. Nothing is billed here; a verification is charged only when the code is checked successfully.',
+          'Generates a one-time code, sends it, and enforces expiry, attempt limits and anti-pumping controls. You do NOT need to own a phone number — Delivered sends from its own verification pool. Nothing is billed here; a verification is charged only when the code is checked successfully.',
         requestBody: {
           required: true,
           content: {
@@ -142,7 +142,7 @@ export const openApiSpec = {
                 properties: {
                   phone: { type: 'string', example: '+14155550132' },
                   app_name: { type: 'string', maxLength: 24, description: "Your product name, shown in the message" },
-                  from: { type: 'string', description: 'Optional: send from a number you own instead of the OpenSMS pool' },
+                  from: { type: 'string', description: 'Optional: send from a number you own instead of the Delivered pool' },
                 },
               },
             },

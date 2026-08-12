@@ -9,7 +9,7 @@ import { RATES, FREE_TIER, formatRate, formatMoney } from '@/lib/api/pricing';
 import DevFunnelTracker from '@/components/dev-docs/DevFunnelTracker';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'OpenSMS — SMS for Developers',
+  title: 'Delivered — SMS for Developers',
   description:
     'Programmable SMS and phone numbers for developers. Send and receive texts, provision real numbers across 200+ area codes, and screen spam with one REST API.',
   path: '/developers',
@@ -43,19 +43,19 @@ const jsonLd = {
       '@type': 'WebPage',
       '@id': `${BASE_URL}/developers`,
       url: `${BASE_URL}/developers`,
-      name: 'OpenSMS — SMS for Developers',
+      name: 'Delivered — SMS for Developers',
       description:
         'Programmable SMS and phone numbers for developers. Send and receive texts, provision real numbers, and screen spam with one REST API.',
     },
     {
       '@type': 'SoftwareApplication',
-      name: 'OpenSMS',
+      name: 'Delivered',
       applicationCategory: 'DeveloperApplication',
       operatingSystem: 'Any',
       url: `${BASE_URL}/developers`,
       provider: {
         '@type': 'Organization',
-        name: 'OpenSMS',
+        name: 'Delivered',
         url: BASE_URL,
       },
     },
@@ -135,7 +135,7 @@ const featureSections = [
     eyebrow: 'VERIFY',
     bright: 'Phone verification in two calls.',
     muted: 'No number to buy. Billed only on success.',
-    body: "Send a code, check a code — OpenSMS generates it, delivers it from our own verified pool, enforces expiry and attempt limits, and blocks SMS pumping. Blocked, expired, and abandoned attempts cost you nothing. Half of what Twilio Verify charges.",
+    body: "Send a code, check a code — Delivered generates it, delivers it from our own verified pool, enforces expiry and attempt limits, and blocks SMS pumping. Blocked, expired, and abandoned attempts cost you nothing. Half of what Twilio Verify charges.",
     endpoints: ['POST /v1/verify', 'POST /v1/verify/check'],
     visual: (
       <div className="p-5">
@@ -209,8 +209,7 @@ export default function DevelopersPage() {
       <header className="border-b border-[#2E2C28]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-[16px] text-[#EFEEEC]">Open</span>
-            <span className="text-[16px] text-[#00D26A]">SMS</span>
+            <span className="text-[16px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
           </Link>
           <nav className="flex items-center gap-6">
             <Link
@@ -247,7 +246,7 @@ export default function DevelopersPage() {
               href="#code"
               className="inline-flex items-center gap-1.5 rounded-full border border-[#2E2C28] px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-[#00D26A] transition-colors duration-150 hover:border-[#918E86]"
             >
-              OpenSMS — Early Access <span aria-hidden="true">→</span>
+              Delivered — Early Access <span aria-hidden="true">→</span>
             </a>
             <h1 className={`mt-6 ${HEADLINE}`}>
               <span className="block text-[#EFEEEC]">SMS for developers.</span>

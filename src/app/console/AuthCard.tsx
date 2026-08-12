@@ -70,7 +70,7 @@ export default function AuthCard() {
   return (
     <div className="mx-auto max-w-md px-6 pt-16">
       <p className="text-[11px] uppercase tracking-[0.14em] text-[#00D26A]">
-        OpenSMS — Sandbox
+        Delivered — Sandbox
       </p>
       <h1 className="mt-4 text-[clamp(26px,4vw,34px)] leading-[1.2] tracking-[-0.02em]">
         <span className="block text-[#EFEEEC]">Get your API key.</span>

@@ -1,7 +1,7 @@
 {
-  "name": "opensms",
+  "name": "deliveredsms",
   "version": "1.0.0",
-  "description": "Official client + CLI for the OpenSMS API \u2014 SMS, phone verification, numbers, and spam lookup. Zero dependencies.",
+  "description": "Official client + CLI for Delivered (deliveredsms.com) \u2014 SMS, phone verification, numbers, and spam lookup. Zero dependencies.",
   "keywords": [
     "sms",
     "otp",
@@ -11,11 +11,12 @@
     "sms api",
     "ai agents"
   ],
-  "homepage": "https://opensms.dev",
+  "homepage": "https://deliveredsms.com",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "opensms": "./dist/cli.cjs"
+    "deliveredsms": "./dist/cli.cjs",
+    "dsms": "./dist/cli.cjs"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

@@ -77,10 +77,10 @@ function CopyButton({ text, label }: { text: string; label?: string }) {
 /** "Copy for AI" — hands a coding agent everything it needs in one paste. */
 function CopyForAi({ apiKey, from }: { apiKey: string | null; from: string }) {
   const [open, setOpen] = useState(false);
-  const prompt = `Integrate the OpenSMS API into my project.
+  const prompt = `Integrate the Delivered API into my project.
 
-Base URL: https://api.opensms.dev/v1
-Auth header: Authorization: Bearer ${apiKey || 'osms_sk_test_YOUR_KEY'}
+Base URL: https://api.deliveredsms.com/v1
+Auth header: Authorization: Bearer ${apiKey || 'dsms_sk_test_YOUR_KEY'}
 My sandbox number (use as "from"): ${from}
 
 Send an SMS:
@@ -94,9 +94,9 @@ GET /v1/lookup/:phone, GET /v1/lookup/:phone/spam, GET /v1/events,
 POST /v1/test/inbound (sandbox inbound simulation).
 Errors are always {"error": {"code", "message"}}. Retries: send an Idempotency-Key header.
 
-Full reference: https://opensms.dev/docs/llms-full.txt
-OpenAPI: https://opensms.dev/api/v1/openapi.yaml
-MCP server: https://opensms.dev/api/mcp`;
+Full reference: https://deliveredsms.com/docs/llms-full.txt
+OpenAPI: https://deliveredsms.com/api/v1/openapi.yaml
+MCP server: https://deliveredsms.com/api/mcp`;
 
   return (
     <div className="relative">
@@ -149,7 +149,7 @@ export default function OnboardingPanel({
         Send your first message
       </h1>
       <p className="mt-2 text-[15px] leading-[1.6] text-[#918E86]">
-        Follow the steps to send an SMS using the OpenSMS.
+        Follow the steps to send an SMS using the Delivered.
       </p>
 
       <div className="mt-10">

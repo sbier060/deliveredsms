@@ -13,7 +13,7 @@ export const runtime = 'nodejs';
  * actually charges.
  */
 export async function GET() {
-  const body = `# OpenSMS Pricing
+  const body = `# Delivered Pricing
 
 Usage-based. No platform fee, no commitments, no sales call.
 Carrier fees are included in every rate — nothing is added on top.
@@ -29,9 +29,9 @@ ${freeTierMarkdown()}
 
 ## Notes
 
-- Competitor comparison last checked: ${COMPETITORS_CHECKED_ON} — details at https://opensms.dev/pricing
+- Competitor comparison last checked: ${COMPETITORS_CHECKED_ON} — details at https://deliveredsms.com/pricing
 - 10DLC registration is included in the phone number price.
-- Full docs: https://opensms.dev/docs/llms-full.txt
+- Full docs: https://deliveredsms.com/docs/llms-full.txt
 `;
 
   return new NextResponse(body, {

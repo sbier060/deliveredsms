@@ -3,7 +3,7 @@ import { SITE_URL } from '@/lib/urls';
 
 export const BASE_URL = SITE_URL;
 
-const SITE_TITLE = 'OpenSMS — SMS & Phone Verification API';
+const SITE_TITLE = 'Delivered — SMS & Phone Verification API';
 const DEFAULT_DESCRIPTION =
   'Programmable SMS, phone verification, and real US/Canada phone numbers with one REST API. Built for developers and AI agents. Free sandbox, no card.';
 
@@ -22,7 +22,7 @@ export function generateMetadata(props: PageMetadataProps): Metadata {
   const normalizedPath =
     !path || path === '/' ? '' : path.endsWith('/') ? path.slice(0, -1) : path;
   const canonicalUrl = `${BASE_URL}${normalizedPath}` || BASE_URL;
-  const fullTitle = title ? `${title} | OpenSMS` : SITE_TITLE;
+  const fullTitle = title ? `${title} | Delivered` : SITE_TITLE;
 
   return {
     title: fullTitle,
@@ -36,7 +36,7 @@ export function generateMetadata(props: PageMetadataProps): Metadata {
       url: canonicalUrl,
       title: fullTitle,
       description: description || DEFAULT_DESCRIPTION,
-      siteName: 'OpenSMS',
+      siteName: 'Delivered',
       images: ogImage ? [{ url: ogImage }] : undefined,
     },
     twitter: {

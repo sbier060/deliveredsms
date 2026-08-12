@@ -22,18 +22,18 @@ import { emitEvent } from './events';
 import type { ApiTenant } from './types';
 
 /**
- * OpenSMS Verify for OpenSMS's OWN consumer surfaces.
+ * Delivered Verify for Delivered's OWN consumer surfaces.
  *
  * The web app used to pay Twilio ~$0.05 per verification for the exact
  * primitive this product sells for $0.025 and delivers for ~$0.002. Running
- * our own consumer verification on OpenSMS Verify removes that cost and the
+ * our own consumer verification on Delivered Verify removes that cost and the
  * Twilio dependency, and — more usefully — means the code path developers pay
  * for is the one we break first if we regress it.
  *
  * This is a LIBRARY, not a route change: the existing Twilio routes
  * (/api/send-verification-code, /api/verify-phone-code, /api/twilio-*) are left
  * byte-identical per DEPLOYMENT.md rule 2, and stay in place as the fallback
- * for destinations OpenSMS Verify does not serve.
+ * for destinations Delivered Verify does not serve.
  */
 
 /**
@@ -48,7 +48,7 @@ export const FIRST_PARTY_TENANT_ID = 'tn_ghost_web';
 const FIRST_PARTY_TENANT: ApiTenant = {
   id: FIRST_PARTY_TENANT_ID,
   uid: 'ghost-web',
-  email: 'support@opensms.dev',
+  email: 'support@deliveredsms.com',
   name: 'Ghost (web app)',
   status: 'live',
   internal: true,
@@ -58,7 +58,7 @@ const FIRST_PARTY_TENANT: ApiTenant = {
 
 export type FirstPartySendResult =
   | { ok: true; verificationId: string }
-  /** OpenSMS Verify does not serve this destination — caller should fall back. */
+  /** Delivered Verify does not serve this destination — caller should fall back. */
   | { ok: false; kind: 'unsupported'; message: string }
   /** A deliberate policy block (velocity, VoIP, opt-out). Do NOT fall back. */
   | { ok: false; kind: 'blocked'; message: string; retryAfterSec?: number }
@@ -69,7 +69,7 @@ export type FirstPartySendResult =
  * Send a verification code to one of our own users.
  *
  * `unsupported` and `unavailable` are distinguishable from `blocked` on
- * purpose: the first two mean "OpenSMS Verify can't do this one, use the old
+ * purpose: the first two mean "Delivered Verify can't do this one, use the old
  * path", while `blocked` is a decision we made and must not be routed around.
  */
 export async function sendFirstPartyVerification(input: {
@@ -84,7 +84,7 @@ export async function sendFirstPartyVerification(input: {
   }
   // NANP but not US/CA (Jamaica +1876, Dominican Republic +1809 …). These pass
   // every other validator in the repo and are the classic SMS-pumping target,
-  // so OpenSMS Verify does not serve them — but a real consumer with a Caribbean
+  // so Delivered Verify does not serve them — but a real consumer with a Caribbean
   // phone still deserves to verify, hence `unsupported` rather than `blocked`.
   if (!isUsOrCanadaNpa(e164)) {
     return { ok: false, kind: 'unsupported', message: 'Not a US or Canada number.' };
@@ -112,7 +112,7 @@ export async function sendFirstPartyVerification(input: {
     return {
       ok: false,
       kind: 'blocked',
-      message: 'This number has opted out of messages from OpenSMS. Reply START to resume.',
+      message: 'This number has opted out of messages from Delivered. Reply START to resume.',
     };
   }
 

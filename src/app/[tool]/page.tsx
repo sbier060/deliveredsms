@@ -14,8 +14,8 @@ export function generateMetadata({ params }: { params: { tool: string } }): Meta
   const tool = toolBySlug(params.tool);
   if (!tool) return {};
   return buildMetadata({
-    title: `Use OpenSMS with ${tool.name} — SMS & phone verification`,
-    description: `Send SMS, verify phone numbers, and provision real US/Canada numbers from ${tool.name} with the OpenSMS. Free sandbox key, no card.`,
+    title: `Use Delivered with ${tool.name} — SMS & phone verification`,
+    description: `Send SMS, verify phone numbers, and provision real US/Canada numbers from ${tool.name} with the Delivered. Free sandbox key, no card.`,
     path: `/${tool.slug}`,
     keywords: [
       `${tool.name.toLowerCase()} sms`,
@@ -38,17 +38,17 @@ const CODE_BLOCK = `overflow-x-auto rounded-xl border border-[#2E2C28] bg-[#0F0E
 const MCP_SNIPPET = `{
   "mcpServers": {
     "ghost": {
-      "url": "https://opensms.dev/api/mcp",
-      "headers": { "Authorization": "Bearer osms_sk_test_YOUR_KEY" }
+      "url": "https://deliveredsms.com/api/mcp",
+      "headers": { "Authorization": "Bearer dsms_sk_test_YOUR_KEY" }
     }
   }
 }`;
 
-const SKILLS_SNIPPET = `npx skills add sbier060/opensms`;
+const SKILLS_SNIPPET = `npx skills add sbier060/deliveredsms`;
 
-const PROMPT_SNIPPET = `Add phone verification to signup using OpenSMS Verify
+const PROMPT_SNIPPET = `Add phone verification to signup using Delivered Verify
 (POST /v1/verify, then /v1/verify/check). Docs:
-https://opensms.dev/docs/verify.md`;
+https://deliveredsms.com/docs/verify.md`;
 
 export default function ToolPage({ params }: { params: { tool: string } }) {
   const tool = toolBySlug(params.tool);
@@ -61,7 +61,7 @@ export default function ToolPage({ params }: { params: { tool: string } }) {
     '@type': 'WebPage',
     '@id': `${BASE_URL}/${tool.slug}`,
     url: `${BASE_URL}/${tool.slug}`,
-    name: `Use OpenSMS with ${tool.name}`,
+    name: `Use Delivered with ${tool.name}`,
     description: tool.pitch,
   };
 
@@ -71,7 +71,7 @@ export default function ToolPage({ params }: { params: { tool: string } }) {
         {mcpFirst ? '1.' : '2.'} Connect the MCP server
       </h2>
       <p className="mt-2 max-w-[62ch] text-[15px] leading-[1.65] text-[#C9C6BF]">
-        OpenSMS speaks Model Context Protocol. Add this to {tool.name}&apos;s MCP
+        Delivered speaks Model Context Protocol. Add this to {tool.name}&apos;s MCP
         configuration and messages, verification, numbers, and lookup become
         tool calls:
       </p>
@@ -94,7 +94,7 @@ export default function ToolPage({ params }: { params: { tool: string } }) {
       </p>
       <pre className={`mt-4 ${CODE_BLOCK}`}><code>{SKILLS_SNIPPET}</code></pre>
       <p className={`mt-3 text-[13px] text-[#918E86] ${MONO}`}>
-        opensms · opensms-verify · sms-best-practices
+        delivered · delivered-verify · sms-best-practices
       </p>
     </section>
   );
@@ -109,8 +109,7 @@ export default function ToolPage({ params }: { params: { tool: string } }) {
       <header className="border-b border-[#2E2C28]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-[16px] text-[#EFEEEC]">Open</span>
-            <span className="text-[16px] text-[#00D26A]">SMS</span>
+            <span className="text-[16px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
           </Link>
           <nav className="flex items-center gap-6">
             <Link
@@ -135,7 +134,7 @@ export default function ToolPage({ params }: { params: { tool: string } }) {
         </p>
         <h1 className={`mt-4 ${HEADLINE}`}>
           <span className="block text-[#EFEEEC]">
-            Use OpenSMS with {tool.name}.
+            Use Delivered with {tool.name}.
           </span>
           <span className="block text-[#918E86]">
             SMS, phone verification, and real numbers — as capabilities.
@@ -179,7 +178,7 @@ export default function ToolPage({ params }: { params: { tool: string } }) {
                 href="/"
                 className="text-[15px] text-[#918E86] underline underline-offset-4 transition-colors duration-150 hover:text-[#EFEEEC]"
               >
-                About the OpenSMS
+                About the Delivered
               </Link>
             </div>
           </section>

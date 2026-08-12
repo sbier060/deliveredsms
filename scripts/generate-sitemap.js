@@ -1,11 +1,11 @@
-// OpenSMS sitemap generator — a sitemap INDEX at /sitemap.xml pointing at
+// Delivered sitemap generator — a sitemap INDEX at /sitemap.xml pointing at
 // per-section sitemaps (the resend.com shape). Doc and tool slugs are read
 // from the same registries the pages render from, so the sitemap tracks the
 // site automatically.
 const fs = require('fs');
 const path = require('path');
 
-const DOMAIN = process.env.NEXT_PUBLIC_SITE_DOMAIN || 'opensms.dev';
+const DOMAIN = process.env.NEXT_PUBLIC_SITE_DOMAIN || 'deliveredsms.com';
 const BASE = `https://${DOMAIN}`;
 
 function slugsFrom(file) {

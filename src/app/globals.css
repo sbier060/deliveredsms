@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* OpenSMS hero glow — the one loud element on the landing page. */
+/* Delivered hero glow — the one loud element on the landing page. */
 .hero-glow {
   background:
     radial-gradient(58% 58% at 50% 0%, rgba(0, 210, 106, 0.16) 0%, rgba(0, 158, 79, 0.05) 42%, transparent 72%),

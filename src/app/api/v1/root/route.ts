@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 export const runtime = 'nodejs';
 
 /**
- * What `api.opensms.dev/` returns.
+ * What `api.deliveredsms.com/` returns.
  *
  * Without this the API hostname serves the marketing homepage, which is a bad
  * first impression for the one person most likely to hit it: a developer
@@ -13,14 +13,14 @@ export const runtime = 'nodejs';
 export async function GET() {
   return NextResponse.json(
     {
-      name: 'OpenSMS',
+      name: 'Delivered',
       description: 'SMS, phone verification, numbers and spam lookup.',
       version: 'v1',
       status: 'ok',
-      documentation: 'https://opensms.dev/docs',
-      openapi: 'https://opensms.dev/api/v1/openapi.json',
-      console: 'https://opensms.dev/console',
-      base_url: 'https://api.opensms.dev/v1',
+      documentation: 'https://deliveredsms.com/docs',
+      openapi: 'https://deliveredsms.com/api/v1/openapi.json',
+      console: 'https://deliveredsms.com/console',
+      base_url: 'https://api.deliveredsms.com/v1',
       // Answering "why did my call 401?" before they have to ask.
       authentication: 'Bearer token — send `Authorization: Bearer ghost_sk_test_...`',
     },

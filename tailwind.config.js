@@ -8,7 +8,7 @@ module.exports = {
         mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
       },
       colors: {
-        // OpenSMS tokens — surfaces stay near-black; the single accent is
+        // Delivered tokens — surfaces stay near-black; the single accent is
         // signal green. Defined once here + in DESIGN.md; pages use arbitrary
         // values for the neutrals by design (ported layout).
         accent: {

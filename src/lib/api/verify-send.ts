@@ -38,7 +38,7 @@ function broker11(e164: string): string {
 
 /** The one and only Verify template. Developers cannot change this text. */
 export function verificationBody(code: string, appName?: string): string {
-  const who = appName ? `${appName}` : 'OpenSMS';
+  const who = appName ? `${appName}` : 'Delivered';
   return `${who} code: ${code}. It expires in 10 minutes. Don't share it.`;
 }
 

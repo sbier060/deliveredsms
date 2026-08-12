@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { resolveGeoConsentRequirement } from './lib/consent';
 
-const SITE_DOMAIN = process.env.NEXT_PUBLIC_SITE_DOMAIN || 'opensms.dev';
+const SITE_DOMAIN = process.env.NEXT_PUBLIC_SITE_DOMAIN || 'deliveredsms.com';
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -35,12 +35,12 @@ export function middleware(request: NextRequest) {
   }
 
   // Geo-consent cookie for the analytics gate (EU/EEA + US consent states).
-  if (!request.cookies.has('osms_geo_requires_consent') && !pathname.startsWith('/api')) {
+  if (!request.cookies.has('dsms_geo_requires_consent') && !pathname.startsWith('/api')) {
     const country = request.geo?.country || request.headers.get('x-vercel-ip-country') || '';
     const region = request.geo?.region || request.headers.get('x-vercel-ip-country-region') || '';
     const { requiresConsent } = resolveGeoConsentRequirement(country, region);
     const response = NextResponse.next();
-    response.cookies.set('osms_geo_requires_consent', requiresConsent ? '1' : '0', {
+    response.cookies.set('dsms_geo_requires_consent', requiresConsent ? '1' : '0', {
       maxAge: 60 * 60 * 24 * 90,
       path: '/',
       sameSite: 'lax',

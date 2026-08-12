@@ -8,9 +8,9 @@ import { incrementUsage } from './usage';
 import { apiError } from './response';
 import type { ApiContext } from './types';
 
-// Accepts both prefixes: osms_sk_ is minted today; ghost_sk_ keys issued
-// before the OpenSMS rebrand keep working forever.
-const KEY_SHAPE = /^Bearer\s+((?:osms_sk_|ghost_sk_)(?:test|live)_[A-Za-z0-9]{20,})$/;
+// Accepts both prefixes: dsms_sk_ is minted today; ghost_sk_ keys issued
+// before the Delivered rebrand keep working forever.
+const KEY_SHAPE = /^Bearer\s+((?:dsms_sk_|ghost_sk_)(?:test|live)_[A-Za-z0-9]{20,})$/;
 
 export interface WithApiKeyOptions {
   /** Reject test keys with 403 test-vs-live errors. */
@@ -43,7 +43,7 @@ export function withApiKey(handler: V1Handler, opts: WithApiKeyOptions = {}) {
         return apiError(
           401,
           'invalid_api_key',
-          'Missing or malformed API key. Pass it as: Authorization: Bearer osms_sk_...'
+          'Missing or malformed API key. Pass it as: Authorization: Bearer dsms_sk_...'
         );
       }
 
@@ -72,14 +72,14 @@ export function withApiKey(handler: V1Handler, opts: WithApiKeyOptions = {}) {
         return apiError(
           403,
           'live_access_required',
-          'This endpoint requires a live key (osms_sk_live_...).'
+          'This endpoint requires a live key (dsms_sk_live_...).'
         );
       }
       if (opts.testOnly && mode !== 'test') {
         return apiError(
           403,
           'test_mode_only',
-          'This endpoint only works with test keys (osms_sk_test_...).'
+          'This endpoint only works with test keys (dsms_sk_test_...).'
         );
       }
 

@@ -5,8 +5,8 @@ import CodeTabs from '@/components/dev-docs/CodeTabs';
 import { buildSendSnippets } from '@/lib/dev-docs/snippets';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Quickstart | OpenSMS Docs',
-  description: 'Send your first SMS with the OpenSMS in under five minutes.',
+  title: 'Quickstart | Delivered Docs',
+  description: 'Send your first SMS with the Delivered in under five minutes.',
   path: '/docs/quickstart',
 });
 
@@ -33,7 +33,7 @@ const REST = `## 3. Read the response
   "object": "message",
   "to": "+15005550006",
   "from": "+15005550100",
-  "body": "Hello from OpenSMS",
+  "body": "Hello from Delivered",
   "direction": "outbound",
   "status": "sent",
   "test": true,
@@ -47,8 +47,8 @@ lifecycle in \`GET /v1/events\` — a \`message.delivered\` event follows ~2s la
 ## 4. Simulate a reply
 
 \`\`\`bash
-curl -X POST https://api.opensms.dev/v1/test/inbound \\
-  -H "Authorization: Bearer osms_sk_test_YOUR_KEY" \\
+curl -X POST https://api.deliveredsms.com/v1/test/inbound \\
+  -H "Authorization: Bearer dsms_sk_test_YOUR_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
     "to": "+15005550100",

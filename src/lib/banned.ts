@@ -1,7 +1,7 @@
 import { db } from '@/lib/firebase-admin';
 
 /**
- * Shared abuse registry check. OpenSMS and the Ghost consumer product share a
+ * Shared abuse registry check. Delivered and the Ghost consumer product share a
  * Firebase project on purpose: someone banned for abusing one should not get
  * a fresh start on the other. This replaces the consumer repo's 527-line
  * ban-user module with the reads the API path actually needs, keeping the

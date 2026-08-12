@@ -17,9 +17,9 @@ import {
 } from '@/lib/api/pricing';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Pricing | OpenSMS — SMS for Developers',
+  title: 'Pricing | Delivered — SMS for Developers',
   description:
-    'OpenSMS pricing: $0.005 per outbound SMS all-in — no carrier surcharge, no platform fee, A2P 10DLC included. Cheaper all-in than Twilio, Telnyx and Plivo. Free tier with 100 live texts a month, no credit card.',
+    'Delivered pricing: $0.005 per outbound SMS all-in — no carrier surcharge, no platform fee, A2P 10DLC included. Cheaper all-in than Twilio, Telnyx and Plivo. Free tier with 100 live texts a month, no credit card.',
   path: '/pricing',
   keywords: [
     'sms api pricing',
@@ -45,11 +45,11 @@ const rateList = Object.values(RATES) as UnitRate[];
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Product',
-  name: 'OpenSMS',
+  name: 'Delivered',
   description:
     'Programmable SMS and phone numbers for developers. All-in per-message pricing with no carrier surcharge and A2P 10DLC registration included.',
   url: `${BASE_URL}/pricing`,
-  brand: { '@type': 'Brand', name: 'OpenSMS' },
+  brand: { '@type': 'Brand', name: 'Delivered' },
   offers: rateList.map((rate) => ({
     '@type': 'Offer',
     name: rate.label,
@@ -105,7 +105,7 @@ export default function DeveloperPricingPage() {
       <header className="border-b border-[#2E2C28]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-[16px] text-[#EFEEEC]">OpenSMS</span>
+            <span className="text-[16px] text-[#EFEEEC]">Delivered</span>
             <span className="text-[16px] text-[#918E86]">API</span>
           </Link>
           <nav className="flex items-center gap-6">
@@ -302,7 +302,7 @@ export default function DeveloperPricingPage() {
               </thead>
               <tbody>
                 <tr className="border-t border-[#2E2C28] bg-[#0F0E0C]">
-                  <td className="px-5 py-4 text-[#EFEEEC]">OpenSMS</td>
+                  <td className="px-5 py-4 text-[#EFEEEC]">Delivered</td>
                   <td className={`px-5 py-4 tabular-nums text-[#C9C6BF] ${MONO}`}>
                     {formatRate(RATES.outbound_sms.microUsd)}
                   </td>

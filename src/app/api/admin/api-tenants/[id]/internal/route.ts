@@ -11,7 +11,7 @@ export const maxDuration = 15;
  * stays that way after billing is switched on, because entitlementsFor()
  * short-circuits on the flag before it ever looks at billing state.
  *
- * For OpenSMS's own accounts, so we can use the product as a customer without
+ * For Delivered's own accounts, so we can use the product as a customer without
  * invoicing ourselves.
  */
 export async function POST(

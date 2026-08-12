@@ -1,4 +1,4 @@
-// Shared types for the public OpenSMS (/api/v1) platform.
+// Shared types for the public Delivered (/api/v1) platform.
 
 export type TenantStatus = 'sandbox' | 'live' | 'suspended';
 export type KeyMode = 'test' | 'live';

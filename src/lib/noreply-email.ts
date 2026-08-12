@@ -8,7 +8,7 @@ import { SITE_DOMAIN } from '@/lib/urls';
  */
 
 const NOREPLY_ADDRESS = process.env.NOREPLY_FROM || `no-reply@${SITE_DOMAIN}`;
-const NOREPLY_FROM = `OpenSMS <${NOREPLY_ADDRESS}>`;
+const NOREPLY_FROM = `Delivered <${NOREPLY_ADDRESS}>`;
 
 const AUTH_USER = process.env.NOREPLY_GMAIL_USER || process.env.GMAIL_USER;
 const AUTH_PASS = process.env.NOREPLY_GMAIL_APP_PASSWORD || process.env.GMAIL_APP_PASSWORD;

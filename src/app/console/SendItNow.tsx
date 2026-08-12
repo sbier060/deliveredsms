@@ -53,7 +53,7 @@ export default function SendItNow({
         body: JSON.stringify({
           from,
           to: '+15005550006',
-          body: 'Hello from OpenSMS',
+          body: 'Hello from Delivered',
         }),
       });
       const body = (await res.json()) as Record<string, unknown>;

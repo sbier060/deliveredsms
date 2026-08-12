@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { generateMetadata as buildMetadata, BASE_URL } from '@/lib/metadata';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Phone numbers and SMS for AI agents — OpenSMS',
+  title: 'Phone numbers and SMS for AI agents — Delivered',
   description:
     'Give your AI agent a real phone number. Send and receive SMS, run phone verification, and screen spam — with an API, MCP server, and skills built for agents.',
   path: '/agents',
@@ -47,7 +47,7 @@ const capabilities = [
   },
   {
     title: 'Phone verification as a primitive',
-    body: 'When an agent signs something up, the OTP flow is two calls. OpenSMS generates and delivers the code, enforces expiry and attempts, and blocks SMS pumping. Billed only on success.',
+    body: 'When an agent signs something up, the OTP flow is two calls. Delivered generates and delivers the code, enforces expiry and attempts, and blocks SMS pumping. Billed only on success.',
     code: 'POST /v1/verify → POST /v1/verify/check',
   },
   {
@@ -68,8 +68,7 @@ export default function AgentsPage() {
       <header className="border-b border-[#2E2C28]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-[16px] text-[#EFEEEC]">Open</span>
-            <span className="text-[16px] text-[#00D26A]">SMS</span>
+            <span className="text-[16px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
           </Link>
           <nav className="flex items-center gap-6">
             <Link
@@ -103,7 +102,7 @@ export default function AgentsPage() {
         <p className="mt-5 max-w-[62ch] text-[16px] leading-[1.65] text-[#C9C6BF]">
           Agents keep hitting the same wall: the real world runs on phone
           numbers. Signups want SMS verification. People reply by text.
-          Unknown callers need screening. OpenSMS turns all of that into API
+          Unknown callers need screening. Delivered turns all of that into API
           calls an agent can make.
         </p>
 
@@ -129,10 +128,10 @@ export default function AgentsPage() {
             every docs page, and a sandbox where test keys simulate the whole
             carrier so agents can iterate for free.
           </p>
-          <pre className={`mt-5 ${CODE_BLOCK}`}><code>{`MCP     https://opensms.dev/api/mcp
-Skills  npx skills add sbier060/opensms
-Docs    https://opensms.dev/docs/llms-full.txt
-Spec    https://api.opensms.dev/v1/openapi.yaml`}</code></pre>
+          <pre className={`mt-5 ${CODE_BLOCK}`}><code>{`MCP     https://deliveredsms.com/api/mcp
+Skills  npx skills add sbier060/deliveredsms
+Docs    https://deliveredsms.com/docs/llms-full.txt
+Spec    https://api.deliveredsms.com/v1/openapi.yaml`}</code></pre>
           <div className="mt-8 flex flex-wrap items-center gap-6">
             <Link
               href="/console"

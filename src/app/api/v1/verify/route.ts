@@ -59,10 +59,10 @@ export const POST = withApiKey(
 
     const fromOverride = requestedFrom === undefined ? null : normalizeE164(requestedFrom);
     if (requestedFrom !== undefined && !fromOverride) {
-      return apiError(400, 'invalid_request', '`from` must be a valid US/Canada number you own, or omitted to use the OpenSMS verification pool.', { param: 'from' });
+      return apiError(400, 'invalid_request', '`from` must be a valid US/Canada number you own, or omitted to use the Delivered verification pool.', { param: 'from' });
     }
 
-    // No number required: OpenSMS sends verifications from its own pool, the
+    // No number required: Delivered sends verifications from its own pool, the
     // same way Twilio Verify manages senders for you.
     let from: string;
     try {
@@ -149,7 +149,7 @@ export const POST = withApiKey(
         phone: e164,
         reason: 'opted_out',
       });
-      return apiError(403, 'verification_blocked', 'This number has opted out of messages from OpenSMS.', { reason: 'opted_out', charged: false });
+      return apiError(403, 'verification_blocked', 'This number has opted out of messages from Delivered.', { reason: 'opted_out', charged: false });
     }
 
     const verdict = await runShield({ tenant: ctx.tenant, phone: e164, ip: getClientIp(req) });

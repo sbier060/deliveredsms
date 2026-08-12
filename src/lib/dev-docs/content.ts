@@ -32,13 +32,13 @@ sandbox number. The key is shown once — copy it.
 ## 2. Send a message
 
 \`\`\`bash
-curl -X POST https://api.opensms.dev/v1/messages \\
-  -H "Authorization: Bearer osms_sk_test_YOUR_KEY" \\
+curl -X POST https://api.deliveredsms.com/v1/messages \\
+  -H "Authorization: Bearer dsms_sk_test_YOUR_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
     "from": "+15005550100",
     "to": "+15005550006",
-    "body": "Hello from OpenSMS"
+    "body": "Hello from Delivered"
   }'
 \`\`\`
 
@@ -53,7 +53,7 @@ is a magic sandbox number that simulates successful delivery.
   "object": "message",
   "to": "+15005550006",
   "from": "+15005550100",
-  "body": "Hello from OpenSMS",
+  "body": "Hello from Delivered",
   "direction": "outbound",
   "status": "sent",
   "test": true,
@@ -67,8 +67,8 @@ lifecycle in \`GET /v1/events\` — a \`message.delivered\` event follows ~2s la
 ## 4. Simulate a reply
 
 \`\`\`bash
-curl -X POST https://api.opensms.dev/v1/test/inbound \\
-  -H "Authorization: Bearer osms_sk_test_YOUR_KEY" \\
+curl -X POST https://api.deliveredsms.com/v1/test/inbound \\
+  -H "Authorization: Bearer dsms_sk_test_YOUR_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
     "to": "+15005550100",
@@ -178,8 +178,8 @@ not a product quota — if you legitimately hit it, tell us.
 \`POST /v1/messages\`
 
 \`\`\`bash
-curl -X POST https://api.opensms.dev/v1/messages \\
-  -H "Authorization: Bearer osms_sk_test_YOUR_KEY" \\
+curl -X POST https://api.deliveredsms.com/v1/messages \\
+  -H "Authorization: Bearer dsms_sk_test_YOUR_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{ "from": "+15005550100", "to": "+15005550006", "body": "Hello" }'
 \`\`\`
@@ -222,7 +222,7 @@ direction \`inbound\` and status \`received\`.
     description: 'Phone verification (OTP) in two API calls.',
     markdown: `# Verify
 
-Phone verification in two calls. OpenSMS generates the code, sends it, enforces
+Phone verification in two calls. Delivered generates the code, sends it, enforces
 expiry and attempt limits, and defends against SMS pumping. You never store a
 code — and you don't need to own a phone number.
 
@@ -231,15 +231,15 @@ code — and you don't need to own a phone number.
 Two calls, no dependency required:
 
 \`\`\`js
-const send = (to) => fetch('https://api.opensms.dev/v1/verify', {
+const send = (to) => fetch('https://api.deliveredsms.com/v1/verify', {
   method: 'POST',
-  headers: { Authorization: \`Bearer \${process.env.OPENSMS_API_KEY}\`, 'Content-Type': 'application/json' },
+  headers: { Authorization: \`Bearer \${process.env.DELIVERED_API_KEY}\`, 'Content-Type': 'application/json' },
   body: JSON.stringify({ to }),
 }).then((r) => r.json());
 
-const check = (to, code) => fetch('https://api.opensms.dev/v1/verify/check', {
+const check = (to, code) => fetch('https://api.deliveredsms.com/v1/verify/check', {
   method: 'POST',
-  headers: { Authorization: \`Bearer \${process.env.OPENSMS_API_KEY}\`, 'Content-Type': 'application/json' },
+  headers: { Authorization: \`Bearer \${process.env.DELIVERED_API_KEY}\`, 'Content-Type': 'application/json' },
   body: JSON.stringify({ to, code }),
 }).then((r) => r.json());
 \`\`\`
@@ -248,30 +248,30 @@ Or from the terminal — the CLI ships inside the SDK package, so \`npx\` needs
 no install at all:
 
 \`\`\`bash
-OPENSMS_API_KEY=ghost_sk_test_... npx opensms verify +14155550132
-npx opensms verify +14155550132 482193   # check the code
+DELIVERED_API_KEY=ghost_sk_test_... npx deliveredsms verify +14155550132
+npx deliveredsms verify +14155550132 482193   # check the code
 \`\`\`
 
 Or with the official SDK, which adds retries, typed errors and automatic
 idempotency keys:
 
 \`\`\`bash
-npm install opensms
+npm install deliveredsms
 \`\`\`
 
 \`\`\`js
-import { OpenSMS } from 'opensms';
-const opensms = new OpenSMS(process.env.OPENSMS_API_KEY);
+import { Delivered } from 'deliveredsms';
+const delivered = new Delivered(process.env.DELIVERED_API_KEY);
 
-await opensms.verify.send({ to: '+14155550132' });
-const { verified } = await opensms.verify.check({ to: '+14155550132', code });
+await delivered.verify.send({ to: '+14155550132' });
+const { verified } = await delivered.verify.check({ to: '+14155550132', code });
 \`\`\`
 
 ## Send a code
 
 \`\`\`bash
-curl -X POST https://api.opensms.dev/v1/verify \\
-  -H "Authorization: Bearer osms_sk_test_YOUR_KEY" \\
+curl -X POST https://api.deliveredsms.com/v1/verify \\
+  -H "Authorization: Bearer dsms_sk_test_YOUR_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{ "phone": "+14155550132" }'
 \`\`\`
@@ -289,12 +289,12 @@ curl -X POST https://api.opensms.dev/v1/verify \\
 \`\`\`
 
 Optional \`app_name\` (24 chars max) puts your product's name in the message.
-The body is a fixed OpenSMS template — you can't set the text, which is what
+The body is a fixed Delivered template — you can't set the text, which is what
 keeps verification traffic out of spam filtering.
 
 ## You don't need a phone number
 
-Verify sends from OpenSMS's own verification numbers, registered under our 10DLC
+Verify sends from Delivered's own verification numbers, registered under our 10DLC
 campaign. You don't buy a number, you don't provision anything, and you pay no
 monthly number fee — verification is the whole product.
 
@@ -310,8 +310,8 @@ If you'd rather codes came from a number you own, pass it as \`from\`:
 ## Check the code
 
 \`\`\`bash
-curl -X POST https://api.opensms.dev/v1/verify/check \\
-  -H "Authorization: Bearer osms_sk_test_YOUR_KEY" \\
+curl -X POST https://api.deliveredsms.com/v1/verify/check \\
+  -H "Authorization: Bearer dsms_sk_test_YOUR_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{ "phone": "+14155550132", "code": "482193" }'
 \`\`\`
@@ -328,7 +328,7 @@ A verification is billed **only** when a code is actually verified. Wrong
 codes, expiries, abandoned flows and anything Shield blocks are free —
 every response tells you plainly with \`charged\`.
 
-## Rules OpenSMS enforces for you
+## Rules Delivered enforces for you
 
 | | |
 | --- | --- |
@@ -342,7 +342,7 @@ Statuses: \`pending\`, \`approved\`, \`expired\`, \`max_attempts\`, \`blocked\`.
 ## Shield
 
 SMS pumping is fraud where someone farms revenue-share by triggering
-verification codes to numbers they control. OpenSMS blocks it before you're
+verification codes to numbers they control. Delivered blocks it before you're
 charged:
 
 - **US and Canada only.** Country code +1 also covers Jamaica, the Dominican
@@ -380,7 +380,7 @@ count, and whether it was charged.
   {
     slug: 'migrate-from-twilio',
     title: 'Migrate from Twilio Verify',
-    description: 'Line-by-line mapping from Twilio Verify to OpenSMS Verify.',
+    description: 'Line-by-line mapping from Twilio Verify to Delivered Verify.',
     markdown: `# Migrate from Twilio Verify
 
 Two calls become two calls. The main differences: no Verify Service to create,
@@ -393,10 +393,10 @@ no phone number to buy, and you're billed only when a code actually verifies.
 await twilio.verify.v2.services(SERVICE_SID)
   .verifications.create({ to: phone, channel: 'sms' });
 
-// OpenSMS
-await fetch('https://api.opensms.dev/v1/verify', {
+// Delivered
+await fetch('https://api.deliveredsms.com/v1/verify', {
   method: 'POST',
-  headers: { Authorization: \`Bearer \${process.env.OPENSMS_API_KEY}\`, 'Content-Type': 'application/json' },
+  headers: { Authorization: \`Bearer \${process.env.DELIVERED_API_KEY}\`, 'Content-Type': 'application/json' },
   body: JSON.stringify({ to: phone }),
 });
 \`\`\`
@@ -409,10 +409,10 @@ const check = await twilio.verify.v2.services(SERVICE_SID)
   .verificationChecks.create({ to: phone, code });
 if (check.status === 'approved') { /* ... */ }
 
-// OpenSMS
-const res = await fetch('https://api.opensms.dev/v1/verify/check', {
+// Delivered
+const res = await fetch('https://api.deliveredsms.com/v1/verify/check', {
   method: 'POST',
-  headers: { Authorization: \`Bearer \${process.env.OPENSMS_API_KEY}\`, 'Content-Type': 'application/json' },
+  headers: { Authorization: \`Bearer \${process.env.DELIVERED_API_KEY}\`, 'Content-Type': 'application/json' },
   body: JSON.stringify({ to: phone, code }),
 });
 const { verified } = await res.json();
@@ -421,7 +421,7 @@ if (verified) { /* ... */ }
 
 ## What maps to what
 
-| Twilio | OpenSMS |
+| Twilio | Delivered |
 | --- | --- |
 | \`to\` | \`to\` (or \`phone\` — both work) |
 | Account SID + Auth Token | one API key |
@@ -579,7 +579,7 @@ Successful quota-limited calls include \`X-Quota-Remaining\`.
   {
     slug: 'pricing',
     title: 'Pricing',
-    description: 'What the OpenSMS costs, and what the free tier includes.',
+    description: 'What the Delivered costs, and what the free tier includes.',
     markdown: `# Pricing
 
 ${pricingTableMarkdown()}
@@ -609,7 +609,7 @@ cost estimator.
   {
     slug: 'changelog',
     title: 'Changelog',
-    description: 'What changed in the OpenSMS.',
+    description: 'What changed in the Delivered.',
     markdown: `# Changelog
 
 ## 2026-08-06 — Early access launch
@@ -625,7 +625,7 @@ cost estimator.
   [json](/api/v1/openapi.json)), \`llms.txt\`, single-file docs
   (\`llms-full.txt\`), markdown twins of every docs page, an
   [MCP server](/api/mcp), and an agent skill
-  ([opensms](/skills/opensms/SKILL.md)).
+  ([delivered](/skills/delivered/SKILL.md)).
 
 ### Known limitations
 
@@ -642,12 +642,12 @@ export function getDocsPage(slug: string): DocsPage | undefined {
 
 /** Full docs as one markdown document (llms-full.txt). */
 export function fullDocsMarkdown(): string {
-  const header = `# OpenSMS — SMS for Developers
+  const header = `# Delivered — SMS for Developers
 
-Programmable SMS and phone numbers. Base URL: https://api.opensms.dev/v1
+Programmable SMS and phone numbers. Base URL: https://api.deliveredsms.com/v1
 Authentication: Authorization: Bearer ghost_sk_test_... (or ghost_sk_live_...)
-Console (free sandbox keys): https://opensms.dev/console
-OpenAPI: https://opensms.dev/api/v1/openapi.yaml (also .json)
+Console (free sandbox keys): https://deliveredsms.com/console
+OpenAPI: https://deliveredsms.com/api/v1/openapi.yaml (also .json)
 
 ---
 `;

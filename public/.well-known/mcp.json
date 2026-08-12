@@ -2,16 +2,16 @@
   "version": "1.0",
   "servers": [
     {
-      "name": "opensms",
-      "description": "OpenSMS — programmable SMS, phone verification, phone numbers, and spam lookup for developers. Send/receive texts, verify phones with one-time codes, provision numbers, and screen spam. Free sandbox keys at https://opensms.dev/console",
-      "url": "https://mcp.opensms.dev",
-      "alternate_urls": ["https://opensms.dev/api/mcp"],
+      "name": "delivered",
+      "description": "Delivered — programmable SMS, phone verification, phone numbers, and spam lookup for developers. Send/receive texts, verify phones with one-time codes, provision numbers, and screen spam. Free sandbox keys at https://deliveredsms.com/console",
+      "url": "https://mcp.deliveredsms.com",
+      "alternate_urls": ["https://deliveredsms.com/api/mcp"],
       "transport": "streamable-http",
       "authentication": {
         "type": "bearer",
-        "description": "OpenSMS key (osms_sk_test_... or osms_sk_live_...) as Authorization: Bearer"
+        "description": "Delivered key (dsms_sk_test_... or dsms_sk_live_...) as Authorization: Bearer"
       },
-      "documentation": "https://opensms.dev/docs/quickstart"
+      "documentation": "https://deliveredsms.com/docs/quickstart"
     }
   ]
 }

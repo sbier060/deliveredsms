@@ -1,5 +1,5 @@
 /**
- * Minimal Slack notifier. OpenSMS posts to its own webhook/channel —
+ * Minimal Slack notifier. Delivered posts to its own webhook/channel —
  * deliberately not shared with the consumer product's Slack plumbing.
  * Never throws; ops notifications must not break the request that sent them.
  *
@@ -15,7 +15,7 @@ export async function postSlackMessage(
   const payload =
     typeof blocks === 'string'
       ? { text: blocks }
-      : { text: fallbackText || 'OpenSMS notification', blocks };
+      : { text: fallbackText || 'Delivered notification', blocks };
   try {
     const res = await fetch(url, {
       method: 'POST',

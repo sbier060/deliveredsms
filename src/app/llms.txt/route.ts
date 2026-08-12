@@ -11,12 +11,12 @@ export async function GET() {
     (p) => `- **${p.title}** - ${BASE}/docs/${p.slug}.md — ${p.description}`
   ).join('\n');
 
-  const body = `# OpenSMS — SMS for Developers
+  const body = `# Delivered — SMS for Developers
 
-OpenSMS is the SMS API for developers: send and receive texts, provision real
+Delivered is the SMS API for developers: send and receive texts, provision real
 US/Canada phone numbers, and screen spam with one REST API.
 
-Base URL: https://api.opensms.dev/v1
+Base URL: https://api.deliveredsms.com/v1
 Auth: Authorization: Bearer ghost_sk_test_... (free sandbox keys, instant)
 Console: ${BASE}/console
 
@@ -25,10 +25,10 @@ Console: ${BASE}/console
 ${docsLines}
 
 ## Command line tool
-- **CLI** - npx opensms — send, verify, numbers, lookup, events from the terminal; --json for scripts and agents; key via OPENSMS_API_KEY or \`opensms login\`
+- **CLI** - npx deliveredsms — send, verify, numbers, lookup, events from the terminal; --json for scripts and agents; key via DELIVERED_API_KEY or \`deliveredsms login\`
 
 ## SDKs
-- **Node.js / TypeScript** - npm install opensms — zero dependencies, works on Node 18+, Bun, Deno, Workers and Edge; ships the CLI as its bin
+- **Node.js / TypeScript** - npm install deliveredsms — zero dependencies, works on Node 18+, Bun, Deno, Workers and Edge; ships the CLI as its bin
 
 ## OpenAPI spec
 - **OpenAPI spec (YAML)** - ${BASE}/api/v1/openapi.yaml
@@ -39,21 +39,21 @@ ${docsLines}
 - **MCP Discovery** - ${BASE}/.well-known/mcp.json
 
 ## Skills
-- **Install** - npx skills add sbier060/opensms — works with Claude Code, Cursor, Codex, Devin, Copilot
-- **Repository** - https://github.com/sbier060/opensms
+- **Install** - npx skills add sbier060/deliveredsms — works with Claude Code, Cursor, Codex, Devin, Copilot
+- **Repository** - https://github.com/sbier060/deliveredsms
 - **Skills Discovery** - ${BASE}/.well-known/agent-skills/index.json
-- **opensms** - ${BASE}/skills/opensms/SKILL.md — send SMS, get numbers, screen spam
-- **opensms-verify** - ${BASE}/skills/opensms-verify/SKILL.md — phone verification (OTP/2FA) in two calls
+- **delivered** - ${BASE}/skills/delivered/SKILL.md — send SMS, get numbers, screen spam
+- **delivered-verify** - ${BASE}/skills/delivered-verify/SKILL.md — phone verification (OTP/2FA) in two calls
 - **sms-best-practices** - ${BASE}/skills/sms-best-practices/SKILL.md — consent, opt-out, segments, 10DLC
 
 ## For AI agents
 - **Agents overview** - ${BASE}/agents — phone numbers, SMS inboxes, and verification for agents
-- **Use OpenSMS with Claude** - ${BASE}/claude
-- **Use OpenSMS with Claude Code** - ${BASE}/claude-code
-- **Use OpenSMS with Cursor** - ${BASE}/cursor
-- **Use OpenSMS with Codex** - ${BASE}/codex
-- **Use OpenSMS with Devin** - ${BASE}/devin
-- **Use OpenSMS with GitHub Copilot** - ${BASE}/copilot
+- **Use Delivered with Claude** - ${BASE}/claude
+- **Use Delivered with Claude Code** - ${BASE}/claude-code
+- **Use Delivered with Cursor** - ${BASE}/cursor
+- **Use Delivered with Codex** - ${BASE}/codex
+- **Use Delivered with Devin** - ${BASE}/devin
+- **Use Delivered with GitHub Copilot** - ${BASE}/copilot
 
 ## Changelog
 - **Changelog (Markdown)** - ${BASE}/docs/changelog.md

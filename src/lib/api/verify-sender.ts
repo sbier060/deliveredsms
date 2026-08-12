@@ -13,7 +13,7 @@ import type { ApiTenant } from './types';
  * zero numbers, zero provisioning, and pays no monthly number fee. The sender
  * is irrelevant to them anyway, because nobody replies to an OTP.
  *
- * Pool numbers are Ghost-owned and sent under OpenSMS's own 10DLC verification
+ * Pool numbers are Ghost-owned and sent under Delivered's own 10DLC verification
  * campaign — which is the correct structure given we already promise to handle
  * 10DLC registration for developers.
  *
@@ -29,7 +29,7 @@ const POOL_CACHE_MS = 60_000;
 
 /**
  * Pool source, in order: RTDB `config/verifySenderPool` (editable without a
- * deploy), then the OPENSMS_VERIFY_SENDER_POOL env var.
+ * deploy), then the DELIVERED_VERIFY_SENDER_POOL env var.
  */
 export async function getSenderPool(): Promise<string[]> {
   if (cachedPool && Date.now() - cachedPool.at < POOL_CACHE_MS) {
@@ -51,7 +51,7 @@ export async function getSenderPool(): Promise<string[]> {
   }
 
   if (numbers.length === 0) {
-    numbers = (process.env.OPENSMS_VERIFY_SENDER_POOL || '')
+    numbers = (process.env.DELIVERED_VERIFY_SENDER_POOL || '')
       .split(',')
       .map((n) => normalizeE164(n.trim()))
       .filter((n): n is string => n !== null);
@@ -96,7 +96,7 @@ export async function resolveVerifySender(input: {
   if (input.requestedFrom) {
     if (!activeNumbers(input.tenant).includes(input.requestedFrom)) {
       throw new NoSenderAvailableError(
-        '`from` must be a number your account owns. Leave it out and OpenSMS will send from its verification pool.'
+        '`from` must be a number your account owns. Leave it out and Delivered will send from its verification pool.'
       );
     }
     return input.requestedFrom;

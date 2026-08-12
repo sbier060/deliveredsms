@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import ConsoleShell from './ConsoleShell';
 
 export const metadata: Metadata = {
-  title: 'Console | OpenSMS',
+  title: 'Console | Delivered',
   robots: 'noindex, nofollow',
 };
 

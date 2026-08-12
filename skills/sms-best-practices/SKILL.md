@@ -6,7 +6,7 @@ description: Best practices for sending SMS that gets delivered and stays compli
 # SMS Best Practices
 
 Rules that keep SMS deliverable and legal. They apply to any provider;
-examples use the OpenSMS.
+examples use the Delivered.
 
 ## Consent — before anything sends
 
@@ -19,7 +19,7 @@ examples use the OpenSMS.
 
 ## Opt-out — non-negotiable
 
-- Honor STOP instantly and permanently. OpenSMS handles STOP/HELP keywords on
+- Honor STOP instantly and permanently. Delivered handles STOP/HELP keywords on
   its numbers; your application must also never re-add an opted-out number.
 - First marketing message to a contact should include "Reply STOP to opt out".
 - HELP replies must say who you are.
@@ -43,7 +43,7 @@ examples use the OpenSMS.
 ## Reliability in code
 
 - Send with an **idempotency key** so a retry after a timeout can't
-  double-text a customer (the `opensms` SDK does this automatically).
+  double-text a customer (the `deliveredsms` SDK does this automatically).
 - Treat `delivered` as the success signal, not the 200 on send. Listen for
   `message.delivered` / `message.failed` events.
 - Back off on failure; never tight-loop a failing send.
@@ -51,16 +51,16 @@ examples use the OpenSMS.
 ## A2P 10DLC (US)
 
 Application-to-person traffic on US 10-digit numbers must be registered.
-Unregistered traffic gets filtered silently. OpenSMS registers numbers under
+Unregistered traffic gets filtered silently. Delivered registers numbers under
 its campaign — included in the number price, nothing to file.
 
 ## OTP specifically
 
 Don't build OTP on raw sends at all — use a verify endpoint
-(`POST /v1/verify` on OpenSMS) that owns codes, expiry, attempts, and
-SMS-pumping defense. See the `opensms-verify` skill.
+(`POST /v1/verify` on Delivered) that owns codes, expiry, attempts, and
+SMS-pumping defense. See the `delivered-verify` skill.
 
 ## References
 
-- Docs: https://opensms.dev/docs/llms-full.txt
-- Messages API: https://opensms.dev/docs/messages.md
+- Docs: https://deliveredsms.com/docs/llms-full.txt
+- Messages API: https://deliveredsms.com/docs/messages.md

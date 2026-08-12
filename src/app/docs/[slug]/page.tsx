@@ -18,7 +18,7 @@ export function generateMetadata({
   const page = getDocsPage(params.slug);
   if (!page) return {};
   return buildMetadata({
-    title: `${page.title} | OpenSMS Docs`,
+    title: `${page.title} | Delivered Docs`,
     description: page.description,
     path: `/docs/${page.slug}`,
   });

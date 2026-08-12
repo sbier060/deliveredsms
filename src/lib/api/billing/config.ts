@@ -2,7 +2,7 @@ import { lookupPriceType } from '@/lib/stripe-price-registry';
 import type { BillableUnit } from '../pricing';
 
 /**
- * OpenSMS billing configuration and the isolation guard that keeps developer
+ * Delivered billing configuration and the isolation guard that keeps developer
  * billing from ever touching consumer entitlements.
  *
  * WHY THE GUARD EXISTS: src/app/api/webhook/route.ts (the live consumer Stripe
@@ -55,13 +55,13 @@ export function assertApiPricesAreIsolated(): void {
   const ids = configuredPriceIds();
   if (ids.length === 0) {
     throw new BillingNotConfiguredError(
-      'No OpenSMS Stripe price ids configured. Run scripts/bootstrap-api-billing.ts and set STRIPE_API_PRICE_* env vars.'
+      'No Delivered Stripe price ids configured. Run scripts/bootstrap-api-billing.ts and set STRIPE_API_PRICE_* env vars.'
     );
   }
   const unregistered = ids.filter((id) => lookupPriceType(id) !== 'irrelevant');
   if (unregistered.length > 0) {
     throw new PriceIsolationError(
-      `OpenSMS price id(s) not registered as 'irrelevant' in src/lib/stripe-price-registry.ts: ${unregistered.join(', ')}. ` +
+      `Delivered price id(s) not registered as 'irrelevant' in src/lib/stripe-price-registry.ts: ${unregistered.join(', ')}. ` +
         'Until they are, the consumer webhook would treat them as a main Ghost subscription and could clear a customer\'s subscribed flag. Refusing to proceed.'
     );
   }

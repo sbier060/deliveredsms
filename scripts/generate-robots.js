@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const DOMAIN = process.env.NEXT_PUBLIC_SITE_DOMAIN || 'opensms.dev';
+const DOMAIN = process.env.NEXT_PUBLIC_SITE_DOMAIN || 'deliveredsms.com';
 
 const robots = `User-agent: *
 Allow: /
