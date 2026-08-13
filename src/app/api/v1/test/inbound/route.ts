@@ -4,7 +4,7 @@ import { apiError, apiJson } from '@/lib/api/response';
 import { normalizeE164 } from '@/lib/api/phone';
 import { activeNumbers } from '@/lib/api/tenants';
 import { storeMessage, toPublicMessage } from '@/lib/api/messages';
-import { emitEvent } from '@/lib/api/events';
+import { processInbound } from '@/lib/api/inbound';
 import type { ApiContext } from '@/lib/api/types';
 
 export const runtime = 'nodejs';
@@ -45,11 +45,15 @@ export const POST = withApiKey(
       status: 'received',
       test: true,
     });
-    await emitEvent(ctx.tenantId, 'message.received', {
-      message_id: stored.id,
+    // Same processor the live carrier ingest uses, so STOP/START/HELP behave
+    // identically in sandbox and a developer can actually rehearse opt-out.
+    await processInbound({
+      tenantId: ctx.tenantId,
       to: toE164,
       from: fromE164,
       body,
+      test: true,
+      messageId: stored.id,
     });
 
     return apiJson(toPublicMessage(stored), 201);

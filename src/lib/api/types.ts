@@ -113,7 +113,10 @@ export type ApiEventType =
   | 'verification.sent'
   | 'verification.approved'
   | 'verification.failed'
-  | 'verification.blocked';
+  | 'verification.blocked'
+  | 'verification.sent_to_opted_out'
+  | 'message.opted_out'
+  | 'message.opted_in';
 
 export interface PublicEvent {
   id: string;

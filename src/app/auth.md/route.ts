@@ -113,10 +113,11 @@ recipient rules are not optional:
 
 - Only message recipients who opted in. You are not the one who obtained
   consent, so confirm with the user that they did.
-- Honor STOP / opt-out **in your own application**. Platform-level STOP
-  handling is not live yet: the send path checks an opt-out registry, but
-  nothing populates it until inbound keyword handling ships. Do not rely on
-  Delivered to catch an opt-out for you.
+- Honor STOP / opt-out. Delivered blocks sends to a number that opted out of
+  this account and returns 403 on \`POST /v1/messages\`; one-time passcodes are
+  exempt so a login code still reaches the user. Subscribe to
+  \`message.opted_out\` and mirror it in your own store. Details:
+  \`${SITE_URL}/docs/opt-out.md\`.
 - Do not send at a volume or cadence the user has not asked for. If a task
   implies a bulk send, confirm the recipient count with the user first.
 

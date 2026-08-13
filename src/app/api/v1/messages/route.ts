@@ -3,7 +3,7 @@ import { withApiKey } from '@/lib/api/auth';
 import { apiError, apiJson, apiList } from '@/lib/api/response';
 import { normalizeE164, digits10 } from '@/lib/api/phone';
 import { isUsOrCanadaNpa } from '@/lib/api/nanp';
-import { hasOptedOut } from '@/lib/api/verify-sender';
+import { hasOptedOut } from '@/lib/api/opt-out';
 import { takeSlot } from '@/lib/api/rate-limit';
 import { activeNumbers, DEFAULT_SANDBOX_QUOTAS } from '@/lib/api/tenants';
 import { MAGIC_NUMBERS } from '@/lib/api/sandbox';
@@ -63,6 +63,19 @@ export const POST = withApiKey(async (req: NextRequest, ctx: ApiContext) => {
     }
   }
 
+  // Opt-out is law, not policy. Checked in BOTH modes: the guards below are
+  // abuse controls that only make sense against real carriers, but this one is
+  // correctness, and a developer who cannot exercise it in sandbox ships an
+  // integration that has never run the path.
+  if (await hasOptedOut(ctx.tenantId, toE164)) {
+    return apiError(
+      403,
+      'forbidden',
+      'This recipient has opted out of your messages. Sending to them is not permitted.',
+      { param: 'to' }
+    );
+  }
+
   if (ctx.mode === 'live') {
     const ent = entitlementsFor(ctx.tenant);
 
@@ -79,17 +92,6 @@ export const POST = withApiKey(async (req: NextRequest, ctx: ApiContext) => {
         403,
         'forbidden',
         'Messages can only be sent to US and Canada numbers. Ask us if you need another region enabled.',
-        { param: 'to' }
-      );
-    }
-
-    // Opt-out is law, not policy: a recipient who replied STOP to any of our
-    // traffic must never be texted again, by any tenant.
-    if (await hasOptedOut(toE164)) {
-      return apiError(
-        403,
-        'forbidden',
-        'This recipient has opted out of messages. Sending to them is not permitted.',
         { param: 'to' }
       );
     }

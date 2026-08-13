@@ -4,7 +4,6 @@ import { isUsOrCanadaNpa } from './nanp';
 import { runShield } from './verify-shield';
 import {
   resolveVerifySender,
-  hasOptedOut,
   NoSenderAvailableError,
 } from './verify-sender';
 import { sendVerificationSms, VerifySendError } from './verify-send';
@@ -20,6 +19,7 @@ import {
 } from './verify-store';
 import { emitEvent } from './events';
 import type { ApiTenant } from './types';
+import { hasOptedOut, logOptOutOverride } from './opt-out';
 
 /**
  * Delivered Verify for Delivered's OWN consumer surfaces.
@@ -102,18 +102,10 @@ export async function sendFirstPartyVerification(input: {
     };
   }
 
-  if (await hasOptedOut(e164)) {
-    await recordBlocked({
-      tenantId: FIRST_PARTY_TENANT_ID,
-      phone: e164,
-      reason: 'opted_out',
-      test: false,
-    });
-    return {
-      ok: false,
-      kind: 'blocked',
-      message: 'This number has opted out of messages from Delivered. Reply START to resume.',
-    };
+  // Transactional exemption — see /v1/verify. A user who opted out of this
+  // tenant's marketing still needs their login code.
+  if (await hasOptedOut(FIRST_PARTY_TENANT_ID, e164)) {
+    await logOptOutOverride(FIRST_PARTY_TENANT_ID, e164, 'first_party_verification_exempt');
   }
 
   const verdict = await runShield({ tenant: FIRST_PARTY_TENANT, phone: e164, ip: input.ip });

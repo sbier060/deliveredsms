@@ -4,7 +4,6 @@ import { apiError, apiJson } from '@/lib/api/response';
 import { normalizeE164 } from '@/lib/api/phone';
 import {
   resolveVerifySender,
-  hasOptedOut,
   NoSenderAvailableError,
 } from '@/lib/api/verify-sender';
 import { entitlementsFor } from '@/lib/api/entitlements';
@@ -23,6 +22,7 @@ import {
 import { emitEvent } from '@/lib/api/events';
 import { isSandboxNumber, MAGIC_NUMBERS } from '@/lib/api/sandbox';
 import type { ApiContext } from '@/lib/api/types';
+import { hasOptedOut, logOptOutOverride } from '@/lib/api/opt-out';
 
 export const runtime = 'nodejs';
 export const maxDuration = 30;
@@ -137,19 +137,15 @@ export const POST = withApiKey(
       );
     }
 
-    if (await hasOptedOut(e164)) {
-      const blocked = await recordBlocked({
-        tenantId: ctx.tenantId,
+    // One-time passcodes are exempt from opt-out: the user is asking for the
+    // code by trying to log in, and blocking it locks them out of their own
+    // account. Recorded rather than silent so the exemption is auditable.
+    if (await hasOptedOut(ctx.tenantId, e164)) {
+      await logOptOutOverride(ctx.tenantId, e164, 'verification_exempt');
+      await emitEvent(ctx.tenantId, 'verification.sent_to_opted_out', {
         phone: e164,
-        reason: 'opted_out',
-        test: false,
+        reason: 'transactional_exemption',
       });
-      await emitEvent(ctx.tenantId, 'verification.blocked', {
-        verification_id: blocked.id,
-        phone: e164,
-        reason: 'opted_out',
-      });
-      return apiError(403, 'verification_blocked', 'This number has opted out of messages from Delivered.', { reason: 'opted_out', charged: false });
     }
 
     const verdict = await runShield({ tenant: ctx.tenant, phone: e164, ip: getClientIp(req) });

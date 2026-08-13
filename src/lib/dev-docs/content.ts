@@ -641,6 +641,75 @@ Lookups count against a daily quota (default 250/day live, 100/day sandbox).
 `,
   },
   {
+    slug: 'opt-out',
+    title: 'Opt-out (STOP)',
+    description: 'How STOP, START and HELP are handled, and what is blocked.',
+    markdown: `# Opt-out (STOP)
+
+Honouring opt-out is a legal obligation, not a feature. Delivered enforces it on
+your behalf for every send, and gives you the events to keep your own systems in
+sync.
+
+## Keywords
+
+| Reply | Effect |
+| --- | --- |
+| \`STOP\`, \`STOPALL\`, \`UNSUBSCRIBE\`, \`CANCEL\`, \`END\`, \`QUIT\` | Opts the number out of **your** messages. We send one confirmation and nothing more. |
+| \`START\`, \`UNSTOP\`, \`YES\` | Opts back in. |
+| \`HELP\`, \`INFO\` | Sends the standard help reply. |
+
+Matching is exact: the message has to *be* the keyword, ignoring case,
+surrounding whitespace and punctuation. "please stop by tomorrow" is an ordinary
+message and does not unsubscribe anyone.
+
+## Scope is per-account
+
+An opt-out silences **your** traffic to that number, not everyone's. Someone who
+unsubscribes from one sender does not stop receiving login codes from another —
+that would turn an unsubscribe into an account lockout.
+
+## What gets blocked
+
+\`POST /v1/messages\` to an opted-out number returns:
+
+\`\`\`json
+{ "error": { "code": "forbidden",
+  "message": "This recipient has opted out of your messages. Sending to them is not permitted.",
+  "param": "to" } }
+\`\`\`
+
+**One-time passcodes are exempt.** \`POST /v1/verify\` still delivers, because a
+user asking to log in is asking for that code, and blocking it locks them out of
+their own account. Every such send is recorded and emits
+\`verification.sent_to_opted_out\` so the pattern stays auditable.
+
+## Events
+
+| Event | When |
+| --- | --- |
+| \`message.opted_out\` | A recipient sent a stop keyword |
+| \`message.opted_in\` | A recipient sent a start keyword |
+| \`verification.sent_to_opted_out\` | A passcode went to an opted-out number under the exemption |
+
+Subscribe to these and mirror the state in your own database. You should never
+re-add a number that opted out, even though we block it.
+
+## Testing it
+
+Opt-out works in the sandbox exactly as it does live, scoped to your account, so
+you can rehearse the whole path before going live:
+
+\`\`\`bash
+curl -X POST https://api.deliveredsms.com/v1/test/inbound \\
+  -H "Authorization: Bearer $DELIVERED_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{"from":"+15005550006","to":"<your sandbox number>","body":"STOP"}'
+\`\`\`
+
+The next send to that number returns 403. Send \`START\` to clear it.
+`,
+  },
+  {
     slug: 'errors',
     title: 'Errors',
     description: 'The error envelope and every error code.',
