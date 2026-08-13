@@ -33,6 +33,16 @@ export async function GET(req: NextRequest) {
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const tenantId = await getTenantIdByUid(user.uid);
   if (!tenantId) return NextResponse.json({ error: 'No tenant' }, { status: 404 });
+  // Admin surface: members must not reach keys/billing/webhooks. The role
+  // check rides on the same resolution the route already does.
+  {
+    const { roleOf } = await import('@/lib/api/team');
+    const { getTenant: _gt } = await import('@/lib/api/tenants');
+    const _t = await _gt(tenantId);
+    if (!_t || (await roleOf(_t, user.uid)) !== 'admin') {
+      return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
+    }
+  }
   const endpoints = await listEndpoints(tenantId);
   return NextResponse.json({ webhooks: endpoints.map(publicEndpoint) });
 }
@@ -42,6 +52,16 @@ export async function POST(req: NextRequest) {
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const tenantId = await getTenantIdByUid(user.uid);
   if (!tenantId) return NextResponse.json({ error: 'No tenant' }, { status: 404 });
+  // Admin surface: members must not reach keys/billing/webhooks. The role
+  // check rides on the same resolution the route already does.
+  {
+    const { roleOf } = await import('@/lib/api/team');
+    const { getTenant: _gt } = await import('@/lib/api/tenants');
+    const _t = await _gt(tenantId);
+    if (!_t || (await roleOf(_t, user.uid)) !== 'admin') {
+      return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
+    }
+  }
 
   const body = (await req.json().catch(() => ({}))) as {
     url?: string;

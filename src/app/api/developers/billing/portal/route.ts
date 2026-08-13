@@ -24,6 +24,14 @@ export async function POST(req: NextRequest) {
 
   const tenantId = await getTenantIdByUid(user.uid);
   const tenant = tenantId ? await getTenant(tenantId) : null;
+  // Admin surface: members must not reach the Stripe portal.
+  if (!tenant) return NextResponse.json({ error: 'No tenant' }, { status: 404 });
+  {
+    const { roleOf } = await import('@/lib/api/team');
+    if ((await roleOf(tenant, user.uid)) !== 'admin') {
+      return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
+    }
+  }
   const customerId = tenant?.billing?.stripeCustomerId;
   if (!customerId) {
     return NextResponse.json({ error: 'No billing account yet.' }, { status: 404 });

@@ -25,19 +25,28 @@ const INPUT =
  * the console silently created an account on any failed sign-in, which made a
  * typo'd email look like a successful login into an empty tenant.
  */
-export default function AuthPanel({ mode }: { mode: 'login' | 'signup' }) {
+export default function AuthPanel({
+  mode,
+  stayOnPage = false,
+}: {
+  mode: 'login' | 'signup';
+  /** Host page handles the post-auth step itself (the /join flow). */
+  stayOnPage?: boolean;
+}) {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<React.ReactNode>(null);
   const [busy, setBusy] = useState(false);
 
-  // Already signed in (or just signed in): the console is the destination.
+  // Already signed in (or just signed in): the console is the destination —
+  // unless the host page owns the next step (invite accept).
   useEffect(() => {
+    if (stayOnPage) return;
     return onAuthStateChanged(auth, (user) => {
       if (user) router.replace('/console');
     });
-  }, [router]);
+  }, [router, stayOnPage]);
 
   const clean = (e: unknown, fallback: string) =>
     e instanceof Error ? e.message.replace('Firebase: ', '') : fallback;

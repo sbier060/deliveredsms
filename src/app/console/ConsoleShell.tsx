@@ -15,6 +15,8 @@ const NAV: Array<{
 }> = [
   { href: '/console', label: 'Overview' },
   { href: '/console/messages', label: 'Messages' },
+  { href: '/console/contacts', label: 'Contacts' },
+  { href: '/console/team', label: 'Team' },
   { href: '/console/numbers', label: 'Numbers' },
   { href: '/console/events', label: 'Events' },
   { href: '/console/keys', label: 'API keys' },

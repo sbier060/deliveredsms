@@ -101,6 +101,12 @@ export interface PublicMessage {
   status: MessageStatus;
   test: boolean;
   created_at: string; // ISO
+  /** MMS attachments (inbound today; outbound is carrier-gated). */
+  media?: string[];
+  /** Display name of the console user or API key that composed it. */
+  sent_by?: string;
+  /** Present when a send failed and the carrier said why. */
+  failure_reason?: string;
 }
 
 export type ApiEventType =

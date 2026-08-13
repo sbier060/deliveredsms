@@ -13,6 +13,13 @@ export async function POST(req: NextRequest) {
   const tenantId = await getTenantIdByUid(user.uid);
   const tenant = tenantId ? await getTenant(tenantId) : null;
   if (!tenantId || !tenant) return NextResponse.json({ error: 'No tenant' }, { status: 404 });
+  // Admin surface: members must not reach this route.
+  {
+    const { roleOf } = await import('@/lib/api/team');
+    if ((await roleOf(tenant, user.uid)) !== 'admin') {
+      return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
+    }
+  }
   if (tenant.status === 'live') return NextResponse.json({ ok: true, liveAccess: 'granted' });
 
   const body = (await req.json().catch(() => ({}))) as { useCase?: string };

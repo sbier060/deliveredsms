@@ -23,6 +23,14 @@ export interface StoredMessage {
   status: MessageStatus;
   test: boolean;
   createdAt: number;
+  /** MMS attachments. Accepted and stored now; sending is carrier-gated. */
+  media?: string[];
+  /** Who composed it: a console user or the API key name. */
+  sentBy?: { uid?: string; name: string };
+  /** Carrier reference for the pending DLR pipeline. */
+  carrierMessageId?: string;
+  /** Why a send failed, when the carrier told us synchronously. */
+  failureReason?: string;
 }
 
 export function toPublicMessage(m: StoredMessage): PublicMessage {
@@ -36,6 +44,9 @@ export function toPublicMessage(m: StoredMessage): PublicMessage {
     status: m.status,
     test: m.test,
     created_at: new Date(m.createdAt).toISOString(),
+    ...(m.media?.length ? { media: m.media } : {}),
+    ...(m.sentBy ? { sent_by: m.sentBy.name } : {}),
+    ...(m.failureReason ? { failure_reason: m.failureReason } : {}),
   };
 }
 
