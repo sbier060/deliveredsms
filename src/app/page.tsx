@@ -7,7 +7,7 @@ import CodeTabs from '@/components/dev-docs/CodeTabs';
 import { buildSendSnippets } from '@/lib/dev-docs/snippets';
 import { RATES, FREE_TIER, formatRate, formatMoney } from '@/lib/api/pricing';
 import DevFunnelTracker from '@/components/dev-docs/DevFunnelTracker';
-import Wordmark from '@/components/Wordmark';
+import SiteHeader from '@/components/SiteHeader';
 
 export const metadata: Metadata = buildMetadata({
   description:
@@ -310,43 +310,8 @@ export default function DevelopersPage() {
       />
       <DevFunnelTracker event="API Landing Viewed" />
 
-      {/* Slim dev nav */}
-      <header className="border-b border-[#2E2C28]">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center gap-2">
-            <Wordmark />
-          </Link>
-          <nav className="flex items-center gap-6">
-            {/* These four are SITE_NAV in src/lib/site-schema.ts. Google draws
-                sitelinks from real, linked, indexable nav destinations, so the
-                schema and this markup have to agree. */}
-            <Link
-              href="/docs"
-              className="hover-underline-gradient hidden text-[14px] text-[#918E86] transition-colors duration-150 hover:text-[#EFEEEC] sm:block"
-            >
-              Docs
-            </Link>
-            <Link
-              href="/pricing"
-              className="hover-underline-gradient hidden text-[14px] text-[#918E86] transition-colors duration-150 hover:text-[#EFEEEC] sm:block"
-            >
-              Pricing
-            </Link>
-            <Link
-              href="/login"
-              className="hover-underline-gradient hidden text-[14px] text-[#918E86] transition-colors duration-150 hover:text-[#EFEEEC] sm:block"
-            >
-              Log in
-            </Link>
-            <Link
-              href="/console"
-              className="rounded-full border border-[#2E2C28] px-5 py-2 text-[14px] text-[#EFEEEC] transition-colors duration-150 hover:border-[#918E86]"
-            >
-              Console
-            </Link>
-          </nav>
-        </div>
-      </header>
+      {/* Slim dev nav (SITE_NAV agreement lives in SiteHeader) */}
+      <SiteHeader />
 
       {/* Hero */}
       <section className="relative overflow-hidden">

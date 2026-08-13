@@ -1,7 +1,7 @@
 import Link from 'next/link';
+import SiteHeader from '@/components/SiteHeader';
 import type { Metadata } from 'next';
 import { generateMetadata as buildMetadata, BASE_URL } from '@/lib/metadata';
-import Wordmark from '@/components/Wordmark';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Phone numbers and SMS for AI agents',
@@ -66,27 +66,7 @@ export default function AgentsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <header className="border-b border-[#2E2C28]">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center gap-2">
-            <Wordmark />
-          </Link>
-          <nav className="flex items-center gap-6">
-            <Link
-              href="/docs/quickstart"
-              className="hidden text-[14px] text-[#918E86] transition-colors duration-150 hover:text-[#EFEEEC] sm:block"
-            >
-              Docs
-            </Link>
-            <Link
-              href="/console"
-              className="rounded-full border border-[#2E2C28] px-5 py-2 text-[14px] text-[#EFEEEC] transition-colors duration-150 hover:border-[#918E86]"
-            >
-              Console
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="mx-auto max-w-6xl px-6 pb-24 pt-16">
         <p className="text-[11px] uppercase tracking-[0.14em] text-[#00D26A]">

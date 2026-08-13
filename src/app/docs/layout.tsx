@@ -3,6 +3,7 @@ import Image from 'next/image';
 import SidebarNav from '@/components/dev-docs/SidebarNav';
 import Wordmark from '@/components/Wordmark';
 import DocsCommandK from '@/components/dev-docs/DocsCommandK';
+import SiteNavMenus from '@/components/SiteNavMenus';
 import { buildDocsIndex } from '@/lib/dev-docs/docs-search';
 
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
@@ -15,13 +16,8 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
             <Wordmark size="md" suffix="Docs" />
           </Link>
           <nav className="flex items-center gap-5">
+            <SiteNavMenus />
             <DocsCommandK index={searchIndex} />
-            <Link
-              href="/"
-              className="hover-underline-gradient hidden text-[14px] text-[#918E86] transition-colors duration-150 hover:text-[#EFEEEC] sm:block"
-            >
-              Overview
-            </Link>
             <Link
               href="/console"
               className="rounded-full border border-[#2E2C28] px-4 py-1.5 text-[13px] text-[#EFEEEC] transition-colors duration-150 hover:border-[#918E86]"
