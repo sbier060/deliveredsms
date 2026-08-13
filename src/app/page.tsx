@@ -7,6 +7,7 @@ import CodeTabs from '@/components/dev-docs/CodeTabs';
 import { buildSendSnippets } from '@/lib/dev-docs/snippets';
 import { RATES, FREE_TIER, formatRate, formatMoney } from '@/lib/api/pricing';
 import DevFunnelTracker from '@/components/dev-docs/DevFunnelTracker';
+import IntegrationTiles from '@/components/dev-docs/IntegrationTiles';
 import SiteHeader from '@/components/SiteHeader';
 
 export const metadata: Metadata = buildMetadata({
@@ -36,6 +37,32 @@ const PRIMARY_CTA =
   'inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#00D26A] to-[#009E4F] px-8 py-[15px] text-[15px] text-white transition-[opacity,transform] duration-200 hover:opacity-90 active:scale-[0.97]';
 
 const CODE_CHIP = `rounded-md border border-[#2C2C2E] bg-[#1C1C1E] px-1.5 py-0.5 text-[13px] text-[#C9C6BF] ${MONO}`;
+
+/** Homepage snippet set, ordered to match the tile row (Node.js first). The
+ * CLI and MCP tabs are homepage-only; docs/console keep buildSendSnippets. */
+function homeSnippets(): Record<string, string> {
+  const base = buildSendSnippets();
+  return {
+    'Node.js': base['Node.js'],
+    Python: base.Python,
+    Ruby: base.Ruby,
+    Go: base.Go,
+    cURL: base.cURL,
+    CLI: `# one-time: store your key (or set DELIVERED_API_KEY)
+npx deliveredsms login
+
+npx deliveredsms send --from {{FROM_NUMBER}} \\
+  --to +15005550006 "Hello from Delivered"`,
+    MCP: `{
+  "mcpServers": {
+    "delivered": {
+      "url": "https://mcp.deliveredsms.com",
+      "headers": { "Authorization": "Bearer {{API_KEY}}" }
+    }
+  }
+}`,
+  };
+}
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -438,31 +465,30 @@ export default function DevelopersPage() {
         </div>
       </section>
 
-      {/* Integrate this afternoon */}
+      {/* Integrate this afternoon - centered showcase, tiles drive the tabs */}
       <section id="code" className="border-t border-[#2E2C28]">
-        <div className="mx-auto grid max-w-6xl gap-12 px-6 py-20 lg:grid-cols-[minmax(0,420px)_1fr]">
-          <div>
-            <p className="text-[11px] uppercase tracking-[0.14em] text-[#00D26A]">
-              Messages API
-            </p>
-            <h2 className={`mt-4 ${HEADLINE}`}>
-              <span className="block text-[#EFEEEC]">
-                Integrate this afternoon.
-              </span>
-              <span className="block text-[#918E86]">
-                Your first message is five lines of code.
-              </span>
-            </h2>
-            <p className="mt-5 max-w-[62ch] text-[15px] leading-[1.65] text-[#C9C6BF]">
-              A REST API that reads like documentation. Official SDKs planned
-              for every stack you already ship; start with a key and an HTTP
-              call.
-            </p>
-            <p className={`mt-6 text-[13px] text-[#918E86] ${MONO}`}>
-              Node.js · Python · Ruby · Go · REST
-            </p>
+        <div className="mx-auto max-w-4xl px-6 py-20 text-center">
+          <p className="text-[11px] uppercase tracking-[0.14em] text-[#00D26A]">
+            Messages API
+          </p>
+          <h2 className={`mt-4 ${HEADLINE}`}>
+            <span className="text-[#EFEEEC]">Integrate </span>
+            <span className="bg-gradient-to-r from-[#00D26A] to-[#009E4F] bg-clip-text text-transparent">
+              this afternoon
+            </span>
+            <span className="text-[#EFEEEC]">.</span>
+          </h2>
+          <p className="mx-auto mt-5 max-w-[58ch] text-[16px] leading-[1.65] text-[#C9C6BF]">
+            A REST API that reads like documentation. Your first message is
+            five lines of code, from whatever you already ship with: an SDK,
+            the terminal, or your agent&apos;s MCP config.
+          </p>
+          <div className="mt-10">
+            <IntegrationTiles />
           </div>
-          <CodeTabs snippets={buildSendSnippets()} keyAware />
+          <div className="mt-8 text-left">
+            <CodeTabs snippets={homeSnippets()} keyAware />
+          </div>
         </div>
       </section>
 

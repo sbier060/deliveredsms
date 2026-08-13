@@ -13,8 +13,8 @@ import {
 
 const MONO =
   '[font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace]';
-const LANG_STORAGE = 'ghost-dev-lang';
-const LANG_EVENT = 'ghost-dev-lang';
+export const LANG_STORAGE = 'ghost-dev-lang';
+export const LANG_EVENT = 'ghost-dev-lang';
 
 function highlight(code: string): string {
   const escaped = code
