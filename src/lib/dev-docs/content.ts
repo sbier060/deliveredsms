@@ -26,7 +26,7 @@ works instantly against the sandbox.
 ## 1. Get a key
 
 Create a free account at [the console](/console). A sandbox tenant
-is provisioned automatically with a test key (\`ghost_sk_test_...\`) and a
+is provisioned automatically with a test key (\`dsms_sk_test_...\`) and a
 sandbox number. The key is shown once — copy it.
 
 ## 2. Send a message
@@ -81,7 +81,14 @@ The inbound message lands in \`GET /v1/messages\` and emits a
 \`message.received\` event — exactly what a real inbound SMS will do in live
 mode.
 
-## 5. Go live
+## 5. Receive events (webhooks)
+
+Instead of polling, add an endpoint URL under
+[Webhooks in the console](/console/webhooks) and every event is POSTed to
+you, signed, with automatic retries. Details in the
+[webhooks docs](/docs/webhooks).
+
+## 6. Go live
 
 When you're ready to send real SMS from real numbers, request live access from
 the [console](/console) — one sentence about what you're building,
@@ -375,6 +382,101 @@ deterministically, send to \`+15005550003\` — it always returns the cooldown
 
 \`GET /v1/verify/{id}\` returns the object with its current status, attempt
 count, and whether it was charged.
+`,
+  },
+  {
+    slug: 'webhooks',
+    title: 'Webhooks',
+    description: 'Signed event delivery to your endpoint, with automatic retries.',
+    markdown: `# Webhooks
+
+Add an endpoint URL in the [console](/console/webhooks) and every event —
+inbound messages, delivery updates, verification results — is POSTed to it as
+JSON. That plus an API key is everything you need: send with the API, receive
+with webhooks.
+
+Events are also pollable via [\`GET /v1/events\`](/docs/messages) if you prefer
+pull over push.
+
+## Payload
+
+Webhook bodies are exactly the event objects from \`/v1/events\`:
+
+\`\`\`json
+{
+  "id": "evt_a1B2c3D4e5F6g7H8",
+  "object": "event",
+  "type": "message.received",
+  "created_at": "2026-08-13T00:41:00.000Z",
+  "data": {
+    "message_id": "msg_x9Y8z7W6v5U4t3S2",
+    "from": "+14155550132",
+    "to": "+15005550100",
+    "body": "Hey, got your message!"
+  }
+}
+\`\`\`
+
+## Event types
+
+| Type | Fires when |
+| --- | --- |
+| \`message.sent\` | An outbound message was accepted by the carrier |
+| \`message.delivered\` | The carrier confirmed delivery |
+| \`message.failed\` | Delivery failed permanently |
+| \`message.received\` | An inbound SMS arrived on one of your numbers |
+| \`number.purchased\` | A number was added to your account |
+| \`number.released\` | A number was released |
+| \`verification.sent\` | A verification code was sent |
+| \`verification.approved\` | A code was checked successfully |
+| \`verification.failed\` | A code check failed |
+| \`verification.blocked\` | A verification was blocked by fraud protection |
+| \`test.ping\` | You pressed "Send test" in the console |
+
+Endpoints receive all events by default; pass an \`events\` array when creating
+one to filter.
+
+## Verify signatures
+
+Every request carries a \`dsms-signature\` header:
+
+\`\`\`
+dsms-signature: t=1755043260,v1=5257a869e7...
+\`\`\`
+
+\`v1\` is \`HMAC-SHA256(secret, \\\`\${t}.\${rawBody}\\\`)\` — the same scheme
+Stripe uses. Your signing secret (\`whsec_...\`) is shown next to the endpoint
+in the console.
+
+\`\`\`ts
+import { createHmac, timingSafeEqual } from "crypto";
+
+function verifyWebhook(rawBody: string, header: string, secret: string): boolean {
+  const { t, v1 } = Object.fromEntries(header.split(",").map((p) => p.split("=")));
+  if (Math.abs(Date.now() / 1000 - Number(t)) > 300) return false; // 5 min tolerance
+  const expected = createHmac("sha256", secret).update(\`\${t}.\${rawBody}\`).digest("hex");
+  return v1.length === expected.length &&
+    timingSafeEqual(Buffer.from(v1), Buffer.from(expected));
+}
+\`\`\`
+
+Compute the HMAC over the **raw request body** — parse the JSON only after the
+signature checks out.
+
+## Retries
+
+Respond with any 2xx within 5 seconds. Anything else (including a timeout) is
+retried with backoff: 1 minute, 5 minutes, 30 minutes, 2 hours, 12 hours —
+then the delivery is dropped. Deliveries can arrive out of order and, rarely,
+more than once; use the \`id\` field to deduplicate.
+
+## Test it
+
+Press **Send test** next to any endpoint in the console — a signed
+\`test.ping\` fires immediately and the console shows your endpoint's response
+code and latency. In the sandbox, \`POST /v1/test/inbound\` emits a real
+\`message.received\` through the same pipeline, so you can rehearse your
+inbound handler before going live.
 `,
   },
   {

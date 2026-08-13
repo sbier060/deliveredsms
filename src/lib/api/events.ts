@@ -1,11 +1,12 @@
 import { db } from '@/lib/firebase-admin';
 import { newEventId } from './ids';
+import { deliverEvent } from './webhooks';
 import type { ApiEventType, PublicEvent } from './types';
 
 /**
- * Event store (Phase 1: record + read; delivery to developer webhook
- * endpoints arrives in Phase 3 — emitEvent is already the single insertion
- * point it will hook into).
+ * Event store + push. Every emitEvent both records the event (pollable via
+ * GET /v1/events) and delivers it to the tenant's webhook endpoints
+ * (webhooks.ts — signed, retried from the outbox on failure).
  *
  * Storage: apiEvents/{tenantId}/items/{pushKey} = record (push keys give
  * chronological ordering); apiEvents/{tenantId}/byId/{evtId} = pushKey.
@@ -28,6 +29,9 @@ export async function emitEvent(
   const itemRef = db.ref(`apiEvents/${tenantId}/items`).push();
   await itemRef.set({ id, type, createdAt, data } satisfies StoredEvent);
   await db.ref(`apiEvents/${tenantId}/byId/${id}`).set(itemRef.key);
+  // Push to the tenant's webhook endpoints. deliverEvent never throws, and a
+  // tenant with no endpoints returns after a single read.
+  await deliverEvent(tenantId, toPublicEvent({ id, type, createdAt, data }));
   return id;
 }
 

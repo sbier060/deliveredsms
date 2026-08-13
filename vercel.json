@@ -23,6 +23,10 @@
     {
       "path": "/api/cron/api-meter-flush",
       "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/cron/api-webhook-retry",
+      "schedule": "*/5 * * * *"
     }
   ]
 }

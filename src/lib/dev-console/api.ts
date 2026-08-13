@@ -45,6 +45,16 @@ export interface DevTenant {
   numbers: Array<{ phone_number: string; mode: 'test' | 'live' }>;
 }
 
+export interface DevWebhook {
+  id: string;
+  url: string;
+  events: '*' | string[];
+  secret: string;
+  active: boolean;
+  createdAt: number;
+  description: string | null;
+}
+
 export interface DevKey {
   id: string;
   name: string;

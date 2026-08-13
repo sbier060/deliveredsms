@@ -16,6 +16,7 @@ const API_LINKS = [
   { href: '/docs/verify', label: 'Verify' },
   { href: '/docs/numbers', label: 'Numbers' },
   { href: '/docs/lookup', label: 'Lookup' },
+  { href: '/docs/webhooks', label: 'Webhooks' },
   { href: '/docs/errors', label: 'Errors' },
 ];
 

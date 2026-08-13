@@ -18,7 +18,7 @@ const NAV: Array<{
   { href: '/console/numbers', label: 'Numbers' },
   { href: '/console/events', label: 'Events' },
   { href: '/console/keys', label: 'API keys' },
-  { href: '/console/webhooks', label: 'Webhooks', soon: true },
+  { href: '/console/webhooks', label: 'Webhooks' },
   { href: '/console/usage', label: 'Usage' },
   { href: '/console/billing', label: 'Billing' },
   { href: '/console/settings', label: 'Settings' },
