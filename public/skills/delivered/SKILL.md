@@ -27,7 +27,7 @@ Raw HTTP works too — everything below is the same API.
 
 Test keys simulate everything (magic numbers: `+15005550006` delivers,
 `+15005550002` fails, `+15005550001` sticks in queued). Live keys are enabled
-after early-access review from the console.
+after live-access review from the console.
 
 ## Send an SMS
 

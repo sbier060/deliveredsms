@@ -591,7 +591,7 @@ sandbox). Returns the Number object. Emits a \`number.purchased\` event.
 Marks the number released (live mode disconnects it at the carrier). Rate
 limited to 10 releases per 30 minutes. Emits \`number.released\`.
 
-> Live number purchase and release are part of early access review — sandbox
+> Live number purchase and release require live access — sandbox
 > numbers work for everyone immediately.
 `,
   },
@@ -1017,7 +1017,7 @@ cost estimator.
   \`/v1/events\`, and \`POST /v1/test/inbound\` for simulating inbound SMS.
 - **Self-serve console** at [/console](/console): instant
   free sandbox keys, no card.
-- **Live mode** (early access review): real number provisioning across 200+
+- **Live mode** (after live-access review): real number provisioning across 200+
   US/Canada area codes and real SMS delivery.
 - **Agent surface**: OpenAPI ([yaml](/api/v1/openapi.yaml) ·
   [json](/api/v1/openapi.json)), \`llms.txt\`, single-file docs

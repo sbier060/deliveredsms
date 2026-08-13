@@ -253,7 +253,7 @@ export default function DevelopersPage() {
               href="#code"
               className="inline-flex items-center gap-1.5 rounded-full border border-[#2E2C28] px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-[#00D26A] transition-colors duration-150 hover:border-[#918E86]"
             >
-              Delivered — Early Access <span aria-hidden="true">→</span>
+              Delivered — SMS for developers <span aria-hidden="true">→</span>
             </a>
             <h1 className={`mt-6 ${HEADLINE}`}>
               <span className="block text-[#EFEEEC]">SMS for developers.</span>
@@ -466,7 +466,7 @@ export default function DevelopersPage() {
               Ship SMS without the carrier maze.
             </span>
             <span className="block text-[#918E86]">
-              Early access is open now.
+              Free sandbox. Instant API key.
             </span>
           </h2>
           <p className="mt-5 max-w-[62ch] text-[16px] leading-[1.65] text-[#C9C6BF]">

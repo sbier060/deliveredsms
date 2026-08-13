@@ -59,7 +59,7 @@ export default function UsagePage() {
       <p className="mt-2 text-[14px] leading-[1.6] text-[#918E86]">
         Daily quotas: {usage.quotas.messagesPerDay.toLocaleString()} messages ·{' '}
         {usage.quotas.lookupsPerDay.toLocaleString()} lookups ·{' '}
-        {usage.quotas.numbersMax} numbers. Free during early access.
+        {usage.quotas.numbersMax} numbers.
       </p>
 
       <div className="mt-6 overflow-hidden rounded-xl border border-[#2E2C28]">

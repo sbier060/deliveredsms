@@ -53,8 +53,8 @@ an API key you do not need.
 ## If you do need a raw key
 
 Ask the user to create one at \`${SITE_URL}/console/keys\`. Sandbox keys are
-free and issued instantly at signup; live keys are enabled after an early-access
-review, so do not promise the user live sending on a fresh account.
+free and issued instantly at signup; live keys are enabled after a short
+live-access review, so do not promise the user live sending on a fresh account.
 
 Key shapes:
 

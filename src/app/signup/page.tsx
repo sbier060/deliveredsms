@@ -63,7 +63,7 @@ export default function SignupPage() {
         <div className="mt-10 border-t border-[#2E2C28] pt-8">
           <h2 className="mb-3 text-[18px] text-[#EFEEEC]">Going live</h2>
           <p className="text-[15px] leading-relaxed text-[#918E86]">
-            Live keys are enabled after a short early-access review, so build
+            Live keys are enabled after a short live-access review, so build
             against the sandbox first. Pricing is usage-based with no platform
             fee: see{' '}
             <Link href="/pricing" className="text-[#00D26A] hover:underline">

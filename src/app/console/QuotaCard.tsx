@@ -100,8 +100,8 @@ export default function QuotaCard({
         ) : (
           <div className="space-y-3">
             <p className="text-[14px] leading-[1.6] text-[#C9C6BF]">
-              Live access is free during early access. Tell us what you&apos;re
-              sending and we&apos;ll flip the switch — usually same day.
+              Live access is free. Tell us what you&apos;re sending and
+              we&apos;ll flip the switch — usually same day.
             </p>
             <textarea
               value={useCase}
