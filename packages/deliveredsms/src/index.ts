@@ -1,5 +1,5 @@
 /**
- * opensms - the official Delivered client.
+ * deliveredsms - the official Delivered client.
  *
  * Zero dependencies. Uses the platform `fetch`, so it runs on Node 18+, Bun,
  * Deno, Cloudflare Workers and Vercel Edge without a polyfill.
@@ -207,7 +207,7 @@ export class Delivered {
     const env = (globalThis as any).process?.env ?? {};
     const key = apiKey ?? env.DELIVERED_API_KEY ?? env.GHOST_API_KEY;
     if (!apiKey && !env.DELIVERED_API_KEY && env.GHOST_API_KEY) {
-      console.error('opensms: GHOST_API_KEY is deprecated; rename it to DELIVERED_API_KEY.');
+      console.error('deliveredsms: GHOST_API_KEY is deprecated; rename it to DELIVERED_API_KEY.');
     }
     if (!key) {
       throw new Error(
@@ -249,7 +249,7 @@ export class Delivered {
       try {
         const headers: Record<string, string> = {
           Authorization: `Bearer ${this.apiKey}`,
-          'User-Agent': `opensms/${VERSION}`,
+          'User-Agent': `deliveredsms/${VERSION}`,
         };
         if (opts.body !== undefined) headers['Content-Type'] = 'application/json';
         if (opts.idempotencyKey) headers['Idempotency-Key'] = opts.idempotencyKey;

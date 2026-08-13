@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * opensms CLI - the Delivered from the terminal.
+ * deliveredsms CLI - Delivered from the terminal.
  *
  * Agents reach for a shell before an SDK, so every command works
  * non-interactively, reads DELIVERED_API_KEY, and has a --json mode that prints
@@ -13,7 +13,7 @@
  *   npx deliveredsms lookup +14155550132 [--spam]
  *   npx deliveredsms messages [--limit 10]
  *   npx deliveredsms events [--limit 10]
- *   npx deliveredsms login   (stores the key in ~/.opensms.json)
+ *   npx deliveredsms login   (stores the key in ~/.deliveredsms.json)
  */
 
 import { readFileSync, writeFileSync } from 'fs';
@@ -22,22 +22,22 @@ import { join } from 'path';
 import { createInterface } from 'readline';
 import { Delivered, DeliveredError } from './index';
 
-const CONFIG_PATH = join(homedir(), '.opensms.json');
+const CONFIG_PATH = join(homedir(), '.deliveredsms.json');
 
-const HELP = `opensms: SMS, verification, and phone numbers from the terminal
+const HELP = `deliveredsms: SMS, verification, and phone numbers from the terminal
 
 Usage
   deliveredsms login                          store an API key (or set DELIVERED_API_KEY)
-  opensms send --from <num> --to <num> <body...>
-  opensms verify <phone>                 send a one-time code
-  opensms verify <phone> <code>          check the code
-  opensms numbers list
-  opensms numbers search <area-code>
-  opensms numbers buy <phone>
-  opensms numbers release <phone>
-  opensms lookup <phone> [--spam]
-  opensms messages [--limit <n>]
-  opensms events [--limit <n>]
+  deliveredsms send --from <num> --to <num> <body...>
+  deliveredsms verify <phone>                 send a one-time code
+  deliveredsms verify <phone> <code>          check the code
+  deliveredsms numbers list
+  deliveredsms numbers search <area-code>
+  deliveredsms numbers buy <phone>
+  deliveredsms numbers release <phone>
+  deliveredsms lookup <phone> [--spam]
+  deliveredsms messages [--limit <n>]
+  deliveredsms events [--limit <n>]
 
 Flags
   --json        raw API output (for scripts and agents)
@@ -171,7 +171,7 @@ async function main(): Promise<void> {
       } else {
         const page = await delivered.numbers.list();
         out(flags, page, () => {
-          if (page.data.length === 0) console.log('no numbers; `opensms numbers search 415` to find one');
+          if (page.data.length === 0) console.log('no numbers; `deliveredsms numbers search 415` to find one');
           page.data.forEach((n) => console.log(`${n.phone_number}  ${n.status}  (${n.mode})`));
         });
       }

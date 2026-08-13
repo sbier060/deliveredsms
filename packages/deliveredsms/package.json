@@ -1,7 +1,7 @@
 {
   "name": "deliveredsms",
   "version": "1.0.0",
-  "description": "Official client + CLI for Delivered (deliveredsms.com) \u2014 SMS, phone verification, numbers, and spam lookup. Zero dependencies.",
+  "description": "Official client + CLI for Delivered (deliveredsms.com): SMS, phone verification, and phone numbers. Zero dependencies.",
   "keywords": [
     "sms",
     "otp",

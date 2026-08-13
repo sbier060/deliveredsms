@@ -1,7 +1,7 @@
-# opensms
+# deliveredsms
 
 Official client for the [Delivered](https://deliveredsms.com) API:
-SMS, phone verification, numbers, and spam lookup. Zero dependencies, works
+SMS, phone verification, and phone numbers. Zero dependencies, works
 anywhere `fetch` does.
 
 ```bash
@@ -66,15 +66,15 @@ await delivered.events.list({ limit: 25 });
 
 ## Errors
 
-Every failure throws a `GhostError` with a machine-readable code:
+Every failure throws a `DeliveredError` with a machine-readable code:
 
 ```js
-import { GhostError } from 'deliveredsms';
+import { DeliveredError } from 'deliveredsms';
 
 try {
   await delivered.verify.send({ to: phone });
 } catch (err) {
-  if (err instanceof GhostError) {
+  if (err instanceof DeliveredError) {
     err.code;       // 'verification_blocked' | 'rate_limited' | …
     err.status;     // HTTP status
     err.retryable;  // whether trying again could work
