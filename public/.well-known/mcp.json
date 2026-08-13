@@ -3,7 +3,7 @@
   "servers": [
     {
       "name": "delivered",
-      "description": "Delivered — programmable SMS, phone verification, phone numbers, and spam lookup for developers. Send/receive texts, verify phones with one-time codes, provision numbers, and screen spam. Free sandbox keys at https://deliveredsms.com/console",
+      "description": "Delivered — programmable SMS, phone verification, and phone numbers for developers. Send/receive texts, verify phones with one-time codes, and provision numbers. Free sandbox keys at https://deliveredsms.com/console",
       "url": "https://mcp.deliveredsms.com",
       "alternate_urls": ["https://deliveredsms.com/api/mcp"],
       "transport": "streamable-http",

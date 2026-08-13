@@ -48,7 +48,7 @@ Delivered turns that into API calls an agent can make.
 - **A real phone number of its own** — POST /v1/numbers, ${formatMoney(RATES.numbers.microUsd)}/mo, 10DLC included.
 - **An SMS inbox it can act on** — inbound texts as JSON via GET /v1/events.
 - **Phone verification as a primitive** — POST /v1/verify then /v1/verify/check; billed only on success.
-- **Judgment about who is calling** — GET /v1/lookup/{phone}/spam, spam scores from millions of screened calls.
+- **Know what kind of number it is** — GET /v1/lookup/{phone}, line type and carrier before it sends.
 
 Machine-readable everything:
 - MCP: ${MCP_URL}

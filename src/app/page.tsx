@@ -11,7 +11,7 @@ import Wordmark from '@/components/Wordmark';
 
 export const metadata: Metadata = buildMetadata({
   description:
-    'Programmable SMS and phone numbers for developers. Send and receive texts, provision real numbers across 200+ area codes, and screen spam with one REST API.',
+    'Programmable SMS and phone numbers for developers. Send and receive texts, verify phone numbers, and provision real numbers across 200+ area codes with one REST API.',
   path: '/',
   keywords: [
     'sms api',
@@ -19,7 +19,6 @@ export const metadata: Metadata = buildMetadata({
     'phone number api',
     'send sms api',
     'receive sms api',
-    'spam detection api',
     'phone lookup api',
     'twilio alternative',
   ],
@@ -47,7 +46,7 @@ const jsonLd = {
       url: BASE_URL,
       name: 'Delivered · SMS for developers',
       description:
-        'Programmable SMS and phone numbers for developers. Send and receive texts, provision real numbers, and screen spam with one REST API.',
+        'Programmable SMS and phone numbers for developers. Send and receive texts, verify phone numbers, and provision real numbers with one REST API.',
       isPartOf: { '@id': `${BASE_URL}/#website` },
     },
     {
@@ -162,7 +161,7 @@ const featureSections = [
     eyebrow: 'EVENTS',
     bright: 'Webhooks you can trust.',
     muted: 'Signed, retried, and observable.',
-    body: 'Delivery receipts, inbound messages, and spam verdicts arrive as signed webhook events with automatic retries. Replay any event from the dashboard when your endpoint has a bad day.',
+    body: 'Delivery receipts and inbound messages arrive as signed webhook events with automatic retries. Replay any event from the dashboard when your endpoint has a bad day.',
     endpoints: ['message.delivered', 'message.received', 'number.purchased'],
     visual: (
       <div>
@@ -264,8 +263,8 @@ export default function DevelopersPage() {
             </h1>
             <p className="mt-5 max-w-[62ch] text-[16px] leading-[1.65] text-[#C9C6BF]">
               The best way to reach people where they actually look.
-              Programmable messaging, on-demand phone numbers, and built-in
-              spam intelligence — the same infrastructure behind a 400k-download consumer phone app.
+              Programmable messaging, phone verification, and on-demand phone
+              numbers — the same infrastructure behind a 400k-download consumer phone app.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-6">
               <Link href="/console" className={PRIMARY_CTA}>
@@ -295,7 +294,7 @@ export default function DevelopersPage() {
                 <li>message.delivered · +1 (415) •••-••41 · 212ms</li>
                 <li>number.purchased · +1 (628) •••-••07</li>
                 <li>message.received · +1 (917) •••-••88</li>
-                <li>spam.blocked · +1 (305) •••-••19 · 0.97</li>
+                <li>verification.approved · +1 (305) •••-••19 · 1.4s</li>
               </ul>
             </div>
           </div>

@@ -19,7 +19,7 @@ export async function GET() {
   const body = `# Delivered — everything in one file
 
 > The SMS API for developers: send and receive texts, verify phone numbers,
-> provision real US and Canada numbers, and screen spam with one REST API.
+> and provision real US and Canada numbers with one REST API.
 
 Base URL: ${API_URL}/v1
 MCP server: ${MCP_URL}

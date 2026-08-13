@@ -1,12 +1,12 @@
 ---
 name: delivered
-description: Send and receive SMS, verify phone numbers with one-time codes, provision US/Canada phone numbers, and screen spam through the Delivered. Use when a task needs to send a text message, get a phone number, verify/look up a phone number, or check whether a number is spam.
+description: Send and receive SMS, verify phone numbers with one-time codes, and provision US/Canada phone numbers through the Delivered API. Use when a task needs to send a text message, get a phone number, or verify/look up a phone number.
 ---
 
 # Delivered
 
 Delivered is an SMS API for developers: two-way texting, on-demand phone numbers,
-and spam intelligence, backed by the infrastructure of the consumer phone app.
+backed by the infrastructure of the consumer phone app.
 
 ## Setup
 

@@ -17,7 +17,7 @@ export async function GET() {
   const body = `# Delivered Documentation
 
 > REST API for sending and receiving SMS, verifying phone numbers, provisioning
-> US and Canada numbers, and screening spam.
+> US and Canada numbers.
 
 Base URL: ${API_URL}/v1
 Auth: Authorization: Bearer dsms_sk_test_... (free sandbox keys, instant)

@@ -6,7 +6,7 @@ import Wordmark from '@/components/Wordmark';
 export const metadata: Metadata = buildMetadata({
   title: 'Phone numbers and SMS for AI agents',
   description:
-    'Give your AI agent a real phone number. Send and receive SMS, run phone verification, and screen spam — with an API, MCP server, and skills built for agents.',
+    'Give your AI agent a real phone number. Send and receive SMS and run phone verification — with an API, MCP server, and skills built for agents.',
   path: '/agents',
   keywords: [
     'sms for ai agents',
@@ -52,9 +52,9 @@ const capabilities = [
     code: 'POST /v1/verify → POST /v1/verify/check',
   },
   {
-    title: 'Judgment about who is calling',
-    body: 'Before an agent trusts a number, one lookup returns line type, carrier, and a spam score built from millions of screened calls in the consumer phone app.',
-    code: 'GET /v1/lookup/+14155550132/spam',
+    title: 'Know what kind of number it is',
+    body: 'Before an agent trusts a number, one lookup returns line type and carrier — so it can tell a mobile from a landline or a VoIP number before it sends.',
+    code: 'GET /v1/lookup/+14155550132',
   },
 ];
 

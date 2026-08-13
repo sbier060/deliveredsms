@@ -598,7 +598,7 @@ limited to 10 releases per 30 minutes. Emits \`number.released\`.
   {
     slug: 'lookup',
     title: 'Lookup',
-    description: 'Carrier, line type, and spam intelligence for any number.',
+    description: 'Carrier and line type for any number.',
     markdown: `# Lookup
 
 ## Look up a number

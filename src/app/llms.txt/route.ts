@@ -14,7 +14,7 @@ export async function GET() {
   const body = `# Delivered — SMS for Developers
 
 > The SMS API for developers: send and receive texts, verify phone numbers,
-> provision real US and Canada numbers, and screen spam with one REST API.
+> and provision real US and Canada numbers with one REST API.
 > Sandbox keys are free and instant; every endpoint works in test mode.
 
 Base URL: https://api.deliveredsms.com/v1
@@ -59,7 +59,7 @@ ${docsLines}
 - **Install**: \`npx skills add sbier060/deliveredsms\` — works with Claude Code, Cursor, Codex, Devin, Copilot
 - [Repository](https://github.com/sbier060/deliveredsms)
 - [Skills Discovery](${BASE}/.well-known/agent-skills/index.json)
-- [delivered](${BASE}/skills/delivered/SKILL.md): send SMS, get numbers, screen spam
+- [delivered](${BASE}/skills/delivered/SKILL.md): send and receive SMS, get numbers
 - [delivered-verify](${BASE}/skills/delivered-verify/SKILL.md): phone verification (OTP/2FA) in two calls
 - [sms-best-practices](${BASE}/skills/sms-best-practices/SKILL.md): consent, opt-out, segments, 10DLC
 

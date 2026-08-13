@@ -5,7 +5,7 @@
   "skills": [
     {
       "name": "delivered",
-      "description": "Send and receive SMS, provision US/Canada phone numbers, and screen spam through the Delivered.",
+      "description": "Send and receive SMS and provision US/Canada phone numbers through the Delivered API.",
       "url": "https://deliveredsms.com/skills/delivered/SKILL.md"
     },
     {
