@@ -8,6 +8,7 @@ import { buildSendSnippets } from '@/lib/dev-docs/snippets';
 import { RATES, FREE_TIER, formatRate, formatMoney } from '@/lib/api/pricing';
 import DevFunnelTracker from '@/components/dev-docs/DevFunnelTracker';
 import IntegrationTiles from '@/components/dev-docs/IntegrationTiles';
+import LiveEventsCard from '@/components/dev-docs/LiveEventsCard';
 import SiteHeader from '@/components/SiteHeader';
 
 export const metadata: Metadata = buildMetadata({
@@ -34,7 +35,7 @@ const HEADLINE =
   'text-[clamp(30px,4.5vw,44px)] leading-[1.15] tracking-[-0.02em] [text-wrap:balance]';
 
 const PRIMARY_CTA =
-  'inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#00D26A] to-[#009E4F] px-8 py-[15px] text-[15px] text-white transition-[opacity,transform] duration-200 hover:opacity-90 active:scale-[0.97]';
+  'inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#00D26A] to-[#009E4F] px-8 py-[15px] text-[15px] text-white transition-[opacity,transform] duration-150 ease-out-strong hover:opacity-90 motion-safe:active:scale-[0.97]';
 
 const CODE_CHIP = `rounded-md border border-[#2C2C2E] bg-[#1C1C1E] px-1.5 py-0.5 text-[13px] text-[#C9C6BF] ${MONO}`;
 
@@ -350,22 +351,22 @@ export default function DevelopersPage() {
           <div>
             <a
               href="#code"
-              className="inline-flex items-center gap-1.5 rounded-full border border-[#2E2C28] px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-[#00D26A] transition-colors duration-150 hover:border-[#918E86]"
+              className="hero-rise inline-flex items-center gap-1.5 rounded-full border border-[#2E2C28] px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-[#00D26A] transition-colors duration-150 hover:border-[#918E86]"
             >
               Delivered · SMS for developers <span aria-hidden="true">→</span>
             </a>
-            <h1 className={`mt-6 ${HEADLINE}`}>
+            <h1 className={`hero-rise mt-6 [animation-delay:60ms] ${HEADLINE}`}>
               <span className="block text-[#EFEEEC]">SMS for developers.</span>
               <span className="block text-[#918E86]">
                 Send, receive, and provision real numbers with one API.
               </span>
             </h1>
-            <p className="mt-5 max-w-[62ch] text-[16px] leading-[1.65] text-[#C9C6BF]">
+            <p className="hero-rise mt-5 max-w-[62ch] text-[16px] leading-[1.65] text-[#C9C6BF] [animation-delay:120ms]">
               The best way to reach people where they actually look.
               Programmable messaging, phone verification, and on-demand phone
               numbers, the same infrastructure behind a 400k-download consumer phone app.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-6">
+            <div className="hero-rise mt-8 flex flex-wrap items-center gap-6 [animation-delay:180ms]">
               <Link href="/console" className={PRIMARY_CTA}>
                 Get your free API key <span aria-hidden="true">→</span>
               </Link>
@@ -378,21 +379,9 @@ export default function DevelopersPage() {
             </div>
           </div>
 
-          {/* Live events card (Resend's cube analog) */}
-          <div className="hidden lg:block">
-            <div className="rounded-xl border border-[#2E2C28] bg-[#0F0E0C] p-5">
-              <p className="text-[12px] uppercase tracking-[0.06em] text-[#918E86]">
-                Live events
-              </p>
-              <ul
-                className={`mt-4 space-y-3 text-[13px] text-[#C9C6BF] ${MONO}`}
-              >
-                <li>message.delivered · +1 (415) •••-••41 · 212ms</li>
-                <li>number.purchased · +1 (628) •••-••07</li>
-                <li>message.received · +1 (917) •••-••88</li>
-                <li>verification.approved · +1 (305) •••-••19 · 1.4s</li>
-              </ul>
-            </div>
+          {/* Live events card (Resend's cube analog), actually live */}
+          <div className="hero-rise hidden lg:block [animation-delay:240ms]">
+            <LiveEventsCard />
           </div>
         </div>
       </section>

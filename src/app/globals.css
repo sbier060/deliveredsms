@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Anchor navigation (Product menu, tile links) keeps spatial continuity. */
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 /* Delivered hero glow - the one loud element on the landing page. */
 .hero-glow {
   background:
@@ -12,6 +22,8 @@
 .hover-underline-gradient {
   position: relative;
 }
+/* Directional wipe: grows from the left on hover, retracts to the right on
+   leave, so the line always travels forward. */
 .hover-underline-gradient::after {
   content: '';
   position: absolute;
@@ -21,11 +33,12 @@
   width: 100%;
   background: linear-gradient(90deg, #00d26a, #009e4f);
   transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 180ms ease;
+  transform-origin: right;
+  transition: transform 220ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 .hover-underline-gradient:hover::after {
   transform: scaleX(1);
+  transform-origin: left;
 }
 
 /* Integration tile entrance - staggered via inline animation-delay. */
@@ -33,7 +46,26 @@
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: none; }
 }
-.integration-tile { animation: tile-rise 400ms ease-out both; }
+.integration-tile { animation: tile-rise 450ms cubic-bezier(0.23, 1, 0.32, 1) both; }
 @media (prefers-reduced-motion: reduce) {
   .integration-tile { animation: none; }
+}
+
+/* Code block content swap: opacity-only fade on remount (key={lang}), so it
+   stays under reduced motion. */
+@keyframes code-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.code-swap { animation: code-fade 150ms ease-out both; }
+
+/* Hero entrance: one-shot staggered rise on first paint (rare = delight
+   budget). Movement is motion-safe only. */
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+.hero-rise { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-rise { animation: hero-rise 600ms cubic-bezier(0.23, 1, 0.32, 1) both; }
 }

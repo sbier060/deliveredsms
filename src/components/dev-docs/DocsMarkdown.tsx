@@ -42,7 +42,7 @@ function CodeBlock({ className, children }: React.HTMLAttributes<HTMLElement>) {
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
           }}
-          className="flex items-center gap-1.5 rounded-lg px-2 py-1 text-[11px] text-[#8E8E93] transition-all duration-150 hover:bg-[#2C2C2E] hover:text-[#F2F2F7]"
+          className="flex items-center gap-1.5 rounded-lg px-2 py-1 text-[11px] text-[#8E8E93] transition-colors duration-150 hover:bg-[#2C2C2E] hover:text-[#F2F2F7]"
         >
           {copied ? (
             <>

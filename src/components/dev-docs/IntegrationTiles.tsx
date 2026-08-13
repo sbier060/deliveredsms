@@ -57,7 +57,7 @@ export default function IntegrationTiles() {
             style={{ animationDelay: `${i * 45}ms` }}
           >
             <span
-              className={`flex h-14 w-14 items-center justify-center rounded-2xl border transition-[border-color,transform,box-shadow] duration-200 ease-out group-hover:-translate-y-0.5 sm:h-16 sm:w-16 ${
+              className={`flex h-14 w-14 items-center justify-center rounded-2xl border transition-[border-color,transform,box-shadow] duration-200 ease-out-strong motion-safe:group-hover:-translate-y-0.5 motion-safe:group-active:translate-y-0 motion-safe:group-active:scale-[0.97] sm:h-16 sm:w-16 ${
                 isActive
                   ? 'border-[#00D26A] bg-[#0F0E0C] shadow-[0_0_24px_-6px_rgba(0,210,106,0.45)]'
                   : 'border-[#2E2C28] bg-[#0F0E0C] group-hover:border-[#918E86]'

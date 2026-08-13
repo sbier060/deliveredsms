@@ -111,7 +111,7 @@ export default function SiteNavMenus() {
     >
       {label}
       <ChevronDown
-        className={`h-3.5 w-3.5 transition-transform duration-200 ${
+        className={`h-3.5 w-3.5 transition-transform duration-200 ease-out-strong ${
           open === id ? 'rotate-180' : ''
         }`}
         aria-hidden="true"
@@ -119,11 +119,14 @@ export default function SiteNavMenus() {
     </Link>
   );
 
+  // Enter 200ms, exit 100ms (exit faster than enter); panels scale from the
+  // trigger edge, and all movement is motion-safe so reduced-motion keeps a
+  // pure fade.
   const panelClass = (id: string, extra: string) =>
-    `absolute left-1/2 top-full z-40 -translate-x-1/2 pt-3 transition-[opacity,transform] duration-150 ease-out ${
+    `absolute left-1/2 top-full z-40 -translate-x-1/2 pt-3 origin-top transition-[opacity,transform] ease-out-strong ${
       open === id
-        ? 'pointer-events-auto translate-y-0 opacity-100'
-        : 'pointer-events-none -translate-y-1 opacity-0'
+        ? 'pointer-events-auto opacity-100 duration-200 motion-safe:translate-y-0 motion-safe:scale-100'
+        : 'pointer-events-none opacity-0 duration-100 motion-safe:-translate-y-1 motion-safe:scale-[0.98]'
     } ${extra}`;
 
   return (

@@ -110,7 +110,7 @@ export default function CodeTabs({ snippets, keyAware = false }: CodeTabsProps) 
               setCopied(true);
               setTimeout(() => setCopied(false), 2000);
             }}
-            className="flex flex-shrink-0 items-center gap-1.5 rounded-lg px-2 py-1 text-[11px] text-[#8E8E93] transition-all duration-150 hover:bg-[#2C2C2E] hover:text-[#F2F2F7]"
+            className="flex flex-shrink-0 items-center gap-1.5 rounded-lg px-2 py-1 text-[11px] text-[#8E8E93] transition-colors duration-150 hover:bg-[#2C2C2E] hover:text-[#F2F2F7]"
           >
             {copied ? (
               <>
@@ -125,8 +125,11 @@ export default function CodeTabs({ snippets, keyAware = false }: CodeTabsProps) 
             )}
           </button>
         </div>
+        {/* key={lang} remounts on tab switch so the fade always plays from
+            the fresh content - no double exposure, opacity only. */}
         <pre
-          className={`overflow-x-auto p-4 text-[13px] leading-relaxed text-[#918E86] ${MONO}`}
+          key={lang}
+          className={`code-swap overflow-x-auto p-4 text-[13px] leading-relaxed text-[#918E86] ${MONO}`}
         >
           <code dangerouslySetInnerHTML={{ __html: highlight(code) }} />
         </pre>
