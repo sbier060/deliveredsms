@@ -7,6 +7,7 @@ import CodeTabs from '@/components/dev-docs/CodeTabs';
 import { buildSendSnippets } from '@/lib/dev-docs/snippets';
 import { RATES, FREE_TIER, formatRate, formatMoney } from '@/lib/api/pricing';
 import DevFunnelTracker from '@/components/dev-docs/DevFunnelTracker';
+import Wordmark from '@/components/Wordmark';
 
 export const metadata: Metadata = buildMetadata({
   description:
@@ -207,7 +208,7 @@ export default function DevelopersPage() {
       <header className="border-b border-[#2E2C28]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-[24px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
+            <Wordmark />
           </Link>
           <nav className="flex items-center gap-6">
             {/* These four are SITE_NAV in src/lib/site-schema.ts. Google draws

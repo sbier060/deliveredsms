@@ -1,3 +1,4 @@
+import Wordmark from '@/components/Wordmark';
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Metadata } from 'next';
@@ -105,8 +106,7 @@ export default function DeveloperPricingPage() {
       <header className="border-b border-[#2E2C28]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-[16px] text-[#EFEEEC]">Delivered</span>
-            <span className="text-[16px] text-[#918E86]">API</span>
+            <Wordmark />
           </Link>
           <nav className="flex items-center gap-6">
             <Link

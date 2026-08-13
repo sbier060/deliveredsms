@@ -4,6 +4,7 @@ import { generateMetadata as buildMetadata } from '@/lib/metadata';
 import DocsMarkdown from '@/components/dev-docs/DocsMarkdown';
 import DevFooter from '@/components/dev-docs/DevFooter';
 import { PRIVACY_MD } from '@/lib/legal';
+import Wordmark from '@/components/Wordmark';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Privacy Policy',
@@ -17,7 +18,7 @@ export default function PrivacyPage() {
       <header className="border-b border-[#2E2C28]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-[24px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
+            <Wordmark />
           </Link>
           <Link href="/console" className="rounded-full border border-[#2E2C28] px-5 py-2 text-[14px] text-[#EFEEEC] transition-colors duration-150 hover:border-[#918E86]">
             Console

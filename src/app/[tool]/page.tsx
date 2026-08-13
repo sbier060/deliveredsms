@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { generateMetadata as buildMetadata, BASE_URL } from '@/lib/metadata';
 import { AGENT_TOOLS, toolBySlug } from '@/lib/dev-docs/tools';
+import Wordmark from '@/components/Wordmark';
 
 export const dynamicParams = false;
 
@@ -109,7 +110,7 @@ export default function ToolPage({ params }: { params: { tool: string } }) {
       <header className="border-b border-[#2E2C28]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-[24px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
+            <Wordmark />
           </Link>
           <nav className="flex items-center gap-6">
             <Link

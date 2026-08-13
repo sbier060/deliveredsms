@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { onAuthStateChanged, signOut, type User } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
+import Wordmark from '@/components/Wordmark';
 
 const NAV: Array<{
   href: string;
@@ -98,8 +99,7 @@ export default function ConsoleShell({ children }: { children: React.ReactNode }
       <aside className="hidden w-[230px] flex-shrink-0 flex-col border-r border-[#2E2C28] md:flex">
         <div className="flex h-full flex-col px-3 py-4">
           <Link href="/" className="flex items-center gap-2 px-3 pb-5">
-            <span className="text-[22px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
-            <span className="text-[15px] text-[#918E86]">API</span>
+            <Wordmark size="md" suffix="API" />
           </Link>
           <NavLinks pathname={pathname} />
           <div className="mt-auto border-t border-[#2E2C28] px-3 pt-4">
