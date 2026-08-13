@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
+import { BRAND_ICONS } from './dev-docs/brand-icons';
 
 interface MenuLink {
   href: string;
@@ -23,19 +24,25 @@ const PRODUCT: MenuLink[] = [
 const DOCS_LEFT: MenuLink[] = [
   { href: '/docs/quickstart', label: 'Getting started' },
   { href: '/docs/messages', label: 'API reference' },
-  { href: '/docs/webhooks', label: 'Webhooks' },
+  { href: '/agents', label: 'Integrations' },
   { href: '/docs/inbox', label: 'Platform' },
-  { href: '/docs/sandbox', label: 'Sandbox' },
   { href: '/docs/changelog', label: 'Changelog' },
 ];
 
-const DOCS_TOOLS: MenuLink[] = [
-  { href: '/claude', label: 'Claude' },
-  { href: '/claude-code', label: 'Claude Code' },
-  { href: '/cursor', label: 'Cursor' },
-  { href: '/codex', label: 'Codex' },
-  { href: '/devin', label: 'Devin' },
-  { href: '/copilot', label: 'GitHub Copilot' },
+/** Icon-only grid, Resend-style: 4 columns of muted glyphs. */
+const DOCS_ICONS: Array<{ icon: string; href: string }> = [
+  { icon: 'nodejs', href: '/docs/quickstart' },
+  { icon: 'typescript', href: '/docs/quickstart' },
+  { icon: 'python', href: '/docs/quickstart' },
+  { icon: 'ruby', href: '/docs/quickstart' },
+  { icon: 'go', href: '/docs/quickstart' },
+  { icon: 'curl', href: '/docs/messages' },
+  { icon: 'cli', href: '/docs/quickstart' },
+  { icon: 'mcp', href: '/agents' },
+  { icon: 'claude', href: '/claude' },
+  { icon: 'anthropic', href: '/claude-code' },
+  { icon: 'cursor', href: '/cursor' },
+  { icon: 'copilot', href: '/copilot' },
 ];
 
 const RESOURCES: MenuLink[] = [
@@ -135,7 +142,7 @@ export default function SiteNavMenus() {
       <div className="relative" onMouseLeave={scheduleHide} onMouseEnter={() => show('product')}>
         {trigger('product', 'Product', '/')}
         <div className={panelClass('product', 'w-[560px]')} aria-hidden={open !== 'product'}>
-          <div className="grid grid-cols-2 gap-1 rounded-2xl border border-[#2E2C28] bg-[#0F0E0C]/95 p-2 shadow-2xl backdrop-blur">
+          <div className="grid grid-cols-2 gap-1 rounded-[24px] border border-[#2E2C28] bg-[#0F0E0C]/90 p-4 shadow-2xl backdrop-blur-xl">
             {PRODUCT.map((l) => (
               <Item key={l.href} link={l} onNavigate={close} />
             ))}
@@ -143,24 +150,45 @@ export default function SiteNavMenus() {
         </div>
       </div>
 
-      {/* Docs */}
+      {/* Docs - left text list + icon-only grid, per the Resend anatomy */}
       <div className="relative" onMouseLeave={scheduleHide} onMouseEnter={() => show('docs')}>
         {trigger('docs', 'Docs', '/docs')}
-        <div className={panelClass('docs', 'w-[480px]')} aria-hidden={open !== 'docs'}>
-          <div className="grid grid-cols-[1fr_auto_1fr] rounded-2xl border border-[#2E2C28] bg-[#0F0E0C]/95 p-2 shadow-2xl backdrop-blur">
-            <div>
+        <div className={panelClass('docs', 'w-[560px]')} aria-hidden={open !== 'docs'}>
+          <div className="flex gap-10 rounded-[24px] border border-[#2E2C28] bg-[#0F0E0C]/90 p-7 shadow-2xl backdrop-blur-xl">
+            <div className="flex min-w-[190px] flex-col">
               {DOCS_LEFT.map((l) => (
-                <Item key={l.href} link={l} onNavigate={close} />
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  onClick={close}
+                  className="py-2.5 text-[17px] text-[#C9C6BF] transition-colors duration-150 hover:text-white"
+                >
+                  {l.label}
+                </Link>
               ))}
             </div>
-            <div className="mx-2 w-px bg-[#2E2C28]" aria-hidden="true" />
-            <div>
-              <p className="px-3 pb-1 pt-2 text-[11px] uppercase tracking-[0.1em] text-[#5C5A55]">
-                Works with
-              </p>
-              {DOCS_TOOLS.map((l) => (
-                <Item key={l.href} link={l} onNavigate={close} />
-              ))}
+            <div className="grid flex-1 grid-cols-4 content-start gap-y-3">
+              {DOCS_ICONS.map(({ icon, href }) => {
+                const meta = BRAND_ICONS[icon];
+                return (
+                  <Link
+                    key={icon}
+                    href={href}
+                    onClick={close}
+                    aria-label={meta.title}
+                    title={meta.title}
+                    className="group flex h-11 w-11 items-center justify-center justify-self-center"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      className="h-7 w-7 fill-[#6E6C66] transition-colors duration-150 group-hover:fill-[#EFEEEC]"
+                    >
+                      <path d={meta.path} />
+                    </svg>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -170,7 +198,7 @@ export default function SiteNavMenus() {
       <div className="relative" onMouseLeave={scheduleHide} onMouseEnter={() => show('resources')}>
         {trigger('resources', 'Resources', '/docs/changelog')}
         <div className={panelClass('resources', 'w-[320px]')} aria-hidden={open !== 'resources'}>
-          <div className="rounded-2xl border border-[#2E2C28] bg-[#0F0E0C]/95 p-2 shadow-2xl backdrop-blur">
+          <div className="rounded-[24px] border border-[#2E2C28] bg-[#0F0E0C]/90 p-4 shadow-2xl backdrop-blur-xl">
             {RESOURCES.map((l) => (
               <Item key={l.href} link={l} onNavigate={close} />
             ))}
