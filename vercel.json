@@ -7,11 +7,22 @@
     {
       "source": "/v1/:path*",
       "destination": "/api/v1/:path*",
-      "has": [{ "type": "host", "value": "api.deliveredsms.com" }]
+      "has": [
+        {
+          "type": "host",
+          "value": "api.deliveredsms.com"
+        }
+      ]
     },
     {
       "source": "/mp/:path*",
       "destination": "https://api.mixpanel.com/:path*"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/api-meter-flush",
+      "schedule": "*/5 * * * *"
     }
   ]
 }
