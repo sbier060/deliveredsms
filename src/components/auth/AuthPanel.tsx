@@ -11,6 +11,7 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
+import GoogleMark from './GoogleMark';
 
 const INPUT =
   'w-full rounded-lg border border-[#2C2C2E] bg-[#1C1C1E] px-3.5 py-2.5 text-[14px] text-[#F2F2F7] placeholder-[#8E8E93] outline-none transition-colors duration-150 focus:border-[#00D26A]';
@@ -104,12 +105,18 @@ export default function AuthPanel({ mode }: { mode: 'login' | 'signup' }) {
 
   return (
     <div className="mt-8 space-y-4">
+      {/* Google's dark-theme sign-in button, to their spec: #131314 surface,
+          #8E918F 1px stroke, #E3E3E3 label, their mark at 18px, 12px gutter.
+          It was our green gradient with plain text, which is both a branding
+          guideline violation and a worse button — people scan for this exact
+          object, and a green pill does not read as "sign in with Google". */}
       <button
         onClick={google}
         disabled={busy}
-        className="w-full rounded-full bg-gradient-to-r from-[#00D26A] to-[#009E4F] px-8 py-[13px] text-[15px] text-white transition-[opacity,transform] duration-200 hover:opacity-90 active:scale-[0.97] disabled:opacity-30"
+        className="flex w-full items-center justify-center gap-3 rounded-full border border-[#8E918F] bg-[#131314] px-8 py-[12px] text-[14px] font-medium text-[#E3E3E3] transition-colors duration-150 hover:bg-[#1B1B1C] active:scale-[0.99] disabled:opacity-30"
       >
-        Continue with Google
+        <GoogleMark />
+        {isSignup ? 'Sign up with Google' : 'Sign in with Google'}
       </button>
 
       <div className="flex items-center gap-3">

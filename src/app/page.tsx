@@ -277,9 +277,6 @@ export default function DevelopersPage() {
                 Read the docs
               </Link>
             </div>
-            <p className="mt-4 text-[13px] text-[#918E86]">
-              No card. No sales call. Sandbox key in 60 seconds.
-            </p>
           </div>
 
           {/* Live events card (Resend's cube analog) */}
