@@ -19,8 +19,9 @@ examples use the Delivered.
 
 ## Opt-out — non-negotiable
 
-- Honor STOP instantly and permanently. Delivered handles STOP/HELP keywords on
-  its numbers; your application must also never re-add an opted-out number.
+- Honor STOP instantly and permanently, **in your own application**. Platform-level
+  STOP/HELP keyword handling is not live yet, so an opt-out that you do not record
+  is an opt-out nobody records. Never re-add an opted-out number.
 - First marketing message to a contact should include "Reply STOP to opt out".
 - HELP replies must say who you are.
 

@@ -113,7 +113,10 @@ recipient rules are not optional:
 
 - Only message recipients who opted in. You are not the one who obtained
   consent, so confirm with the user that they did.
-- Honor STOP / opt-out. Delivered enforces this, but do not design around it.
+- Honor STOP / opt-out **in your own application**. Platform-level STOP
+  handling is not live yet: the send path checks an opt-out registry, but
+  nothing populates it until inbound keyword handling ships. Do not rely on
+  Delivered to catch an opt-out for you.
 - Do not send at a volume or cadence the user has not asked for. If a task
   implies a bulk send, confirm the recipient count with the user first.
 
