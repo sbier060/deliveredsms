@@ -20,6 +20,17 @@ const API_LINKS = [
   { href: '/docs/errors', label: 'Errors' },
 ];
 
+const PLATFORM_LINKS = [
+  { href: '/docs/inbox', label: 'Inbox & conversations' },
+  { href: '/docs/contacts', label: 'Contacts' },
+  { href: '/docs/teams', label: 'Teams' },
+  { href: '/docs/broadcasts', label: 'Broadcasts' },
+  { href: '/docs/scheduled', label: 'Scheduled messages' },
+  { href: '/docs/auto-reply', label: 'Auto-replies' },
+  { href: '/docs/opt-out', label: 'Opt-out (STOP)' },
+  { href: '/docs/porting', label: 'Number porting' },
+];
+
 const RESOURCE_LINKS = [
   { href: '/docs/changelog', label: 'Changelog' },
   { href: '/api/v1/openapi.yaml', label: 'openapi.yaml' },
@@ -68,6 +79,7 @@ export default function SidebarNav() {
     <nav className="space-y-6">
       <Group title="Guides" links={GUIDE_LINKS} pathname={pathname} />
       <Group title="API" links={API_LINKS} pathname={pathname} />
+      <Group title="Platform" links={PLATFORM_LINKS} pathname={pathname} />
       <Group title="Resources" links={RESOURCE_LINKS} pathname={pathname} />
     </nav>
   );

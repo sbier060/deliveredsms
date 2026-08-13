@@ -2,8 +2,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import SidebarNav from '@/components/dev-docs/SidebarNav';
 import Wordmark from '@/components/Wordmark';
+import DocsCommandK from '@/components/dev-docs/DocsCommandK';
+import { buildDocsIndex } from '@/lib/dev-docs/docs-search';
 
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
+  const searchIndex = buildDocsIndex();
   return (
     <div className="min-h-screen bg-[#0A0A0B] text-white">
       <header className="border-b border-[#2E2C28]">
@@ -12,6 +15,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
             <Wordmark size="md" suffix="Docs" />
           </Link>
           <nav className="flex items-center gap-5">
+            <DocsCommandK index={searchIndex} />
             <Link
               href="/"
               className="hover-underline-gradient hidden text-[14px] text-[#918E86] transition-colors duration-150 hover:text-[#EFEEEC] sm:block"

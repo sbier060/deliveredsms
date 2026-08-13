@@ -6,6 +6,17 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Copy, Check } from 'lucide-react';
 import { copyToClipboard } from '@/lib/copy-to-clipboard';
+import { slugifyHeading } from '@/lib/dev-docs/heading-anchor';
+
+/** Flatten a ReactMarkdown children tree to plain text for anchor ids. */
+function textOf(children: React.ReactNode): string {
+  if (typeof children === 'string' || typeof children === 'number') return String(children);
+  if (Array.isArray(children)) return children.map(textOf).join('');
+  if (children && typeof children === 'object' && 'props' in children) {
+    return textOf((children as React.ReactElement<{ children?: React.ReactNode }>).props.children);
+  }
+  return '';
+}
 
 const MONO =
   '[font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace]';
@@ -63,12 +74,12 @@ export default function DocsMarkdown({ markdown }: { markdown: string }) {
           </h1>
         ),
         h2: ({ children }) => (
-          <h2 className="mt-10 border-t border-[#2E2C28] pt-8 text-[20px] tracking-[-0.02em] text-[#EFEEEC]">
+          <h2 id={slugifyHeading(textOf(children))} className="mt-10 scroll-mt-6 border-t border-[#2E2C28] pt-8 text-[20px] tracking-[-0.02em] text-[#EFEEEC]">
             {children}
           </h2>
         ),
         h3: ({ children }) => (
-          <h3 className="mt-6 text-[16px] text-[#EFEEEC]">{children}</h3>
+          <h3 id={slugifyHeading(textOf(children))} className="mt-6 scroll-mt-6 text-[16px] text-[#EFEEEC]">{children}</h3>
         ),
         p: ({ children }) => (
           <p className="mt-4 max-w-[70ch] text-[15px] leading-[1.7] text-[#C9C6BF]">
