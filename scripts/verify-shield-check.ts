@@ -10,8 +10,8 @@ import { isUsOrCanadaNpa, npaOf, NPA_COUNTS } from '../src/lib/api/nanp';
 let pass = 0;
 let fail = 0;
 const ck = (name: string, ok: boolean, detail = '') => {
-  if (ok) { console.log(`  ✓ ${name}${detail ? ` — ${detail}` : ''}`); pass += 1; }
-  else { console.log(`  ✗ ${name}${detail ? ` — ${detail}` : ''}`); fail += 1; }
+  if (ok) { console.log(`  ✓ ${name}${detail ? ` - ${detail}` : ''}`); pass += 1; }
+  else { console.log(`  ✗ ${name}${detail ? ` - ${detail}` : ''}`); fail += 1; }
 };
 
 console.log(`NPA table: ${NPA_COUNTS.us} US + ${NPA_COUNTS.ca} CA\n`);
@@ -26,7 +26,7 @@ for (const [n, label] of [['+14165550100','Toronto'],['+16045550100','Vancouver'
   ck(`${n} ${label}`, isUsOrCanadaNpa(n));
 }
 
-console.log('\n== must BLOCK (Caribbean NANP — pumping targets) ==');
+console.log('\n== must BLOCK (Caribbean NANP - pumping targets) ==');
 for (const [n, label] of [['+18765550100','Jamaica'],['+18095550100','Dominican Republic'],['+18295550100','Dominican Republic'],['+12425550100','Bahamas'],['+18685550100','Trinidad'],['+12465550100','Barbados'],['+14415550100','Bermuda'],['+16645550100','Montserrat'],['+17585550100','St Lucia']] as const) {
   ck(`${n} ${label}`, !isUsOrCanadaNpa(n));
 }

@@ -43,7 +43,7 @@ export function buildDevWelcomeEmailHtml(params: DevWelcomeEmailParams): string 
           <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width: 560px; width: 100%;">
             <tr>
               <td style="padding-bottom: 28px; font-family: ${fontStack}; color: #00D26A; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;">
-                Delivered — Sandbox
+                Delivered · Sandbox
               </td>
             </tr>
             <tr>
@@ -57,7 +57,7 @@ export function buildDevWelcomeEmailHtml(params: DevWelcomeEmailParams): string 
                 ${greeting}<br /><br />
                 Your Delivered account is ready. We minted a test key ending in
                 <span style="color: #FFFFFF;">…${keyLast4}</span> and a sandbox number
-                (<span style="color: #FFFFFF;">${sandboxNumber}</span>) — keys are shown
+                (<span style="color: #FFFFFF;">${sandboxNumber}</span>). Keys are shown
                 once at creation, so if you didn't copy yours, roll it from the console.
               </td>
             </tr>

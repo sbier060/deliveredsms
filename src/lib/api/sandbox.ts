@@ -1,7 +1,7 @@
 import { randomBase62 } from './ids';
 
 /**
- * Sandbox semantics. Test keys never touch carrier, Twilio, or OpenAI paths —
+ * Sandbox semantics. Test keys never touch carrier, Twilio, or OpenAI paths -
  * everything here is simulated in-process.
  */
 

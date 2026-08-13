@@ -1,6 +1,6 @@
 /* Phase A E2E: teams + contacts, against a local prod build.
- * Creates: 3 QA contacts (removed at the end — exact recorded ids only),
- * 1 invite (removed), 1 invitee auth user (NOT deleted — uid printed for
+ * Creates: 3 QA contacts (removed at the end - exact recorded ids only),
+ * 1 invite (removed), 1 invitee auth user (NOT deleted - uid printed for
  * explicit cleanup approval per the destructive-ops policy; it is disabled
  * instead so it cannot be used). */
 require('dotenv').config({ path: '.env.local' });
@@ -33,7 +33,7 @@ async function idTokenFor(uid) {
 const results = [];
 function check(name, ok, detail = '') {
   results.push([ok, name]);
-  console.log(`${ok ? 'PASS' : 'FAIL'}  ${name}${detail ? '  — ' + detail : ''}`);
+  console.log(`${ok ? 'PASS' : 'FAIL'}  ${name}${detail ? '  - ' + detail : ''}`);
 }
 
 async function call(token, path, opts = {}) {
@@ -137,7 +137,7 @@ async function call(token, path, opts = {}) {
   }
   await db.ref(`apiInvites/${inviteToken}`).remove();
   await admin.auth().updateUser(invitee.uid, { disabled: true });
-  console.log(`cleaned: 3 QA contacts + invite. Auth user ${invitee.uid} DISABLED, not deleted — needs explicit approval to remove.`);
+  console.log(`cleaned: 3 QA contacts + invite. Auth user ${invitee.uid} DISABLED, not deleted - needs explicit approval to remove.`);
 
   const failed = results.filter(([ok]) => !ok).length;
   console.log(`\n${results.length - failed}/${results.length} passed`);

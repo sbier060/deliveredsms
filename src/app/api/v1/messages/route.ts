@@ -59,7 +59,7 @@ export const POST = withApiKey(async (req: NextRequest, ctx: ApiContext) => {
 
   // Scheduled sends divert to the queue after the same validation. The cron
   // re-checks opt-out and quota at send time, so a schedule is a reservation
-  // of nothing — "failed sends cost nothing" includes future ones.
+  // of nothing - "failed sends cost nothing" includes future ones.
   if (scheduled_at !== undefined) {
     const runAt = typeof scheduled_at === 'string' ? Date.parse(scheduled_at) : Number(scheduled_at);
     if (!Number.isFinite(runAt) || runAt <= Date.now()) {

@@ -22,7 +22,7 @@ export async function GET() {
       console: 'https://deliveredsms.com/console',
       base_url: 'https://api.deliveredsms.com/v1',
       // Answering "why did my call 401?" before they have to ask.
-      authentication: 'Bearer token — send `Authorization: Bearer dsms_sk_test_...`',
+      authentication: 'Bearer token; send `Authorization: Bearer dsms_sk_test_...`',
     },
     {
       headers: {

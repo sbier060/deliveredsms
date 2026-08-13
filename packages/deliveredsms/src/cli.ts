@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * opensms CLI — the Delivered from the terminal.
+ * opensms CLI - the Delivered from the terminal.
  *
  * Agents reach for a shell before an SDK, so every command works
  * non-interactively, reads DELIVERED_API_KEY, and has a --json mode that prints
@@ -24,7 +24,7 @@ import { Delivered, DeliveredError } from './index';
 
 const CONFIG_PATH = join(homedir(), '.opensms.json');
 
-const HELP = `opensms — SMS, verification, and phone numbers from the terminal
+const HELP = `opensms: SMS, verification, and phone numbers from the terminal
 
 Usage
   deliveredsms login                          store an API key (or set DELIVERED_API_KEY)
@@ -140,7 +140,7 @@ async function main(): Promise<void> {
           console.log(
             check.verified
               ? `verified (charged: ${check.charged})`
-              : `not verified — status ${check.status}, ${check.attempts_remaining} tries left`
+              : `not verified: status ${check.status}, ${check.attempts_remaining} tries left`
           )
         );
         process.exitCode = check.verified ? 0 : 1;
@@ -171,7 +171,7 @@ async function main(): Promise<void> {
       } else {
         const page = await delivered.numbers.list();
         out(flags, page, () => {
-          if (page.data.length === 0) console.log('no numbers — `opensms numbers search 415` to find one');
+          if (page.data.length === 0) console.log('no numbers; `opensms numbers search 415` to find one');
           page.data.forEach((n) => console.log(`${n.phone_number}  ${n.status}  (${n.mode})`));
         });
       }

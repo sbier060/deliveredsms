@@ -11,7 +11,7 @@ export async function GET() {
     (p) => `- [${p.title}](${BASE}/docs/${p.slug}.md): ${p.description}`
   ).join('\n');
 
-  const body = `# Delivered — SMS for Developers
+  const body = `# Delivered · SMS for Developers
 
 > The SMS API for developers: send and receive texts, verify phone numbers,
 > and provision real US and Canada numbers with one REST API.
@@ -41,10 +41,10 @@ ${docsLines}
 - [Migration index](${BASE}/migrate.md)
 
 ## Command line tool
-- **CLI**: \`npx deliveredsms\` — send, verify, numbers, lookup, events from the terminal; --json for scripts and agents; key via DELIVERED_API_KEY or \`deliveredsms login\`
+- **CLI**: \`npx deliveredsms\`. Send, verify, numbers, lookup, events from the terminal; --json for scripts and agents; key via DELIVERED_API_KEY or \`deliveredsms login\`
 
 ## SDKs
-- **Node.js / TypeScript**: \`npm install deliveredsms\` — zero dependencies, works on Node 18+, Bun, Deno, Workers and Edge; ships the CLI as its bin
+- **Node.js / TypeScript**: \`npm install deliveredsms\`. Zero dependencies, works on Node 18+, Bun, Deno, Workers and Edge; ships the CLI as its bin
 
 ## OpenAPI spec
 - [OpenAPI spec (YAML)](${BASE}/openapi.yaml)
@@ -56,7 +56,7 @@ ${docsLines}
 - [MCP Discovery](${BASE}/.well-known/mcp.json)
 
 ## Skills
-- **Install**: \`npx skills add sbier060/deliveredsms\` — works with Claude Code, Cursor, Codex, Devin, Copilot
+- **Install**: \`npx skills add sbier060/deliveredsms\`. Works with Claude Code, Cursor, Codex, Devin, Copilot
 - [Repository](https://github.com/sbier060/deliveredsms)
 - [Skills Discovery](${BASE}/.well-known/agent-skills/index.json)
 - [delivered](${BASE}/skills/delivered/SKILL.md): send and receive SMS, get numbers

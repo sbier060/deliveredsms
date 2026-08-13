@@ -1,8 +1,8 @@
 import { SITE_URL, API_URL, MCP_URL } from '@/lib/urls';
 /**
- * OpenAPI 3.0 spec for the Delivered — the machine-readable source of truth.
+ * OpenAPI 3.0 spec for the Delivered - the machine-readable source of truth.
  * Served at /api/v1/openapi.json and /api/v1/openapi.yaml (small local YAML
- * serializer — no yaml dependency in this repo).
+ * serializer - no yaml dependency in this repo).
  */
 
 const messageSchema = {
@@ -143,7 +143,7 @@ export const openApiSpec = {
         operationId: 'sendVerification',
         summary: 'Send a verification code',
         description:
-          'Generates a one-time code, sends it, and enforces expiry, attempt limits and anti-pumping controls. You do NOT need to own a phone number — Delivered sends from its own verification pool. Nothing is billed here; a verification is charged only when the code is checked successfully.',
+          'Generates a one-time code, sends it, and enforces expiry, attempt limits and anti-pumping controls. You do NOT need to own a phone number; Delivered sends from its own verification pool. Nothing is billed here; a verification is charged only when the code is checked successfully.',
         requestBody: {
           required: true,
           content: {

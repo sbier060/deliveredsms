@@ -19,7 +19,7 @@ await delivered.verify.send({ to: '+14155550132' });
 const { verified } = await delivered.verify.check({ to: '+14155550132', code });
 ```
 
-Raw HTTP works too — everything below is the same API.
+Raw HTTP works too; everything below is the same API.
 
 1. Get a free sandbox key (instant, no card): https://deliveredsms.com/console
 2. Every request: `Authorization: Bearer ghost_sk_test_...`
@@ -42,10 +42,10 @@ Your numbers: `GET /v1/numbers`. Response has `id` (msg_...) and `status`
 (`queued|sent|delivered|failed`). Retries are safe with an `Idempotency-Key`
 header.
 
-## Phone verification (OTP) — use the `delivered-verify` skill
+## Phone verification (OTP): use the `delivered-verify` skill
 
 For OTP / 2FA / phone verification, use `POST /v1/verify` +
-`POST /v1/verify/check` — never `messages.send()` with a code you generated.
+`POST /v1/verify/check`; never `messages.send()` with a code you generated.
 No number purchase is needed; Delivered sends from its own pool, and billing is
 only on a successful check. Full rules, sandbox codes, and UI guidance live in
 the dedicated skill:
@@ -78,4 +78,4 @@ Treat `spam_score >= 70` as confirmed spam.
 - Full docs (single file): https://deliveredsms.com/docs/llms-full.txt
 - OpenAPI: https://deliveredsms.com/api/v1/openapi.yaml
 - MCP server (same tools, tool-call form): https://deliveredsms.com/api/mcp
-- Errors are always `{"error": {"code", "message"}}` — see https://deliveredsms.com/docs/errors.md
+- Errors are always `{"error": {"code", "message"}}`; see https://deliveredsms.com/docs/errors.md

@@ -39,7 +39,7 @@ export default function AuthPanel({
   const [error, setError] = useState<React.ReactNode>(null);
   const [busy, setBusy] = useState(false);
 
-  // Already signed in (or just signed in): the console is the destination —
+  // Already signed in (or just signed in): the console is the destination -
   // unless the host page owns the next step (invite accept).
   useEffect(() => {
     if (stayOnPage) return;
@@ -117,7 +117,7 @@ export default function AuthPanel({
       {/* Google's dark-theme sign-in button, to their spec: #131314 surface,
           #8E918F 1px stroke, #E3E3E3 label, their mark at 18px, 12px gutter.
           It was our green gradient with plain text, which is both a branding
-          guideline violation and a worse button — people scan for this exact
+          guideline violation and a worse button - people scan for this exact
           object, and a green pill does not read as "sign in with Google". */}
       <button
         onClick={google}

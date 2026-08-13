@@ -36,7 +36,7 @@ const { verified } = await delivered.verify.check({ to: phone, code });
 
 Get a free sandbox key (instant, no card): https://deliveredsms.com/console
 
-## Rules — follow these exactly
+## Rules: follow these exactly
 
 - **Use `/v1/verify`, never `messages.send()` with a code you generated.**
   Delivered owns expiry (10 min), attempt limit (5), resend cooldown (60s), and
@@ -50,7 +50,7 @@ Get a free sandbox key (instant, no card): https://deliveredsms.com/console
 - **Do not route around a 403 `verification_blocked`.** Shield blocked
   it (region, velocity, or VoIP line). Show the message and stop.
 - `app_name` (≤24 chars) puts your product name in the message. The rest of
-  the text is a fixed Delivered template — that's what keeps it out of spam
+  the text is a fixed Delivered template; that's what keeps it out of spam
   filtering.
 
 ## Billing
@@ -73,7 +73,7 @@ Deterministic codes: `111111` approved · `000000` invalid · `222222` expired �
 ## Coverage
 
 US and Canada mobile numbers. Caribbean +1 NANP (Jamaica, DR, Bahamas…) and
-VoIP lines are declined by design — they are the classic SMS-pumping targets.
+VoIP lines are declined by design; they are the classic SMS-pumping targets.
 
 ## References
 

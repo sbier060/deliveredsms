@@ -22,7 +22,7 @@ export type BillingStatus = 'none' | 'active' | 'past_due' | 'canceled';
 export interface TenantBilling {
   plan: BillingPlan;
   status: BillingStatus;
-  /** API-only Stripe customer. NEVER carries firebaseUid — see plan §safety. */
+  /** API-only Stripe customer. NEVER carries firebaseUid - see plan §safety. */
   stripeCustomerId?: string;
   stripeSubscriptionId?: string;
   items?: Partial<Record<string, string>>;
@@ -56,7 +56,7 @@ export interface ApiTenant {
   billing?: TenantBilling;
   /**
    * Internal Ghost account: never metered, never billed, no free-tier
-   * restrictions. Survives billing being switched on later — this is the flag
+   * restrictions. Survives billing being switched on later - this is the flag
    * that guarantees our own dogfooding account can never be charged.
    */
   internal?: boolean;

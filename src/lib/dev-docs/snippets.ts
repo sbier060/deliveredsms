@@ -1,5 +1,5 @@
 /**
- * Shared snippet builders — one source for the landing page, console
+ * Shared snippet builders - one source for the landing page, console
  * onboarding, and docs. Placeholders {{API_KEY}} / {{FROM_NUMBER}} are
  * substituted client-side by CodeTabs (key-aware when a session key exists).
  */

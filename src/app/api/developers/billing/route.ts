@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
   });
 
   // Returning from Checkout: activate synchronously so the console reflects
-  // the card immediately instead of waiting on webhook latency (idempotent —
+  // the card immediately instead of waiting on webhook latency (idempotent -
   // the webhook does the same thing).
   const setupSession = req.nextUrl.searchParams.get('setup_session_id');
   if (setupSession && billingReady()) {

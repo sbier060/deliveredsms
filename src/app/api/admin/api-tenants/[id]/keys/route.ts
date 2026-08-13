@@ -17,7 +17,7 @@ export async function POST(
   const body = (await req.json().catch(() => ({}))) as { mode?: string; name?: string };
   const mode = body.mode === 'live' ? 'live' : 'test';
   if (mode === 'live' && tenant.status !== 'live') {
-    return NextResponse.json({ error: 'Tenant is not live — approve-live first.' }, { status: 400 });
+    return NextResponse.json({ error: 'Tenant is not live; approve-live first.' }, { status: 400 });
   }
   const minted = await mintKey({ tenantId: params.id, mode, name: body.name });
   return NextResponse.json({ keyId: minted.keyId, key: minted.secret, mode });

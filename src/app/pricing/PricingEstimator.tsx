@@ -86,7 +86,7 @@ export default function PricingEstimator() {
         <p className="mt-4 text-[12px] leading-[1.6] text-[#918E86]">
           Competitor figures use each provider&apos;s published rate plus their
           carrier fees where those are published as a band. Messaging and numbers
-          only — lookup products aren&apos;t comparable line-for-line.
+          only; lookup products aren&apos;t comparable line-for-line.
         </p>
       </div>
     </div>

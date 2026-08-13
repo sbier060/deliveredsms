@@ -44,7 +44,7 @@ export function EmptyState({
   );
 }
 
-/** Status pill — accent reserved for failures, per the one-loud-thing rule. */
+/** Status pill - accent reserved for failures, per the one-loud-thing rule. */
 export function StatusPill({ status }: { status: string }) {
   const failed = status === 'failed';
   return (

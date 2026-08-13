@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
 
   // Sybil brake: tenant creation is cheap for us but not free, and a farm of
   // fresh accounts from one address is never a legitimate signup pattern.
-  // Only counts CREATIONS — returning developers hit getOrCreateTenant's
+  // Only counts CREATIONS - returning developers hit getOrCreateTenant's
   // existing-tenant path below regardless of this slot.
   const existing = await getTenantIdByUid(user.uid);
   if (!existing) {
@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
 
   const result = await getOrCreateTenant(user.uid, user.email, user.name);
 
-  // Welcome email — HARD-GATED off until the owner approves sending
+  // Welcome email - HARD-GATED off until the owner approves sending
   // (repo rule: never send email without explicit approval).
   if (result.isNew && process.env.DEV_API_EMAILS_ENABLED === 'true' && user.email) {
     sendNoReplyMail({

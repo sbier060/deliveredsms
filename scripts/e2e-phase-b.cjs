@@ -26,7 +26,7 @@ async function idTokenFor(uid) {
 }
 
 const results = [];
-const check = (name, ok, detail = '') => { results.push(ok); console.log(`${ok ? 'PASS' : 'FAIL'}  ${name}${detail ? '  — ' + detail : ''}`); };
+const check = (name, ok, detail = '') => { results.push(ok); console.log(`${ok ? 'PASS' : 'FAIL'}  ${name}${detail ? '  - ' + detail : ''}`); };
 
 async function call(token, path, opts = {}) {
   const res = await fetch(`${BASE}${path}`, { ...opts, headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } });
@@ -56,14 +56,14 @@ async function call(token, path, opts = {}) {
   const tplId = r.body.template?.id;
 
   // signature
-  r = await call(token, '/api/developers/team/me', { method: 'PATCH', body: JSON.stringify({ signature: '— QA Bot, Delivered' }) });
+  r = await call(token, '/api/developers/team/me', { method: 'PATCH', body: JSON.stringify({ signature: '- QA Bot, Delivered' }) });
   check('signature saved', r.status === 200 && r.body.signature.includes('QA Bot'));
 
   // console compose with merge + signature
   r = await call(token, '/api/developers/messages/send', { method: 'POST', body: JSON.stringify({ to: THEM, from: ourNumber, body: 'Hi {{first_name}}!' }) });
   check('console send 201', r.status === 201, JSON.stringify(r.body).slice(0, 120));
   check('merge resolved', r.body.message?.body?.startsWith('Hi Merge!'));
-  check('signature appended', r.body.message?.body?.includes('— QA Bot, Delivered'));
+  check('signature appended', r.body.message?.body?.includes('- QA Bot, Delivered'));
   check('attribution stamped', typeof r.body.message?.sent_by === 'string' && r.body.message.sent_by.length > 0, r.body.message?.sent_by);
 
   // inbound reply -> conversation unread

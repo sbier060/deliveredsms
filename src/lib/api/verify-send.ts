@@ -16,13 +16,13 @@
  *      so the fifth user of any app would be blocked.
  *
  * The carve-out is safe because the body here is a GHOST-CONTROLLED TEMPLATE.
- * A developer cannot supply message content to this endpoint — the only
+ * A developer cannot supply message content to this endpoint - the only
  * variable is a six-digit code we generated. There is no user-generated content
  * to moderate. The abuse surface Verify actually has is SMS pumping, which
  * moderation does not address and which Shield (NPA allowlist,
  * per-destination/tenant/IP velocity, VoIP gate, ban registry) does.
  *
- * moderateMessageSinch itself is NOT modified — it stays byte-identical for
+ * moderateMessageSinch itself is NOT modified - it stays byte-identical for
  * every consumer and /v1/messages send. Approved by Alek 2026-08-07.
  */
 
@@ -76,7 +76,7 @@ export async function sendVerificationSms(input: {
     throw new VerifySendError(`Message Broker rejected the verification (${res.status})`);
   }
 
-  // Still feed the spam graph — it classifies OTP text as NOT spam, so this is
+  // Still feed the spam graph - it classifies OTP text as NOT spam, so this is
   // signal about the destination, not about us.
   fetch(SPAM_DETECT_URL, {
     method: 'POST',

@@ -9,7 +9,7 @@ export const maxDuration = 15;
 const err = (ctx: string) =>
   NextResponse.json({ error: ctx }, { status: ctx === 'unauthorized' ? 401 : ctx === 'forbidden' ? 403 : 404 });
 
-/** Your own member profile — today that means the compose signature. */
+/** Your own member profile - today that means the compose signature. */
 export async function GET(req: NextRequest) {
   const ctx = await requireTenantContext(req);
   if (typeof ctx === 'string') return err(ctx);

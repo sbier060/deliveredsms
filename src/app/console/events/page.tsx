@@ -43,7 +43,7 @@ export default function EventsPage() {
     <div>
       <PageHeading
         title="Events"
-        subtitle="Message and number lifecycle events. Webhook delivery of these events is coming soon — poll GET /v1/events meanwhile."
+        subtitle="Message and number lifecycle events. Webhook delivery of these events is coming soon; poll GET /v1/events meanwhile."
       />
       {error && <p className="text-[14px] text-[#C9C6BF]">{error}</p>}
       {events === null ? (

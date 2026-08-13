@@ -11,7 +11,7 @@ export function normalizeE164(input: unknown): string | null {
   return null;
 }
 
-/** Last 10 digits — the key format used across RTDB (phoneNumberOwners etc.). */
+/** Last 10 digits - the key format used across RTDB (phoneNumberOwners etc.). */
 export function digits10(e164: string): string {
   return e164.replace(/[^\d]/g, '').slice(-10);
 }

@@ -4,7 +4,7 @@ import { SITE_URL, API_URL, MCP_URL } from '@/lib/urls';
 export const runtime = 'nodejs';
 
 /**
- * /auth.md — the credential-acquisition guide written for agents rather than
+ * /auth.md - the credential-acquisition guide written for agents rather than
  * humans (the Resend pattern). An agent that lands here should be able to get
  * from "I have no key" to "I am calling the API safely" without guessing, and
  * without ever asking the user to paste a secret it does not need.
@@ -17,8 +17,8 @@ file describes how to obtain credentials and how to handle them safely.
 
 Two hosts are relevant:
 
-- **Resource server** — \`${API_URL}/v1\` — the API you will call.
-- **Dashboard** — \`${SITE_URL}/console\` — where the user manages their account and keys.
+- **Resource server**: \`${API_URL}/v1\`, the API you will call.
+- **Dashboard**: \`${SITE_URL}/console\`, where the user manages their account and keys.
 
 ## Current state
 
@@ -31,19 +31,19 @@ this file tells you how to pick one up and use it without putting it at risk.
 Before you do anything credential-shaped, check whether the user has already
 wired Delivered into your environment.
 
-1. **MCP server** — if you are an MCP client (Claude, Claude Code, Cursor,
+1. **MCP server**: if you are an MCP client (Claude, Claude Code, Cursor,
    Codex, etc.), Delivered ships a streamable-HTTP MCP server that exposes
    messages, numbers, verification, lookup, and events as tools. The user
    configures it once with their key; you call the tools and never see the key.
    Endpoint: \`${MCP_URL}\` (also \`${SITE_URL}/api/mcp\`).
    Discovery: \`${SITE_URL}/.well-known/mcp.json\`.
-2. **Agent Skills** — guidance documents that teach you the gotchas (consent and
+2. **Agent Skills**: guidance documents that teach you the gotchas (consent and
    opt-out, message segments, quiet hours, 10DLC, webhook signature
    verification, sandbox magic numbers). Index:
    \`${SITE_URL}/.well-known/agent-skills/index.json\`. Install with
    \`npx skills add sbier060/deliveredsms\`. Load the relevant \`SKILL.md\` before
    calling the API directly.
-3. **CLI** — if you are running shell commands, prefer \`npx deliveredsms\` over
+3. **CLI**: if you are running shell commands, prefer \`npx deliveredsms\` over
    hand-rolled \`curl\`. It resolves auth, retries, and takes \`--json\` for
    machine-readable output. Auth via \`DELIVERED_API_KEY\` or \`deliveredsms login\`.
 
@@ -90,7 +90,7 @@ curl ${API_URL}/v1/messages \\
   everything a live key does. Ask for a live key only when real delivery is the
   actual goal, and tell the user that is what you are asking for.
 - **Keys cannot be re-displayed.** They are stored hashed (SHA-256). If one is
-  lost or exposed, roll it at \`${SITE_URL}/console/keys\` — rolling revokes the
+  lost or exposed, roll it at \`${SITE_URL}/console/keys\`; rolling revokes the
   old key immediately.
 - **If you believe a key has leaked, say so and stop.** Tell the user, recommend
   rolling it, and do not keep using it.
@@ -99,7 +99,7 @@ curl ${API_URL}/v1/messages \\
 
 | Status | Code | What to do |
 | --- | --- | --- |
-| 401 | \`invalid_api_key\` | Missing, malformed, revoked, or unknown key. Do not retry — ask the user for a valid key. |
+| 401 | \`invalid_api_key\` | Missing, malformed, revoked, or unknown key. Do not retry; ask the user for a valid key. |
 | 403 | \`live_access_required\` | A live endpoint was hit with a test key, or live access is not granted yet. Do not retry. |
 | 403 | \`tenant_suspended\` | The account is suspended. Stop and tell the user. |
 | 429 | \`rate_limited\` | Back off and retry with the \`Retry-After\` header. |

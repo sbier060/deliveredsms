@@ -12,7 +12,7 @@ import type { ApiContext } from '@/lib/api/types';
 export const runtime = 'nodejs';
 export const maxDuration = 15;
 
-/** Sandbox codes — documented, deterministic, never touch a carrier. */
+/** Sandbox codes - documented, deterministic, never touch a carrier. */
 const SANDBOX_CODES = {
   APPROVED: '111111',
   INVALID: '000000',
@@ -21,7 +21,7 @@ const SANDBOX_CODES = {
 } as const;
 
 /**
- * POST /v1/verify/check — submit a code.
+ * POST /v1/verify/check - submit a code.
  *
  * This is the ONLY billable moment in Verify. A developer pays when a code is
  * actually verified; wrong codes, expiries, blocked sends and abandoned flows
@@ -113,7 +113,7 @@ export const POST = withApiKey(
         ent.verificationsPerMonth
       );
       if (!quota.allowed) {
-        // The user IS verified — we do not punish them for our billing limit.
+        // The user IS verified - we do not punish them for our billing limit.
         // Surface the cap and let the developer add a card; the verification
         // still stands and simply goes unbilled.
         console.warn(`[v1/verify/check] ${ctx.tenantId} verified past its quota (${quota.reason})`);

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Delivered Verify on the CONSUMER web app — end-to-end check.
+# Delivered Verify on the CONSUMER web app - end-to-end check.
 #
 # Exercises /api/opensms-verify/send + /api/opensms-verify/check, the first-party
 # routes PhoneVerificationModal calls. The point of this script is the routing
@@ -48,7 +48,7 @@ post /api/opensms-verify/send '{"phoneNumber":"+447700900123"}'
 check "international falls back" 409 "$STATUS" "$BODY" '"fallback":true'
 
 # Caribbean NANP looks domestic to every other validator in the repo and is the
-# classic SMS-pumping destination, so Delivered Verify declines it — but a real
+# classic SMS-pumping destination, so Delivered Verify declines it - but a real
 # consumer there still needs to verify, so it must fall back, not hard-block.
 post /api/opensms-verify/send '{"phoneNumber":"+18765551234"}'
 check "Caribbean NANP falls back" 409 "$STATUS" "$BODY" '"fallback":true'

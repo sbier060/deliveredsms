@@ -24,7 +24,7 @@ export const GET = withApiKey(
       return apiError(
         403,
         'forbidden',
-        'Carrier lookups need a payment method on file. Add one in the console — sandbox lookups stay free.'
+        'Carrier lookups need a payment method on file. Add one in the console; sandbox lookups stay free.'
       );
     }
     const quota = await takeQuota(ctx.tenantId, 'lookups', ent.lookupsPerDay || 1_000_000);

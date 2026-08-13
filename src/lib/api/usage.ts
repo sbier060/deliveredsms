@@ -81,7 +81,7 @@ export interface DayMonthQuota {
  * of null skips month enforcement but still records the month for the console.
  *
  * FAILS CLOSED, like takeQuota. If the process dies between the two takes the
- * day counter sits one high — conservative (under-sends), never over-sends.
+ * day counter sits one high - conservative (under-sends), never over-sends.
  */
 export async function takeQuotaDayMonth(
   tenantId: string,
@@ -108,7 +108,7 @@ export async function takeQuotaDayMonth(
     });
     const monthUsed = (result.snapshot?.val() as number | null) || 0;
     if (!result.committed) {
-      // Month is exhausted — give the day slot back so the daily counter
+      // Month is exhausted - give the day slot back so the daily counter
       // reflects what was actually sent.
       db.ref(`apiUsage/${tenantId}/${yyyymmdd()}/${metric}`)
         .transaction((c) => Math.max(0, ((c as number | null) || 1) - 1))

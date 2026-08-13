@@ -5,9 +5,9 @@ export const runtime = 'nodejs';
 export const maxDuration = 30;
 
 /**
- * Delivered MCP server — Streamable HTTP transport in stateless JSON mode
+ * Delivered MCP server - Streamable HTTP transport in stateless JSON mode
  * (every POST gets a single application/json response; no SSE, no sessions).
- * Hand-rolled JSON-RPC 2.0 — deliberately no SDK dependency.
+ * Hand-rolled JSON-RPC 2.0 - deliberately no SDK dependency.
  *
  * A protocol adapter over the public REST API: every tool call self-fetches
  * /api/v1/* with the caller's Authorization header passed through, so auth,
@@ -28,7 +28,7 @@ const TOOLS = [
   {
     name: 'send_message',
     description:
-      'Send an SMS from one of your Delivered numbers. In sandbox (test keys), delivery is simulated — +15005550006 delivers, +15005550002 fails.',
+      'Send an SMS from one of your Delivered numbers. In sandbox (test keys), delivery is simulated: +15005550006 delivers, +15005550002 fails.',
     inputSchema: {
       type: 'object',
       required: ['from', 'to', 'body'],

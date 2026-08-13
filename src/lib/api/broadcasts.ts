@@ -4,7 +4,7 @@ import { contactsByTags, getContact, type Contact } from './contacts';
 import { enqueueSend } from './send-queue';
 
 /**
- * Broadcasts: one message to an audience, delivered as N individual sends —
+ * Broadcasts: one message to an audience, delivered as N individual sends -
  * recipients never see each other by construction, and merge fields make each
  * body unique anyway. Fan-out goes through the send queue, so every recipient
  * passes the full send pipeline (opt-out, quota, velocity) independently.
@@ -57,7 +57,7 @@ export async function resolveAudience(
         (c): c is Contact => c !== null
       )
     : [];
-  // Dedupe by digits — a contact matching a tag AND an explicit id gets one message.
+  // Dedupe by digits - a contact matching a tag AND an explicit id gets one message.
   const seen = new Set<string>();
   return [...byTag, ...byId].filter((c) => {
     if (seen.has(c.digits)) return false;
@@ -68,7 +68,7 @@ export async function resolveAudience(
 
 /**
  * Create the broadcast and fan its recipients into the send queue. `runAt` in
- * the past means "next cron tick" — there is no separate immediate path, so
+ * the past means "next cron tick" - there is no separate immediate path, so
  * scheduled and instant broadcasts exercise identical code.
  */
 export async function createBroadcast(

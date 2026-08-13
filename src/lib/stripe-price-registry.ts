@@ -1,4 +1,4 @@
-// ─── Stripe price registry — SINGLE SOURCE OF TRUTH for price → product type ───
+// ─── Stripe price registry - SINGLE SOURCE OF TRUTH for price → product type ───
 //
 // Every Ghost price ID and what it controls in Firebase. Categorizations
 // validated by Austin 2026-07-13 (full active-price inventory diffed against
@@ -6,14 +6,14 @@
 //
 // Consumers: src/app/api/webhook/route.ts (getSubscriptionType),
 // functions/sinch-number-purge/{local-runner,audit-subscribed-status}.js
-// (via requiring this file's compiled sibling or duplicating REGISTRY — keep
+// (via requiring this file's compiled sibling or duplicating REGISTRY - keep
 // in sync), and any future route that needs to know what a price is.
 //
 // The Stripe account is SHARED with non-Ghost businesses (Truepicks,
 // PrivacyAI, "Unlimited Access", Settlebuddy, …). Prices known to be
 // non-Ghost are listed under `irrelevant` so they resolve explicitly and
 // never depend on the fallback. Per Austin's call (2026-07-13), UNKNOWN
-// price IDs still default to 'main' for backwards compatibility — so any
+// price IDs still default to 'main' for backwards compatibility - so any
 // NEW Ghost price MUST be added here (or at least to the env lists) at
 // creation time, and a new non-Ghost product should be added to
 // `irrelevant`.
@@ -26,26 +26,26 @@ export type SubscriptionType =
   | 'vpn'
   | 'spamblocker'
   | 'ghostchat'
-  | 'irrelevant' // non-Ghost product on the shared Stripe account — never touch Firebase
+  | 'irrelevant' // non-Ghost product on the shared Stripe account - never touch Firebase
   | 'unknown';
 
 const MAIN: string[] = [
-  'price_1SAGEPFav0fFJeoIVs5UeMpG', // $60 / 2mo — CURRENT main (STRIPE_PRICE_ID)
+  'price_1SAGEPFav0fFJeoIVs5UeMpG', // $60 / 2mo - CURRENT main (STRIPE_PRICE_ID)
   'price_1SVCx8Fav0fFJeoIDkW8Aorn', // $60 / 2mo (STRIPE_WEB_APP_PRICE_ID)
   'price_1SoSkWFav0fFJeoIP303LzJj', // $60 / 2mo (STRIPE_FB_PRICE_ID)
   'price_1RYngGFav0fFJeoIa4QWV8kE', // $48 / 2mo (STRIPE_FOURTH_PRICE_ID + STRIPE_PRICE_ID_OLD)
-  'price_1RWZ7nFav0fFJeoI9xz3mJlB', // $48 / 2mo — older main, was fallback-only
+  'price_1RWZ7nFav0fFJeoI9xz3mJlB', // $48 / 2mo - older main, was fallback-only
   'price_1RYnvpFav0fFJeoI57Kmrcpb', // $24.99 / 2mo (STRIPE_FIFTH_PRICE_ID)
   'price_1Rh9lsFav0fFJeoIq2qlAWyx', // $24 / 2mo (STRIPE_SECONDARY_PRICE_ID)
   'price_1RtKbDFav0fFJeoI8NLHp7E4', // $144 / yr (STRIPE_TERTIARY_PRICE_ID)
-  'price_1RxqukFav0fFJeoIWoxtr2mN', // $89 / yr — was fallback-only
+  'price_1RxqukFav0fFJeoIWoxtr2mN', // $89 / yr - was fallback-only
   'price_1SCj06Fav0fFJeoI67nizkP9', // $144 / yr Angel (STRIPE_ANGEL_PRICE_ID)
   'price_1S0n35Fav0fFJeoIBnE2Ls2g', // $1 / mo (STRIPE_ONE_PRICE_ID)
-  'price_1NCjS9Fav0fFJeoIL5zIUdDd', // $47 / wk legacy "Unlimited Premium Access" (STRIPE_SIXTH_PRICE_ID) — main per Austin
+  'price_1NCjS9Fav0fFJeoIL5zIUdDd', // $47 / wk legacy "Unlimited Premium Access" (STRIPE_SIXTH_PRICE_ID) - main per Austin
 ];
 
 // All-in-one bundles: ONE subscription that carries the base sub AND the
-// bundled upgrades. Cancellation must clear every bundled flag — registering
+// bundled upgrades. Cancellation must clear every bundled flag - registering
 // these as plain 'main' would leave multiPlan/vpnUpgrade/spamBlocker = 1 on a
 // canceled user (free upgrades if they ever resubscribe base-only).
 const BUNDLE: string[] = [
@@ -61,23 +61,23 @@ const MULTIPLAN: string[] = [
 const MULTIPLAN_PLUS_PRO: string[] = [
   'price_1ScsfkFav0fFJeoIq0rpgQ71', // $19.95 one-time (STRIPE_MULTI_PLAN_PLUS_PRO_PRICE_ID)
   'price_1TIALLFav0fFJeoIB4ue4QGl', // $19.95 / 2mo (STRIPE_MULTI_PLAN_PRO_NEW_PRICE_ID)
-  'price_1ScT3QFav0fFJeoITKBGy5nj', // $19.95 / mo — "multiplanplus upgrade" per Austin (⚠️ confirm: multiPlanPlus, not multiPlan)
+  'price_1ScT3QFav0fFJeoITKBGy5nj', // $19.95 / mo - "multiplanplus upgrade" per Austin (⚠️ confirm: multiPlanPlus, not multiPlan)
 ];
 
 const VPN: string[] = [
   'price_1TEd9bFav0fFJeoIqRGIe0jU', // $1 / wk (STRIPE_VPN_UPGRADE_PRICE_ID)
   'price_1SfBC5Fav0fFJeoISPaMcYwK', // $19.95 / 2mo (STRIPE_SECONDARY_VPN_UPGRADE_PRICE_ID)
   'price_1TD4FPFav0fFJeoIhdtxNksj', // $4.99 / 2mo (STRIPE_THIRD_VPN_UPGRADE_PRICE_ID)
-  'price_1ScsUEFav0fFJeoI59fnYJFN', // $14.95 one-time — VPN upgrade per Austin
+  'price_1ScsUEFav0fFJeoI59fnYJFN', // $14.95 one-time - VPN upgrade per Austin
 ];
 
 const SPAM_BLOCKER: string[] = [
   'price_1TD4GDFav0fFJeoIMo2l5vRg', // $2.99 / 2mo (STRIPE_SPAM_BLOCKER_PRICE_ID)
-  'price_1SuMGKFav0fFJeoIQIpHZFVh', // $5 / 2mo — spam blocker per Austin (was fallback-only → cancel flipped MAIN!)
+  'price_1SuMGKFav0fFJeoIQIpHZFVh', // $5 / 2mo - spam blocker per Austin (was fallback-only → cancel flipped MAIN!)
 ];
 
 const GHOST_CHAT: string[] = [
-  'price_1TLlTQFav0fFJeoIBfieVR1H', // $19.95 / 2mo (STRIPE_GHOST_CHAT_PRICE_ID) — feature not in app yet
+  'price_1TLlTQFav0fFJeoIBfieVR1H', // $19.95 / 2mo (STRIPE_GHOST_CHAT_PRICE_ID) - feature not in app yet
 ];
 
 // Non-Ghost / retired prices on the shared account, per Austin 2026-07-13.
@@ -110,7 +110,7 @@ for (const [type, ids] of [
   for (const id of ids) REGISTRY.set(id, type);
 }
 
-/** Explicit lookup only — returns 'unknown' when the price isn't registered.
+/** Explicit lookup only - returns 'unknown' when the price isn't registered.
  *  Callers decide the fallback policy (the webhook keeps unknown→main). */
 export function lookupPriceType(priceId: string | null | undefined): SubscriptionType {
   if (!priceId) return 'unknown';

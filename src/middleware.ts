@@ -39,7 +39,7 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
   }
 
   // Canonical host is the apex. www served an identical 200 for every path,
-  // which is site-wide duplicate content — the canonical tags pointed at the
+  // which is site-wide duplicate content - the canonical tags pointed at the
   // apex and mitigated it, but a 308 is what actually settles it.
   if (host === `www.${SITE_DOMAIN}`) {
     const url = request.nextUrl.clone();
@@ -67,14 +67,14 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
     return NextResponse.rewrite(new URL('/api/v1/root', request.url));
   }
 
-  // mcp.<domain> IS the MCP server — every path maps to the endpoint, so
+  // mcp.<domain> IS the MCP server - every path maps to the endpoint, so
   // whatever base URL an MCP client is configured with just works.
   if (host === `mcp.${SITE_DOMAIN}`) {
     return NextResponse.rewrite(new URL('/api/mcp', request.url));
   }
 
   // Content negotiation for agents: Accept: text/markdown on ANY content
-  // page serves its markdown twin — docs/pricing have .md sibling routes,
+  // page serves its markdown twin - docs/pricing have .md sibling routes,
   // everything else maps through /md/[slug].
   if (
     request.method === 'GET' &&

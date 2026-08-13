@@ -17,8 +17,8 @@ import type { ApiTenant, MessageStatus, PublicMessage } from './types';
 
 /**
  * The one outbound-send pipeline. Extracted from POST /v1/messages verbatim so
- * its three consumers — the public API, the console composer, and the send
- * queue — cannot drift on the guards. The rule order is deliberate and load-
+ * its three consumers - the public API, the console composer, and the send
+ * queue - cannot drift on the guards. The rule order is deliberate and load-
  * bearing: opt-out (both modes) → geo → velocity → verified-recipient → quota
  * → carrier → store → events → meter. Failed sends cost nothing, in quota and
  * in billing.
@@ -67,7 +67,7 @@ export async function sendOutbound(
   if (mode === 'live') {
     const ent = entitlementsFor(tenant);
 
-    // Geography gate — same rule Verify enforces. +1 is not "US and Canada":
+    // Geography gate - same rule Verify enforces. +1 is not "US and Canada":
     // Caribbean NANP (Jamaica +1876, DR +1809…) is the classic SMS-pumping
     // corridor and passes every other validator.
     const allowedNpas = tenant.verifyAllowedNpas;
@@ -84,7 +84,7 @@ export async function sendOutbound(
       };
     }
 
-    // Per-destination velocity — one tenant (or several) hammering a single
+    // Per-destination velocity - one tenant (or several) hammering a single
     // handset is either a bug or abuse; neither should reach the carrier.
     const destSlot = await takeSlot(`msg_dest_${digits10(toE164)}`, 30, 60 * 60_000);
     if (!destSlot.allowed) {
@@ -123,7 +123,7 @@ export async function sendOutbound(
     try {
       ({ referenceId } = await carrierSendSms({ from: fromE164, to: toE164, body }));
     } catch (error) {
-      // The message never left, so give the allowance back — "failed sends
+      // The message never left, so give the allowance back - "failed sends
       // cost nothing" has to be true of quota, not just of billing.
       refundQuotaDayMonth(tenantId, 'messages_sent');
       if (error instanceof SendBlockedError) {
@@ -192,7 +192,7 @@ export async function sendOutbound(
   }
 
   // ── Sandbox ──────────────────────────────────────────────────────────────
-  // Ceiling is abuse prevention only — deliberately NOT reduced by live-quota
+  // Ceiling is abuse prevention only - deliberately NOT reduced by live-quota
   // tuning (an admin dialling live limits down must never break tests).
   const sandboxCeiling = Math.max(tenant.quotas.messagesPerDay, DEFAULT_SANDBOX_QUOTAS.messagesPerDay);
   const quota = await takeQuota(tenantId, 'messages_test', sandboxCeiling);

@@ -3,7 +3,7 @@ import { randomBase62 } from './ids';
 import { normalizeE164, digits10 } from './phone';
 
 /**
- * Contacts — the address book behind the inbox and broadcasts.
+ * Contacts - the address book behind the inbox and broadcasts.
  *
  *   apiContacts/{tenantId}/items/{contactId} = Contact
  *   apiContacts/{tenantId}/byDigits/{digits10} = contactId
@@ -85,7 +85,7 @@ export async function listContacts(tenantId: string): Promise<Contact[]> {
 
 /**
  * Create-or-update keyed on the phone number. Existing contacts keep values
- * the incoming row leaves blank — an import with only name+phone must not
+ * the incoming row leaves blank - an import with only name+phone must not
  * wipe tags somebody curated by hand.
  */
 export async function upsertContact(
@@ -102,7 +102,7 @@ export async function upsertContact(
       name: input.name || existing.name,
       fields: { ...existing.fields, ...input.fields },
       tags: [...new Set([...(existing.tags || []), ...input.tags])],
-      // RTDB rejects undefined values outright — omit the key entirely.
+      // RTDB rejects undefined values outright - omit the key entirely.
       ...(notes !== undefined ? { notes } : {}),
       updatedAt: Date.now(),
     };

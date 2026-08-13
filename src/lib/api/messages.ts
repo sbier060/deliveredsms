@@ -6,7 +6,7 @@ import type { MessageDirection, MessageStatus, PublicMessage } from './types';
 /**
  * Message store for the public API.
  *
- * Sandbox messages live entirely under the rules-locked apiMessages node —
+ * Sandbox messages live entirely under the rules-locked apiMessages node -
  * they never touch the consumer webhooks/{number} node (which is
  * world-readable and belongs to the consumer app). Live messages (Phase 2)
  * will store a pointer to the carrier-written record instead.
@@ -104,7 +104,7 @@ export async function storeMessage(
   return record;
 }
 
-/** Conversations, newest first. Whole-node read + in-memory sort by design —
+/** Conversations, newest first. Whole-node read + in-memory sort by design -
  *  the shared RTDB takes no .indexOn, and the node is one row per counterparty. */
 export async function listConversations(
   tenantId: string
@@ -119,7 +119,7 @@ export async function listConversations(
 export async function markConversationRead(tenantId: string, convKey: string): Promise<boolean> {
   if (!/^\d{10}_\d{10}$/.test(convKey)) return false;
   // Not a transaction: an RTDB transaction's first run sees null (empty local
-  // cache) and returning undefined there aborts WITHOUT retrying — the
+  // cache) and returning undefined there aborts WITHOUT retrying - the
   // "conditional set" idiom silently no-ops. Read-then-set is fine here; a
   // racing inbound bumping the counter after our read simply stays unread,
   // which is the correct outcome anyway.

@@ -5,7 +5,7 @@ import { SITE_DOMAIN, SITE_URL } from '@/lib/urls';
  * Drafted to CPaaS norms (consent warranty, indemnity, carrier disclaimers);
  * have an attorney review before relying on them in a dispute.
  *
- * Company identity uses the registered business mailing address only — never
+ * Company identity uses the registered business mailing address only - never
  * personal addresses or ID details.
  */
 
@@ -84,7 +84,7 @@ for such registration.
 **3.6 Enforcement.** We may filter, block, or refuse any message, suspend
 any key, or terminate any account that we reasonably believe violates this
 Section, harms the platform's deliverability, or exposes us or carriers to
-liability — with notice where practicable, without notice where necessary.
+liability; with notice where practicable, without notice where necessary.
 
 ## 4. Fees and Billing
 
@@ -177,28 +177,28 @@ Delivered platform and websites (the "Service").
 Two roles matter here. For data about **our customers** (developers and
 their teams) we are the controller. For data about **our customers' message
 recipients** we are a processor/service provider acting on the customer's
-instructions — the customer is responsible for having a lawful basis to
+instructions; the customer is responsible for having a lawful basis to
 message them.
 
 ## 1. Data We Collect
 
-**Account data** — name, email, and authentication identifiers when you
+**Account data** - name, email, and authentication identifiers when you
 create an account (sign-in is via Google/Firebase Authentication); billing
 details when you add a payment method (card details are held by Stripe, not
 us).
 
-**Message data** — phone numbers, message content, and delivery metadata for
+**Message data** - phone numbers, message content, and delivery metadata for
 messages you send and receive through the API. Verification codes are stored
 only as salted hashes and are never logged in plaintext.
 
-**Usage data** — API request logs, usage counters, rate-limit and fraud
+**Usage data** - API request logs, usage counters, rate-limit and fraud
 signals (including IP addresses), and console analytics (subject to the
 consent controls below).
 
-**Automated-agent traffic** — we count requests from self-identified AI
+**Automated-agent traffic** - we count requests from self-identified AI
 crawlers and agents (user-agent and path); this contains no personal data.
 
-**Cookies** — the console uses strictly-necessary cookies for
+**Cookies** - the console uses strictly-necessary cookies for
 authentication, plus analytics gated by consent where required (see
 [Privacy Choices](/privacy-choices)).
 
@@ -207,7 +207,7 @@ authentication, plus analytics gated by consent where required (see
 To operate the Service: transmitting messages via telecommunications
 carriers, verifying phone numbers, provisioning numbers, metering and
 billing, and providing the console. To protect the platform: preventing SMS
-pumping, spam, fraud, and abuse — including screening destinations and
+pumping, spam, fraud, and abuse, including screening destinations and
 maintaining opt-out and abuse registries. To comply with law and carrier
 requirements, including A2P 10DLC registration. To improve the Service, in
 aggregate. We do not sell personal data, and we do not use message content
@@ -244,7 +244,7 @@ as long as needed to protect the platform. You may request deletion earlier
 Depending on where you live (including under GDPR and US state privacy
 laws), you may have rights to access, correct, delete, port, or restrict
 processing of your personal data, and to opt out of certain processing. To
-exercise them, email ${COMPANY.email} — we will verify and respond within
+exercise them, email ${COMPANY.email}; we will verify and respond within
 the time required by law. If you are a message recipient, we will route your
 request to the customer who messaged you where the law requires them to
 respond; you can always stop receiving messages by replying STOP.

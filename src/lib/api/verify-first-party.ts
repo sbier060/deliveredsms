@@ -27,7 +27,7 @@ import { hasOptedOut, logOptOutOverride } from './opt-out';
  * The web app used to pay Twilio ~$0.05 per verification for the exact
  * primitive this product sells for $0.025 and delivers for ~$0.002. Running
  * our own consumer verification on Delivered Verify removes that cost and the
- * Twilio dependency, and — more usefully — means the code path developers pay
+ * Twilio dependency, and - more usefully - means the code path developers pay
  * for is the one we break first if we regress it.
  *
  * This is a LIBRARY, not a route change: the existing Twilio routes
@@ -40,7 +40,7 @@ import { hasOptedOut, logOptOutOverride } from './opt-out';
  * The synthetic tenant first-party traffic runs as.
  *
  * `internal: true` short-circuits entitlementsFor() before it reads billing
- * state, so this can never be metered or invoiced — not now, and not after
+ * state, so this can never be metered or invoiced - not now, and not after
  * API billing is switched on. Ghost does not bill Ghost.
  */
 export const FIRST_PARTY_TENANT_ID = 'tn_ghost_web';
@@ -58,7 +58,7 @@ const FIRST_PARTY_TENANT: ApiTenant = {
 
 export type FirstPartySendResult =
   | { ok: true; verificationId: string }
-  /** Delivered Verify does not serve this destination — caller should fall back. */
+  /** Delivered Verify does not serve this destination - caller should fall back. */
   | { ok: false; kind: 'unsupported'; message: string }
   /** A deliberate policy block (velocity, VoIP, opt-out). Do NOT fall back. */
   | { ok: false; kind: 'blocked'; message: string; retryAfterSec?: number }
@@ -78,13 +78,13 @@ export async function sendFirstPartyVerification(input: {
   appName?: string;
 }): Promise<FirstPartySendResult> {
   const e164 = normalizeE164(input.phone);
-  // Non-NANP entirely (+44, +91, …) — normalizeE164 rejects it outright.
+  // Non-NANP entirely (+44, +91, …) - normalizeE164 rejects it outright.
   if (!e164) {
     return { ok: false, kind: 'unsupported', message: 'Not a US or Canada number.' };
   }
   // NANP but not US/CA (Jamaica +1876, Dominican Republic +1809 …). These pass
   // every other validator in the repo and are the classic SMS-pumping target,
-  // so Delivered Verify does not serve them — but a real consumer with a Caribbean
+  // so Delivered Verify does not serve them - but a real consumer with a Caribbean
   // phone still deserves to verify, hence `unsupported` rather than `blocked`.
   if (!isUsOrCanadaNpa(e164)) {
     return { ok: false, kind: 'unsupported', message: 'Not a US or Canada number.' };
@@ -102,7 +102,7 @@ export async function sendFirstPartyVerification(input: {
     };
   }
 
-  // Transactional exemption — see /v1/verify. A user who opted out of this
+  // Transactional exemption - see /v1/verify. A user who opted out of this
   // tenant's marketing still needs their login code.
   if (await hasOptedOut(FIRST_PARTY_TENANT_ID, e164)) {
     await logOptOutOverride(FIRST_PARTY_TENANT_ID, e164, 'first_party_verification_exempt');
@@ -175,7 +175,7 @@ export type FirstPartyCheckResult =
   | { verified: true }
   | { verified: false; message: string; attemptsRemaining: number };
 
-/** Check a code a user submitted. Never falls back — the code is ours or it isn't. */
+/** Check a code a user submitted. Never falls back - the code is ours or it isn't. */
 export async function checkFirstPartyVerification(input: {
   phone: string;
   code: string;
@@ -235,7 +235,7 @@ export async function checkFirstPartyVerification(input: {
  * Persist the verified number exactly as /api/verify-phone-code does.
  *
  * These three fields are read by the iOS app and by number provisioning, so
- * the write is a superset of what the Twilio route wrote — never a subset.
+ * the write is a superset of what the Twilio route wrote - never a subset.
  */
 export async function saveVerifiedPhone(userId: string, phoneNumber: string): Promise<void> {
   await db.ref(`users/${userId}`).update({

@@ -8,7 +8,7 @@ import type { Contact } from './contacts';
  *   apiTemplates/{tenantId}/{templateId} = { name, body, createdAt }
  *
  * Merge syntax: {{name}}, {{first_name}}, {{phone}}, {{field:company}}.
- * Unresolvable fields render as an empty string, never as the raw tag — a
+ * Unresolvable fields render as an empty string, never as the raw tag - a
  * customer must not receive "Hi {{first_name}}".
  */
 

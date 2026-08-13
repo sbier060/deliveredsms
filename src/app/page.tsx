@@ -39,7 +39,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
     // These pointed at ${BASE_URL}/developers, a 404 left over from the
-    // extraction — the landing page is / now.
+    // extraction - the landing page is / now.
     {
       '@type': 'WebPage',
       '@id': `${BASE_URL}/#webpage`,
@@ -67,7 +67,7 @@ const featureSections = [
     eyebrow: 'SEND & RECEIVE',
     bright: 'Two-way SMS at scale.',
     muted: 'One endpoint to send, one webhook to receive.',
-    body: 'POST a message, get an ID back in milliseconds. Inbound texts hit your webhook as clean JSON — no carrier portals, no long-code paperwork.',
+    body: 'POST a message, get an ID back in milliseconds. Inbound texts hit your webhook as clean JSON: no carrier portals, no long-code paperwork.',
     endpoints: ['POST /v1/messages', 'GET /v1/messages/:id', 'POST /v1/test/inbound'],
     visual: (
       <div className="space-y-3 p-5">
@@ -96,7 +96,7 @@ const featureSections = [
     eyebrow: 'NUMBERS',
     bright: 'Real numbers, on demand.',
     muted: 'Search, buy, and release in one call.',
-    body: "Provision local numbers across 200+ US and Canada area codes. Search by area code or prefix, purchase instantly, release when you're done — the same provisioning engine that issues every number on the platform.",
+    body: "Provision local numbers across 200+ US and Canada area codes. Search by area code or prefix, purchase instantly, release when you're done, on the same provisioning engine that issues every number on the platform.",
     endpoints: [
       'GET /v1/numbers/available?area_code=415',
       'POST /v1/numbers',
@@ -133,7 +133,7 @@ const featureSections = [
     eyebrow: 'VERIFY',
     bright: 'Phone verification in two calls.',
     muted: 'No number to buy. Billed only on success.',
-    body: "Send a code, check a code — Delivered generates it, delivers it from our own verified pool, enforces expiry and attempt limits, and blocks SMS pumping. Blocked, expired, and abandoned attempts cost you nothing. Half of what Twilio Verify charges.",
+    body: "Send a code, check a code: Delivered generates it, delivers it from our own verified pool, enforces expiry and attempt limits, and blocks SMS pumping. Blocked, expired, and abandoned attempts cost you nothing. Half of what Twilio Verify charges.",
     endpoints: ['POST /v1/verify', 'POST /v1/verify/check'],
     visual: (
       <div className="p-5">
@@ -253,7 +253,7 @@ export default function DevelopersPage() {
               href="#code"
               className="inline-flex items-center gap-1.5 rounded-full border border-[#2E2C28] px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-[#00D26A] transition-colors duration-150 hover:border-[#918E86]"
             >
-              Delivered — SMS for developers <span aria-hidden="true">→</span>
+              Delivered · SMS for developers <span aria-hidden="true">→</span>
             </a>
             <h1 className={`mt-6 ${HEADLINE}`}>
               <span className="block text-[#EFEEEC]">SMS for developers.</span>
@@ -264,11 +264,11 @@ export default function DevelopersPage() {
             <p className="mt-5 max-w-[62ch] text-[16px] leading-[1.65] text-[#C9C6BF]">
               The best way to reach people where they actually look.
               Programmable messaging, phone verification, and on-demand phone
-              numbers — the same infrastructure behind a 400k-download consumer phone app.
+              numbers, the same infrastructure behind a 400k-download consumer phone app.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-6">
               <Link href="/console" className={PRIMARY_CTA}>
-                Get your API key — free <span aria-hidden="true">→</span>
+                Get your free API key <span aria-hidden="true">→</span>
               </Link>
               <Link
                 href="/docs/quickstart"
@@ -298,7 +298,7 @@ export default function DevelopersPage() {
         </div>
       </section>
 
-      {/* Pricing — deliberately this high. The first question a developer
+      {/* Pricing - deliberately this high. The first question a developer
           comparing us to Twilio has is "what does it cost", and rates are
           imported from pricing.ts so this strip can never drift from what
           billing actually charges. */}
@@ -353,7 +353,7 @@ export default function DevelopersPage() {
           </div>
           <div className="mt-6 flex flex-wrap items-center gap-6">
             <p className="text-[14px] text-[#918E86]">
-              Less than half of Twilio&apos;s all-in price for the same message —
+              Less than half of Twilio&apos;s all-in price for the same message,
               carrier fees included, not added on top.
             </p>
             <Link
@@ -383,7 +383,7 @@ export default function DevelopersPage() {
             </h2>
             <p className="mt-5 max-w-[62ch] text-[15px] leading-[1.65] text-[#C9C6BF]">
               A REST API that reads like documentation. Official SDKs planned
-              for every stack you already ship — start with a key and an HTTP
+              for every stack you already ship; start with a key and an HTTP
               call.
             </p>
             <p className={`mt-6 text-[13px] text-[#918E86] ${MONO}`}>

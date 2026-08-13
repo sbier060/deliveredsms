@@ -28,7 +28,7 @@ export const runtime = 'nodejs';
 export const maxDuration = 30;
 
 /**
- * POST /v1/verify — send a one-time code.
+ * POST /v1/verify - send a one-time code.
  *
  * Nothing here is billable: verifications are charged only when a code is
  * actually verified (see /v1/verify/check), so blocked, abandoned and expired
@@ -91,7 +91,7 @@ export const POST = withApiKey(
       );
     }
 
-    // Resend cooldown (live only — see resendWaitMs).
+    // Resend cooldown (live only - see resendWaitMs).
     const existing = await getActiveVerification(ctx.tenantId, e164);
     const wait = resendWaitMs(existing);
     if (wait > 0) {
@@ -100,7 +100,7 @@ export const POST = withApiKey(
         429,
         'rate_limited',
         `A code was just sent to this number. Try again in ${retryAfter}s.`,
-        // In the body as well as the header — plenty of clients only read JSON,
+        // In the body as well as the header - plenty of clients only read JSON,
         // and a resend UI wants the number to render a countdown.
         { retry_after: retryAfter },
         { 'Retry-After': String(retryAfter) }
@@ -199,7 +199,7 @@ export const POST = withApiKey(
 
     return apiJson({ ...toPublicVerification(record), charged: false }, 201);
   },
-  // Tighter than the 60/min default — one key should not be able to spray
+  // Tighter than the 60/min default - one key should not be able to spray
   // verification sends even before the per-destination controls kick in.
   { rateLimit: { limit: 30, windowSec: 60 } }
 );

@@ -12,7 +12,7 @@ import type { MeterName } from '../pricing';
  *  - A retry must never double-bill.
  *
  * How: write the event to RTDB first (the same primitive that backs takeQuota,
- * which fails CLOSED — if RTDB is down the send never happens, so there is
+ * which fails CLOSED - if RTDB is down the send never happens, so there is
  * nothing to bill; the failure modes are correlated in the safe direction),
  * then attempt delivery out-of-band. The RTDB push key doubles as Stripe's
  * meter-event `identifier`, so the inline attempt and the cron drain can race
@@ -74,7 +74,7 @@ async function deliver(key: string, row: OutboxRow): Promise<boolean> {
     const stripe = apiBillingStripe();
     await stripe.billing.meterEvents.create({
       event_name: row.eventName,
-      identifier: `mtr_${key}`, // idempotency — retries can never double-bill
+      identifier: `mtr_${key}`, // idempotency - retries can never double-bill
       timestamp: row.tsSec,
       payload: {
         stripe_customer_id: row.customerId,

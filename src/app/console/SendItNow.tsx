@@ -10,8 +10,8 @@ const MONO =
 /**
  * One-click first message. The single biggest lever on activation: sending the
  * first text should never require a terminal (and on mobile there isn't one).
- * This fires the REAL POST /v1/messages with the developer's REAL key — the
- * same request the curl makes — so `firstCallAt` is set by the genuine path.
+ * This fires the REAL POST /v1/messages with the developer's REAL key - the
+ * same request the curl makes - so `firstCallAt` is set by the genuine path.
  *
  * Returning users have no plaintext key (keys are hashed at rest), so instead
  * of a dead end we mint one on demand and stash it for the session.
@@ -74,7 +74,7 @@ export default function SendItNow({
     return (
       <div className="mt-4">
         <p className="text-[13px] text-[#C9C6BF]">
-          Sent — here&apos;s the real API response:
+          Sent. Here&apos;s the real API response:
         </p>
         <pre
           className={`mt-2 overflow-x-auto rounded-xl border border-[#2C2C2E] bg-[#111112] p-4 text-[12px] leading-relaxed text-[#918E86] ${MONO}`}

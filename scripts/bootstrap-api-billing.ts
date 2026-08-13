@@ -1,7 +1,7 @@
 /**
  * Creates the Stripe objects the Ghost developer API bills against:
  * one product, four Billing Meters, five prices, and a dedicated billing-portal
- * configuration. Idempotent — reuses anything that already exists.
+ * configuration. Idempotent - reuses anything that already exists.
  *
  *   npx tsx scripts/bootstrap-api-billing.ts             # dry run (default)
  *   npx tsx scripts/bootstrap-api-billing.ts --apply     # create
@@ -32,11 +32,11 @@ const IS_LIVE = KEY.startsWith('sk_live_') || KEY.startsWith('rk_live_');
 const PRODUCT_LOOKUP = 'ghost_api_v1';
 
 const METERS = [
-  { unit: 'outbound_sms', event: 'ghost_api_outbound_sms', display: 'Delivered — Outbound SMS' },
-  { unit: 'inbound_sms', event: 'ghost_api_inbound_sms', display: 'Delivered — Inbound SMS' },
-  { unit: 'lookups', event: 'ghost_api_lookups', display: 'Delivered — Carrier lookups' },
-  { unit: 'spam_scores', event: 'ghost_api_spam_scores', display: 'Delivered — Spam scores' },
-  { unit: 'verifications', event: 'ghost_api_verifications', display: 'Delivered — Phone verifications' },
+  { unit: 'outbound_sms', event: 'ghost_api_outbound_sms', display: 'Delivered - Outbound SMS' },
+  { unit: 'inbound_sms', event: 'ghost_api_inbound_sms', display: 'Delivered - Inbound SMS' },
+  { unit: 'lookups', event: 'ghost_api_lookups', display: 'Delivered - Carrier lookups' },
+  { unit: 'spam_scores', event: 'ghost_api_spam_scores', display: 'Delivered - Spam scores' },
+  { unit: 'verifications', event: 'ghost_api_verifications', display: 'Delivered - Phone verifications' },
 ] as const;
 
 const ENV_VAR: Record<string, string> = {
@@ -100,7 +100,7 @@ async function main() {
     process.exit(2);
   }
   if (!APPLY) {
-    console.log('\n(dry run — pass --apply to create anything)\n');
+    console.log('\n(dry run - pass --apply to create anything)\n');
   }
 
   const stripe = new Stripe(KEY, { apiVersion: '2024-10-28.acacia' });
@@ -213,7 +213,7 @@ async function main() {
     portalId = cfg.id;
     console.log(`portal config: created ${cfg.id}`);
   } else if (!portalId) {
-    console.log('portal config: would create (dedicated — the default belongs to consumer checkout)');
+    console.log('portal config: would create (dedicated - the default belongs to consumer checkout)');
   }
 
   // ── output ────────────────────────────────────────────────────────────────
@@ -228,7 +228,7 @@ async function main() {
     console.log('\n⚠️  BEFORE ENABLING: add these price ids to the IRRELEVANT array in');
     console.log('    src/lib/stripe-price-registry.ts. Until you do,');
     console.log('    assertApiPricesAreIsolated() throws and no subscription can be created.');
-    console.log('    That is intentional — it is what stops an API price from being read as');
+    console.log('    That is intentional - it is what stops an API price from being read as');
     console.log("    a main Ghost plan and clearing a real customer's subscribed flag.");
     console.log('\n    Then run: npx tsx scripts/bootstrap-api-billing.ts --verify');
   }

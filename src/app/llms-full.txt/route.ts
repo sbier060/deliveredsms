@@ -16,7 +16,7 @@ export async function GET() {
     (t) => `- ${SITE_URL}/${t.slug}.md`,
   ).join('\n');
 
-  const body = `# Delivered — everything in one file
+  const body = `# Delivered: everything in one file
 
 > The SMS API for developers: send and receive texts, verify phone numbers,
 > and provision real US and Canada numbers with one REST API.

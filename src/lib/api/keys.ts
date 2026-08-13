@@ -11,7 +11,7 @@ import type { ApiKeyRecord, KeyMode } from './types';
 
 export interface MintedKey {
   keyId: string;
-  secret: string; // full secret — show once, never persisted
+  secret: string; // full secret - show once, never persisted
   record: ApiKeyRecord;
 }
 

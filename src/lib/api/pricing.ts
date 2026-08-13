@@ -1,12 +1,12 @@
 /**
- * Delivered pricing — the single source of truth.
+ * Delivered pricing - the single source of truth.
  *
  * Imported by the pricing page, the estimator, the docs generator, the console
  * billing page, and (later) the Stripe bootstrap script. Change a number here
  * and everything downstream follows. Deliberately dependency-free so it is
  * safe in server components, client components, and plain node scripts.
  *
- * Money is integer MICRO-DOLLARS (millionths of a dollar) — never floats.
+ * Money is integer MICRO-DOLLARS (millionths of a dollar) - never floats.
  * $0.005 = 5_000. Stripe wants `unit_amount_decimal` as a string of cents:
  * microUsd / 10_000 → "0.5". Exact for every rate we publish.
  */
@@ -83,11 +83,11 @@ export const RATES: Record<BillableUnit, UnitRate> = {
 };
 
 /**
- * Free tier — Resend's shape scaled to SMS economics. Resend gives 3,000
+ * Free tier - Resend's shape scaled to SMS economics. Resend gives 3,000
  * emails/mo + 100/day + 1 domain + 30-day retention with no card; at our unit
  * costs the equivalent exposure (~$1.15/user/month) is 100 SMS + 1 number.
  * Their "verify a domain before you can send anywhere" restriction maps to our
- * verified-recipient gate. No free live lookups — those cost us real money.
+ * verified-recipient gate. No free live lookups - those cost us real money.
  */
 export const FREE_TIER = {
   outboundSmsPerMonth: 100,
@@ -102,7 +102,7 @@ export const FREE_TIER = {
   maxVerifiedRecipients: 3,
 } as const;
 
-/** Abuse ceilings for paid accounts — not sold as limits; raised on request. */
+/** Abuse ceilings for paid accounts - not sold as limits; raised on request. */
 export const PAYG_CEILINGS = {
   messagesPerDay: 10_000,
   lookupsPerDay: 5_000,
@@ -130,7 +130,7 @@ export const PLANS: Plan[] = [
       `${FREE_TIER.outboundSmsPerMonth} live texts a month, ${FREE_TIER.outboundSmsPerDay} a day`,
       `${FREE_TIER.numbersMax} phone number`,
       "Texts go to numbers you've verified",
-      'Unlimited sandbox — every endpoint, no caps',
+      'Unlimited sandbox: every endpoint, no caps',
       `${FREE_TIER.retentionDays}-day log retention`,
     ],
     cta: { label: 'Start free', href: '/console' },
@@ -172,7 +172,7 @@ export const PLANS: Plan[] = [
 ];
 
 /**
- * Competitor rates. Every row carries provenance — a stale table on a public
+ * Competitor rates. Every row carries provenance - a stale table on a public
  * pricing page is a legal problem, not a copy problem. Re-verify quarterly.
  */
 export const COMPETITORS_CHECKED_ON = 'August 2026';
@@ -294,7 +294,7 @@ export function estimateCost(usage: UsageInput): CostEstimate {
 
 /**
  * The same usage on a competitor, as a [low, high] band. Messaging uses their
- * all-in band; numbers use their published rate. Lookups/spam are excluded —
+ * all-in band; numbers use their published rate. Lookups/spam are excluded -
  * their lookup products aren't comparable line-for-line.
  */
 export function estimateCompetitorCost(
@@ -320,7 +320,7 @@ export function pricingTableMarkdown(): string {
 ${rows}
 
 US & Canada long code. Billed monthly in arrears, in USD. A2P 10DLC
-registration is included — we register on your behalf, there's nothing extra to
+registration is included; we register on your behalf, there's nothing extra to
 pay and nothing to wait for. You're billed when the carrier accepts the
 message: failed sends cost nothing.`;
 }
@@ -331,7 +331,7 @@ export function freeTierMarkdown(): string {
 - **${FREE_TIER.outboundSmsPerMonth} live outbound SMS per month** (${FREE_TIER.outboundSmsPerDay} per day)
 - **${FREE_TIER.numbersMax} phone number**
 - Live texts go only to numbers you've verified (up to ${FREE_TIER.maxVerifiedRecipients})
-- **Unlimited sandbox** — every endpoint, no caps, no card, no verification
+- **Unlimited sandbox**: every endpoint, no caps, no card, no verification
 - ${FREE_TIER.retentionDays}-day log retention
 
 Add a payment method to lift every cap, text anyone, and unlock live carrier

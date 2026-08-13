@@ -1,5 +1,5 @@
 // Robust clipboard copy. Uses the async Clipboard API when available and falls
-// back to a hidden textarea + execCommand. Never throws — clipboard-write can be
+// back to a hidden textarea + execCommand. Never throws - clipboard-write can be
 // blocked by permissions policy in embedded / cross-origin / insecure contexts
 // (e.g. an app previewed through a tunnel or iframe), and an unguarded
 // navigator.clipboard.writeText() there becomes an unhandled promise rejection.
@@ -11,7 +11,7 @@ export async function copyToClipboard(text: string): Promise<boolean> {
       return true
     }
   } catch {
-    // Clipboard API present but blocked — fall through to the legacy path.
+    // Clipboard API present but blocked - fall through to the legacy path.
   }
 
   try {

@@ -4,7 +4,7 @@ import { newEndpointId, newWebhookSecret, newEventId } from './ids';
 import type { ApiEventType, PublicEvent } from './types';
 
 /**
- * Webhook delivery — the push half of the event system (events.ts is the
+ * Webhook delivery - the push half of the event system (events.ts is the
  * store half; emitEvent calls deliverEvent after every write).
  *
  * Storage:
@@ -37,7 +37,7 @@ interface RetryJob {
 
 export const MAX_ENDPOINTS_PER_TENANT = 5;
 
-/** Console-facing shape. The signing secret is intentionally included — the
+/** Console-facing shape. The signing secret is intentionally included - the
  * developer needs it to verify signatures, and the console routes that call
  * this are behind auth. */
 export function publicEndpoint(e: WebhookEndpoint) {
@@ -52,12 +52,12 @@ export function publicEndpoint(e: WebhookEndpoint) {
   };
 }
 const DELIVERY_TIMEOUT_MS = 5_000;
-/** Backoff after the inline attempt fails: 1m, 5m, 30m, 2h, 12h — then drop. */
+/** Backoff after the inline attempt fails: 1m, 5m, 30m, 2h, 12h - then drop. */
 const RETRY_DELAYS_MS = [60_000, 300_000, 1_800_000, 7_200_000, 43_200_000];
 
 /**
  * Reject URLs that could reach our own infrastructure (SSRF). String-level
- * checks only — good enough to stop the obvious cases; the API runs with no
+ * checks only - good enough to stop the obvious cases; the API runs with no
  * privileged network peers anyway.
  */
 export function validateEndpointUrl(raw: string): string | null {
@@ -195,7 +195,7 @@ function endpointWantsEvent(endpoint: WebhookEndpoint, type: string): boolean {
 }
 
 /**
- * Deliver an event to every matching endpoint. Called inline from emitEvent —
+ * Deliver an event to every matching endpoint. Called inline from emitEvent -
  * a tenant with no endpoints costs one RTDB read and returns immediately; a
  * tenant whose endpoint is down costs at most DELIVERY_TIMEOUT_MS (their own
  * endpoint, their latency), after which the retry cron owns it. Never throws.
@@ -270,7 +270,7 @@ export async function flushWebhookOutbox(): Promise<{
   for (const { key, job } of jobs) {
     const endpoint = await getEndpoint(job.tenantId, job.endpointId);
     if (!endpoint || !endpoint.active) {
-      // Endpoint deleted or paused since the failure — nothing to retry.
+      // Endpoint deleted or paused since the failure - nothing to retry.
       await db.ref(`apiWebhookOutbox/${key}`).set(null);
       dropped++;
       continue;

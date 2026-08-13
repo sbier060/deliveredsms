@@ -84,7 +84,7 @@ export function withinOfficeHours(hours: OfficeHours, now = new Date()): boolean
 
 /**
  * Should this config fire right now? 'always' fires whenever enabled;
- * 'after_hours' is the out-of-office pattern — only OUTSIDE office hours.
+ * 'after_hours' is the out-of-office pattern - only OUTSIDE office hours.
  */
 export function shouldFire(config: AutoReplyConfig, now = new Date()): boolean {
   if (!config.enabled || !config.message.trim()) return false;
@@ -93,7 +93,7 @@ export function shouldFire(config: AutoReplyConfig, now = new Date()): boolean {
 }
 
 /**
- * Claim the per-conversation cooldown. Optimistic on the null first run —
+ * Claim the per-conversation cooldown. Optimistic on the null first run -
  * the server-side compare fences; see send-queue for the full story on why.
  */
 export async function claimCooldown(tenantId: string, convKey: string): Promise<boolean> {

@@ -1,6 +1,6 @@
 /**
  * The Delivered wordmark. One definition so size, weight, and the accent-green
- * period stay identical everywhere — it was duplicated across nine files and
+ * period stay identical everywhere - it was duplicated across nine files and
  * had already drifted to two different sizes.
  *
  * Tracking is tightened slightly: at 600 the letterforms are heavier and

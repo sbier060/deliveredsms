@@ -20,7 +20,7 @@ const STATUS_LABELS: Record<string, string> = {
   requested: 'Request received',
   submitted: 'Filed with carrier',
   foc_set: 'Transfer date set',
-  complete: 'Complete — number is live',
+  complete: 'Complete: number is live',
   rejected: 'Rejected',
 };
 
@@ -85,7 +85,7 @@ export default function PortingCard({ isAdmin }: { isAdmin: boolean }) {
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <input value={draft.currentCarrier} onChange={(e) => setDraft({ ...draft, currentCarrier: e.target.value })} placeholder="Current carrier" className={INPUT} />
             <input value={draft.accountNumber} onChange={(e) => setDraft({ ...draft, accountNumber: e.target.value })} placeholder="Account number with them" className={INPUT} />
-            <input value={draft.pinLast4} onChange={(e) => setDraft({ ...draft, pinLast4: e.target.value.slice(0, 4) })} placeholder="Account PIN — last 4 (if any)" className={INPUT} />
+            <input value={draft.pinLast4} onChange={(e) => setDraft({ ...draft, pinLast4: e.target.value.slice(0, 4) })} placeholder="Account PIN, last 4 (if any)" className={INPUT} />
             <input value={draft.authorizedName} onChange={(e) => setDraft({ ...draft, authorizedName: e.target.value })} placeholder="Authorized person's full name" className={INPUT} />
           </div>
           <button
@@ -116,7 +116,7 @@ export default function PortingCard({ isAdmin }: { isAdmin: boolean }) {
               <li key={i} className="flex items-baseline gap-2 text-[12px]">
                 <span className="text-[#00D26A]">●</span>
                 <span className="text-[#C9C6BF]">{STATUS_LABELS[entry.status] || entry.status}</span>
-                {entry.note && <span className="text-[#918E86]">— {entry.note}</span>}
+                {entry.note && <span className="text-[#918E86]">· {entry.note}</span>}
                 <span className="ml-auto text-[#5C5A55]">{relativeTime(new Date(entry.at).toISOString())}</span>
               </li>
             ))}

@@ -61,7 +61,7 @@ export default function SearchPage() {
                 <ul className="divide-y divide-[#2E2C28]">
                   {results.contacts.map((c) => (
                     <li key={c.id} className="flex items-center justify-between bg-[#0F0E0C] px-5 py-3">
-                      <span className="text-[14px] text-[#EFEEEC]">{c.name || '—'}</span>
+                      <span className="text-[14px] text-[#EFEEEC]">{c.name || '-'}</span>
                       <span className={`text-[13px] text-[#918E86] ${CONSOLE_MONO}`}>{c.phone}</span>
                     </li>
                   ))}

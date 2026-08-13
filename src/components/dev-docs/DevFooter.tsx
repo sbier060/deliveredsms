@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 /**
- * Footer for the developer surface. Deliberately NOT MarketingFooter — the
+ * Footer for the developer surface. Deliberately NOT MarketingFooter - the
  * API side and the consumer side are separate products and must not
  * cross-link (Alek, 2026-08-08). Everything here stays inside /developers,
  * the agent surfaces, or legal pages that both products share.

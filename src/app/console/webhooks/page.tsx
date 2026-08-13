@@ -131,8 +131,8 @@ export default function WebhooksPage() {
     <div>
       <h1 className="text-[22px] tracking-[-0.02em] text-[#EFEEEC]">Webhooks</h1>
       <p className="mt-2 text-[14px] leading-[1.6] text-[#918E86]">
-        We POST every event — inbound messages, delivery updates, verification
-        results — to your endpoint, signed with your secret. Failures retry
+        We POST every event (inbound messages, delivery updates, verification
+        results) to your endpoint, signed with your secret. Failures retry
         automatically for 12 hours.
       </p>
 
@@ -159,7 +159,7 @@ export default function WebhooksPage() {
           <p className="p-5 text-[14px] text-[#918E86]">Loading…</p>
         ) : webhooks.length === 0 ? (
           <p className="p-5 text-[14px] text-[#918E86]">
-            No endpoints yet. Add one above — all events are sent by default.
+            No endpoints yet. Add one above; all events are sent by default.
           </p>
         ) : (
           <ul className="divide-y divide-[#2E2C28]">
@@ -214,7 +214,7 @@ export default function WebhooksPage() {
       </div>
 
       <p className="mt-4 text-[13px] leading-[1.6] text-[#918E86]">
-        Verify every request with the signing secret — see the{' '}
+        Verify every request with the signing secret; see the{' '}
         <a
           href="/docs/webhooks"
           className="text-[#C9C6BF] underline underline-offset-4 transition-colors duration-150 hover:text-[#EFEEEC]"

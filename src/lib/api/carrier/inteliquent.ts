@@ -4,7 +4,7 @@ import { digits10 } from '../phone';
  * Inteliquent carrier operations for LIVE API tenants, inlined in the Next
  * app. Logic extracted from the deployed Cloud Functions
  * (searchAvailableNumbersSinchExpo, purchaseNumberSinchExpo,
- * removePhoneNumberExpo) — the originals are NOT touched or called.
+ * removePhoneNumberExpo) - the originals are NOT touched or called.
  *
  * Env required for live mode: INTELIQUENT_API_KEY, INTELIQUENT_API_SECRET
  * (optionally ENVIRONMENT_MODE='sandbox' + the _SANDBOX variants).
@@ -98,7 +98,7 @@ export interface CarrierAvailableNumber {
   region: string;
 }
 
-/** tnInventory search by area code (single tier — no fallback ladder in v1). */
+/** tnInventory search by area code (single tier - no fallback ladder in v1). */
 export async function carrierSearchNumbers(
   areaCode: string,
   limit = 5
@@ -124,7 +124,7 @@ export async function carrierSearchNumbers(
 
 /**
  * tnOrder over the trunk-group ladder, with messaging (PPW/SMS) configured
- * inline — same payload shape as purchaseNumberSinchExpo. SMS-only: no voice
+ * inline - same payload shape as purchaseNumberSinchExpo. SMS-only: no voice
  * routing, no SIP endpoint (API tenants don't get them in v1).
  */
 export async function carrierPurchaseNumber(
@@ -162,7 +162,7 @@ export async function carrierPurchaseNumber(
   throw new Error(lastError);
 }
 
-/** tnDisconnect — same call removePhoneNumberExpo and the purge job make. */
+/** tnDisconnect - same call removePhoneNumberExpo and the purge job make. */
 export async function carrierReleaseNumber(e164: string): Promise<void> {
   const { apiKey } = creds();
   const { status, data } = await iqPost('/tnDisconnect', {

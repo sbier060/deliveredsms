@@ -7,7 +7,7 @@ export const runtime = 'nodejs';
 
 /**
  * Markdown twins for the pages that aren't docs: the landing page, /agents,
- * and every /[tool] page. "Serve a markdown version of every page" — agents
+ * and every /[tool] page. "Serve a markdown version of every page" - agents
  * reading HTML burn tokens on markup; these are what the middleware serves
  * when a client asks for text/markdown (or hits /<page>.md directly).
  */
@@ -21,7 +21,7 @@ const md = (body: string) =>
   });
 
 function landingMd(): string {
-  return `# Delivered — SMS for Developers
+  return `# Delivered · SMS for Developers
 
 Send and receive texts, verify phone numbers, and provision real US/Canada
 numbers with one REST API. The same rates for everyone: ${formatRate(RATES.outbound_sms.microUsd)}/SMS,
@@ -30,25 +30,25 @@ with 10DLC included. Free tier: ${FREE_TIER.outboundSmsPerMonth} texts + ${FREE_
 
 - Base URL: ${API_URL}/v1 (Bearer dsms_sk_...)
 - Console (free sandbox key, instant): ${SITE_URL}/console
-- Docs: ${SITE_URL}/docs — every page has a .md twin; llms-full at ${SITE_URL}/docs/llms-full.txt
+- Docs: ${SITE_URL}/docs; every page has a .md twin; llms-full at ${SITE_URL}/docs/llms-full.txt
 - llms.txt: ${SITE_URL}/llms.txt
 - MCP: ${MCP_URL} (discovery: ${SITE_URL}/.well-known/mcp.json)
 - Skills: npx skills add sbier060/deliveredsms
-- SDK + CLI: npm install deliveredsms — \`npx deliveredsms verify +14155550132\`
+- SDK + CLI: npm install deliveredsms; try \`npx deliveredsms verify +14155550132\`
 - Pricing (markdown): ${SITE_URL}/pricing.md
 `;
 }
 
 function agentsMd(): string {
-  return `# Phone numbers and SMS for AI agents — Delivered
+  return `# Phone numbers and SMS for AI agents · Delivered
 
 Agents keep hitting the same wall: the real world runs on phone numbers.
 Delivered turns that into API calls an agent can make.
 
-- **A real phone number of its own** — POST /v1/numbers, ${formatMoney(RATES.numbers.microUsd)}/mo, 10DLC included.
-- **An SMS inbox it can act on** — inbound texts as JSON via GET /v1/events.
-- **Phone verification as a primitive** — POST /v1/verify then /v1/verify/check; billed only on success.
-- **Know what kind of number it is** — GET /v1/lookup/{phone}, line type and carrier before it sends.
+- **A real phone number of its own**: POST /v1/numbers, ${formatMoney(RATES.numbers.microUsd)}/mo, 10DLC included.
+- **An SMS inbox it can act on**: inbound texts as JSON via GET /v1/events.
+- **Phone verification as a primitive**: POST /v1/verify then /v1/verify/check; billed only on success.
+- **Know what kind of number it is**: GET /v1/lookup/{phone}, line type and carrier before it sends.
 
 Machine-readable everything:
 - MCP: ${MCP_URL}

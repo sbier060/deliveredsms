@@ -1,7 +1,7 @@
 import { db } from '@/lib/firebase-admin';
 
 /**
- * Fixed-window rate limiter on RTDB transactions (house style — see
+ * Fixed-window rate limiter on RTDB transactions (house style - see
  * src/app/api/signin-methods/route.ts and removePhoneNumberExpo). Unlike
  * those, this FAILS CLOSED: a transaction error counts as "not allowed",
  * because on the public API the caller is the abuse vector.
@@ -17,7 +17,7 @@ export async function takeSlot(
   try {
     const result = await ref.transaction((current) => {
       const count = (current as number | null) || 0;
-      if (count >= limit) return; // abort — over limit
+      if (count >= limit) return; // abort - over limit
       return count + 1;
     });
     const count = (result.snapshot?.val() as number | null) || 0;

@@ -11,7 +11,7 @@ export const runtime = 'nodejs';
 export async function GET() {
   const guides = DOCS_PAGES.filter((p) => p.slug.startsWith('migrate-from-'));
   const rows = guides
-    .map((p) => `- **${p.title}** - ${SITE_URL}/docs/${p.slug}.md — ${p.description}`)
+    .map((p) => `- **${p.title}** - ${SITE_URL}/docs/${p.slug}.md: ${p.description}`)
     .join('\n');
 
   const body = `# Migrating to Delivered

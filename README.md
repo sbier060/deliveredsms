@@ -1,6 +1,6 @@
 # Delivered
 
-SMS, phone verification, and real US/Canada phone numbers — one REST API,
+SMS, phone verification, and real US/Canada phone numbers: one REST API,
 built for developers and AI agents.
 
 - Site + docs + console: this repo (Next.js, Vercel)
@@ -15,14 +15,14 @@ npm install
 npm run dev
 ```
 
-Requires `.env.local` (Firebase, carrier, and admin credentials — see the
+Requires `.env.local` (Firebase, carrier, and admin credentials; see the
 Vercel project for the authoritative set). Never commit env files; this repo
 has a fresh history for exactly that reason.
 
 ## Structure notes
 
 - `src/lib/urls.ts` is the single source of hostnames. No URL literals
-  anywhere else — `grep -r joinghostapp` and `grep -rE "https://[a-z]+\.deliveredsms" src`
+  anywhere else; `grep -r joinghostapp` and `grep -rE "https://[a-z]+\.deliveredsms" src`
   outside that file should stay empty.
 - API keys: `dsms_sk_*` minted; legacy `ghost_sk_*` accepted forever.
 - The database is shared with the Ghost consumer product by design (tenants,

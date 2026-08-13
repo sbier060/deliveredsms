@@ -2,7 +2,7 @@
  * The Google "G", inlined as SVG.
  *
  * Google's branding guidelines require their own mark and colors on a
- * sign-in button — a plain text button in our brand green is a guideline
+ * sign-in button - a plain text button in our brand green is a guideline
  * violation and, more practically, reads as less trustworthy than the button
  * every user already recognises. Inlined rather than fetched so it cannot be
  * blocked or fail to load on the one screen that has to work.

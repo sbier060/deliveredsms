@@ -1,12 +1,12 @@
 /**
- * Per-AI-tool landing pages (/developers/[tool]) — the Resend pattern of a
+ * Per-AI-tool landing pages (/developers/[tool]) - the Resend pattern of a
  * dedicated "use us with X" page for every coding agent. These pages are what
  * an agent retrieves when someone asks it "how do I send SMS / verify a
  * phone", so each leads with the integration move that tool actually
  * supports (MCP config vs skills install), not generic copy.
  *
  * The sitemap generator regex-extracts `slug:` values from this file, the
- * same way it reads the docs registry — adding a tool here is enough.
+ * same way it reads the docs registry - adding a tool here is enough.
  */
 
 export interface AgentTool {
@@ -27,7 +27,7 @@ export const AGENT_TOOLS: AgentTool[] = [
     tag: "Anthropic's assistant, via MCP",
     lead: 'mcp',
     pitch:
-      "Connect the Delivered MCP server and Claude can send texts, run phone verification, and buy numbers as native tool calls — no glue code.",
+      "Connect the Delivered MCP server and Claude can send texts, run phone verification, and buy numbers as native tool calls, no glue code.",
   },
   {
     slug: 'claude-code',
@@ -35,7 +35,7 @@ export const AGENT_TOOLS: AgentTool[] = [
     tag: "Anthropic's coding agent",
     lead: 'skills',
     pitch:
-      "Install the Delivered skills once and Claude Code ships SMS and OTP features against the real API — sandbox-first, with the gotchas already encoded.",
+      "Install the Delivered skills once and Claude Code ships SMS and OTP features against the real API, sandbox-first, with the gotchas already encoded.",
   },
   {
     slug: 'cursor',
@@ -51,7 +51,7 @@ export const AGENT_TOOLS: AgentTool[] = [
     tag: "OpenAI's coding agent",
     lead: 'skills',
     pitch:
-      "Codex reads SKILL.md files — give it Delivered's and it stops hand-rolling OTP over raw SMS and uses the verify primitive instead.",
+      "Codex reads SKILL.md files; give it Delivered's and it stops hand-rolling OTP over raw SMS and uses the verify primitive instead.",
   },
   {
     slug: 'devin',

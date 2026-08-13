@@ -11,7 +11,7 @@ export const maxDuration = 60;
 export const dynamic = 'force-dynamic';
 
 /**
- * Delivered billing webhook — a SEPARATE Stripe endpoint with its own signing
+ * Delivered billing webhook - a SEPARATE Stripe endpoint with its own signing
  * secret. It is deliberately not the consumer webhook
  * (src/app/api/webhook/route.ts), whose event list must not change.
  *
@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
   const tenantId = await resolveTenantId(event);
   if (!tenantId) {
     console.log(
-      `[api-billing/webhook] no ghost_api_tenant_id on ${event.type} (${event.id}) — ignoring`
+      `[api-billing/webhook] no ghost_api_tenant_id on ${event.type} (${event.id}); ignoring`
     );
     return NextResponse.json({ received: true, ignored: true });
   }
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
   // typings, and the SDK must not be bumped (12 files, including the consumer
   // webhook, are typed against 2024-10-28.acacia).
   if ((event.type as string) === 'billing.meter.error_report_triggered') {
-    // Rejected meter events mean silent revenue loss — always page us.
+    // Rejected meter events mean silent revenue loss - always page us.
     postSlackMessage(
       [
         {
@@ -132,7 +132,7 @@ export async function POST(req: NextRequest) {
       }
 
       case 'customer.subscription.deleted': {
-        // API access continues at free-tier limits — we do NOT touch
+        // API access continues at free-tier limits - we do NOT touch
         // tenant.status, which would kill their sandbox too.
         await billingRef.update({
           plan: 'free',
@@ -171,7 +171,7 @@ export async function POST(req: NextRequest) {
               type: 'section',
               text: {
                 type: 'mrkdwn',
-                text: `*Delivered payment failed*\nTenant \`${tenantId}\` — now past_due (limits drop to free tier).`,
+                text: `*Delivered payment failed*\nTenant \`${tenantId}\` is now past_due (limits drop to free tier).`,
               },
             },
           ],

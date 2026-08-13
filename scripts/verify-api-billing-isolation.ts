@@ -25,10 +25,10 @@ let pass = 0;
 let fail = 0;
 const ck = (name: string, ok: boolean, detail = '') => {
   if (ok) {
-    console.log(`  ✓ ${name}${detail ? ` — ${detail}` : ''}`);
+    console.log(`  ✓ ${name}${detail ? ` - ${detail}` : ''}`);
     pass += 1;
   } else {
-    console.log(`  ✗ ${name}${detail ? ` — ${detail}` : ''}`);
+    console.log(`  ✗ ${name}${detail ? ` - ${detail}` : ''}`);
     fail += 1;
   }
 };
@@ -37,7 +37,7 @@ console.log('== the hazard this guards against ==');
 // The consumer webhook has its OWN copy of this lookup
 // (src/app/api/webhook/route.ts getSubscriptionType) whose final line is
 // `return 'main'` for any price it doesn't recognise. Assert that fallback
-// still exists in the source — if someone ever makes it fail closed, this
+// still exists in the source - if someone ever makes it fail closed, this
 // check should tell us so the guard can be relaxed.
 const webhookSrc = readFileSync(
   join(__dirname, '../src/app/api/webhook/route.ts'),
@@ -62,7 +62,7 @@ ck("'irrelevant' writes no Firebase fields", firebaseFieldsForType('irrelevant')
 console.log('\n== configured API prices ==');
 const ids = configuredPriceIds();
 if (ids.length === 0) {
-  console.log('  (none configured — nothing to check yet; run bootstrap-api-billing.ts first)');
+  console.log('  (none configured - nothing to check yet; run bootstrap-api-billing.ts first)');
 } else {
   for (const [unit, id] of Object.entries(API_PRICE_IDS)) {
     if (!id) continue;

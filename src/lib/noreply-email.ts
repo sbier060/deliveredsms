@@ -3,7 +3,7 @@ import { SITE_DOMAIN } from '@/lib/urls';
 
 /**
  * No-reply transport for automated developer emails (welcome, live-access).
- * Gmail SMTP with app-password auth; never throws — a mail failure must not
+ * Gmail SMTP with app-password auth; never throws - a mail failure must not
  * break the signup that triggered it.
  */
 

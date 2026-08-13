@@ -7,7 +7,7 @@ import { db } from '@/lib/firebase-admin';
  * ban-user module with the reads the API path actually needs, keeping the
  * call signature the platform code was written against.
  *
- * Fails OPEN — an RTDB blip must not take the whole API down; the ban check
+ * Fails OPEN - an RTDB blip must not take the whole API down; the ban check
  * is one layer, not the only one.
  */
 export async function checkBanned(

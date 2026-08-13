@@ -1,6 +1,6 @@
 ---
 name: sms-best-practices
-description: Best practices for sending SMS that gets delivered and stays compliant — consent, opt-out handling, message shape, segments, quiet hours, and A2P 10DLC. Use when writing any code or copy that sends text messages to real people.
+description: Best practices for sending SMS that gets delivered and stays compliant: consent, opt-out handling, message shape, segments, quiet hours, and A2P 10DLC. Use when writing any code or copy that sends text messages to real people.
 ---
 
 # SMS Best Practices
@@ -8,7 +8,7 @@ description: Best practices for sending SMS that gets delivered and stays compli
 Rules that keep SMS deliverable and legal. They apply to any provider;
 examples use the Delivered.
 
-## Consent — before anything sends
+## Consent: before anything sends
 
 - Text only people who **opted in** to receive texts from *this* product.
   A checkbox at signup ("Text me order updates") is the standard.
@@ -17,7 +17,7 @@ examples use the Delivered.
 - Never buy lists. Never text scraped numbers. In the US this is TCPA
   territory: $500–$1,500 statutory damages *per message*.
 
-## Opt-out — non-negotiable
+## Opt-out: non-negotiable
 
 - Honor STOP instantly and permanently. Delivered handles the STOP/START/HELP
   keywords and blocks further sends to that number for your account; subscribe to
@@ -31,7 +31,7 @@ examples use the Delivered.
   whole message to UCS-2 and the limit drops to 70. Segments multiply cost.
 - Identify yourself in the first line: `Acme: your order shipped.` Unbranded
   texts get reported as spam, and reports poison the sending number.
-- No link shorteners (bit.ly etc.) — carriers filter them aggressively. Use
+- No link shorteners (bit.ly etc.); carriers filter them aggressively. Use
   your own domain.
 - Plain language. ALL-CAPS, "FREE!!", and $$$ trip carrier content filters.
 
@@ -39,7 +39,7 @@ examples use the Delivered.
 
 - Respect quiet hours: don't send marketing before 8am or after 9pm in the
   *recipient's* timezone (TCPA presumption; some states are stricter).
-- OTPs and transactional messages are exempt — send immediately.
+- OTPs and transactional messages are exempt; send immediately.
 
 ## Reliability in code
 
@@ -53,11 +53,11 @@ examples use the Delivered.
 
 Application-to-person traffic on US 10-digit numbers must be registered.
 Unregistered traffic gets filtered silently. Delivered registers numbers under
-its campaign — included in the number price, nothing to file.
+its campaign, included in the number price, nothing to file.
 
 ## OTP specifically
 
-Don't build OTP on raw sends at all — use a verify endpoint
+Don't build OTP on raw sends at all; use a verify endpoint
 (`POST /v1/verify` on Delivered) that owns codes, expiry, attempts, and
 SMS-pumping defense. See the `delivered-verify` skill.
 

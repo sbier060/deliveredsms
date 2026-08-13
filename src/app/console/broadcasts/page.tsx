@@ -129,7 +129,7 @@ export default function BroadcastsPage() {
           <textarea
             value={draft.body}
             onChange={(e) => setDraft({ ...draft, body: e.target.value })}
-            placeholder="Hi {{first_name}} — your appointment is tomorrow. Reply STOP to opt out."
+            placeholder="Hi {{first_name}}, your appointment is tomorrow. Reply STOP to opt out."
             rows={3}
             className={`${INPUT} resize-none`}
           />

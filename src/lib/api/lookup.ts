@@ -3,10 +3,10 @@ import { digits10 } from './phone';
 
 /**
  * Phone lookup on Twilio Lookups v2 (the only genuinely defensible data
- * source — pattern from src/app/api/lookup/[number]/enrich/route.ts).
+ * source - pattern from src/app/api/lookup/[number]/enrich/route.ts).
  * Results are cached 24h in apiLookupCache to cut Twilio spend.
  *
- * NEVER touch src/lib/phone-enrichment.ts — that data is synthetic.
+ * NEVER touch src/lib/phone-enrichment.ts - that data is synthetic.
  */
 
 export interface LookupResult {
@@ -101,7 +101,7 @@ export interface SpamResult {
 /**
  * Aggregate spam signal from a 400k-download consumer phone app's real detections
  * (spamMessages/{digits10}, written by spamMessageDetector for score >= 70).
- * Returns AGGREGATES ONLY — the underlying records contain user message text
+ * Returns AGGREGATES ONLY - the underlying records contain user message text
  * and must never leave this function.
  */
 export async function lookupSpam(e164: string): Promise<SpamResult> {

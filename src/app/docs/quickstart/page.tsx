@@ -12,14 +12,14 @@ export const metadata: Metadata = buildMetadata({
 
 const INTRO = `# Quickstart
 
-Send your first SMS in under five minutes. No card, no sales call — a test key
+Send your first SMS in under five minutes. No card, no sales call: a test key
 works instantly against the sandbox.
 
 ## 1. Get a key
 
 Create a free account at [the console](/console). A sandbox tenant
 is provisioned automatically with a test key (\`dsms_sk_test_...\`) and a
-sandbox number. The key is shown once — copy it. If you just signed up in this
+sandbox number. The key is shown once, so copy it. If you just signed up in this
 browser, your key is already filled into the snippets below.
 
 ## 2. Send a message
@@ -42,7 +42,7 @@ const REST = `## 3. Read the response
 \`\`\`
 
 Fetch it back anytime with \`GET /v1/messages/{id}\`, and watch the delivery
-lifecycle in \`GET /v1/events\` — a \`message.delivered\` event follows ~2s later.
+lifecycle in \`GET /v1/events\`; a \`message.delivered\` event follows ~2s later.
 
 ## 4. Simulate a reply
 
@@ -58,13 +58,13 @@ curl -X POST https://api.deliveredsms.com/v1/test/inbound \\
 \`\`\`
 
 The inbound message lands in \`GET /v1/messages\` and emits a
-\`message.received\` event — exactly what a real inbound SMS will do in live
+\`message.received\` event, exactly what a real inbound SMS will do in live
 mode.
 
 ## 5. Go live
 
 When you're ready to send real SMS from real numbers, request live access from
-the [console](/console) — one sentence about what you're building,
+the [console](/console): one sentence about what you're building,
 and we usually flip the switch same day. Live access is free during early
 access.
 `;

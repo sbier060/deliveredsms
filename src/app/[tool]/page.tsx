@@ -15,7 +15,7 @@ export function generateMetadata({ params }: { params: { tool: string } }): Meta
   const tool = toolBySlug(params.tool);
   if (!tool) return {};
   return buildMetadata({
-    title: `Use Delivered with ${tool.name} — SMS & phone verification`,
+    title: `Use Delivered with ${tool.name} · SMS & phone verification`,
     description: `Send SMS, verify phone numbers, and provision real US/Canada numbers from ${tool.name} with the Delivered. Free sandbox key, no card.`,
     path: `/${tool.slug}`,
     keywords: [
@@ -90,7 +90,7 @@ export default function ToolPage({ params }: { params: { tool: string } }) {
       </h2>
       <p className="mt-2 max-w-[62ch] text-[15px] leading-[1.65] text-[#C9C6BF]">
         Three SKILL.md files teach {tool.name} the API, the verification rules,
-        and SMS compliance — so it writes correct integration code the first
+        and SMS compliance, so it writes correct integration code the first
         time:
       </p>
       <pre className={`mt-4 ${CODE_BLOCK}`}><code>{SKILLS_SNIPPET}</code></pre>
@@ -138,7 +138,7 @@ export default function ToolPage({ params }: { params: { tool: string } }) {
             Use Delivered with {tool.name}.
           </span>
           <span className="block text-[#918E86]">
-            SMS, phone verification, and real numbers — as capabilities.
+            SMS, phone verification, and real numbers, as capabilities.
           </span>
         </h1>
         <p className="mt-5 max-w-[62ch] text-[16px] leading-[1.65] text-[#C9C6BF]">
@@ -173,7 +173,7 @@ export default function ToolPage({ params }: { params: { tool: string } }) {
                 href="/console"
                 className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#00D26A] to-[#009E4F] px-8 py-[15px] text-[15px] text-white transition-[opacity,transform] duration-200 hover:opacity-90 active:scale-[0.97]"
               >
-                Get your API key — free <span aria-hidden="true">→</span>
+                Get your free API key <span aria-hidden="true">→</span>
               </Link>
               <Link
                 href="/"

@@ -3,7 +3,7 @@
 /**
  * One-time key stash: lets the docs prefill snippets with the key minted at
  * signup without the server ever storing it in plaintext. Tab-scoped
- * (sessionStorage) — an accepted tradeoff, documented in the console UI.
+ * (sessionStorage) - an accepted tradeoff, documented in the console UI.
  */
 
 const KEY = 'ghost_dev_key_once';

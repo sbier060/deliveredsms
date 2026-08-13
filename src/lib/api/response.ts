@@ -20,7 +20,7 @@ export type ApiErrorCode =
 
 /**
  * Stable v1 error envelope: { "error": { "code", "message", ...extra } }.
- * Unlike the rest of this repo, the public API fails CLOSED — callers of this
+ * Unlike the rest of this repo, the public API fails CLOSED - callers of this
  * helper should prefer erroring over passing a request through on uncertainty.
  */
 export function apiError(

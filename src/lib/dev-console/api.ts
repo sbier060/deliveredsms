@@ -10,7 +10,7 @@ export class DevApiError extends Error {
   }
 }
 
-/** Authenticated fetch for /api/developers/* — Firebase ID token as Bearer. */
+/** Authenticated fetch for /api/developers/* - Firebase ID token as Bearer. */
 export async function devFetch<T = unknown>(
   path: string,
   init?: RequestInit

@@ -1,4 +1,4 @@
-// Delivered sitemap generator — a sitemap INDEX at /sitemap.xml pointing at
+// Delivered sitemap generator - a sitemap INDEX at /sitemap.xml pointing at
 // per-section sitemaps (the resend.com shape). Doc and tool slugs are read
 // from the same registries the pages render from, so the sitemap tracks the
 // site automatically.
@@ -37,7 +37,7 @@ const URLSET_OPEN =
 let main = URLSET_OPEN;
 main += entry(`${BASE}/`, '1.0');
 main += entry(`${BASE}/pricing`, '0.9');
-// Primary nav destinations — these are what Google draws sitelinks from, so
+// Primary nav destinations - these are what Google draws sitelinks from, so
 // they must be in the sitemap as well as in SITE_NAV (src/lib/site-schema.ts).
 main += entry(`${BASE}/login`, '0.8');
 main += entry(`${BASE}/signup`, '0.8');

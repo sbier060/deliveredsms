@@ -119,7 +119,7 @@ export default function TeamPage() {
           <h2 className="text-[16px] text-[#EFEEEC]">Invite someone</h2>
           <p className="mt-1 text-[14px] leading-relaxed text-[#918E86]">
             Generates a single-use link that expires in 7 days. Share it however
-            you like — the recipient signs in and lands on this team.
+            you like; the recipient signs in and lands on this team.
           </p>
           <div className="mt-4 flex flex-wrap items-center gap-3">
             <select

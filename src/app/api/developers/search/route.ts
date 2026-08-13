@@ -13,7 +13,7 @@ const SCAN_WINDOW = 2000;
  * Search: contacts by name/number prefix, message bodies by substring over the
  * most recent SCAN_WINDOW messages. RTDB has no text index and the shared
  * instance takes no .indexOn, so this is an honest in-memory scan with the
- * window declared in the response — the shape leaves room for a real index.
+ * window declared in the response - the shape leaves room for a real index.
  */
 export async function GET(req: NextRequest) {
   const ctx = await requireTenantContext(req);

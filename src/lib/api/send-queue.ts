@@ -10,7 +10,7 @@ import { emitEvent } from './events';
 
 /**
  * Deferred sends: scheduled 1:1 messages and broadcast fan-out, drained by the
- * api-send-flush cron. Modeled on apiWebhookOutbox — a global queue node,
+ * api-send-flush cron. Modeled on apiWebhookOutbox - a global queue node,
  * unordered fetch + in-code due filter (no .indexOn on the shared RTDB), and
  * a claim-then-send transaction per job so overlapping cron runs cannot
  * double-send (the autoReplySms cooldown pattern).
@@ -46,7 +46,7 @@ export async function enqueueSend(job: Omit<SendJob, 'status' | 'createdAt'>): P
 }
 
 export async function listScheduled(tenantId: string): Promise<Array<SendJob & { id: string }>> {
-  // Global node filtered in memory — bounded by BATCH-sized reads in the cron,
+  // Global node filtered in memory - bounded by BATCH-sized reads in the cron,
   // but for the console list we read the tenant's own jobs via a full fetch of
   // pending ones. Queue depth is operationally small (jobs leave on send).
   const snap = await db.ref('apiSendQueue').limitToFirst(1000).get();
@@ -65,7 +65,7 @@ export async function cancelScheduled(tenantId: string, jobId: string): Promise<
   if (job.tenantId !== tenantId || job.status !== 'queued') return false;
   // Claim the cancellation the same way the cron claims a send, so a job
   // mid-flight cannot be "canceled" after the carrier accepted it. Null-run
-  // returns optimistically — see the flush claim for why.
+  // returns optimistically - see the flush claim for why.
   const claim = await ref.child('status').transaction((cur: string | null) => {
     if (cur === null) return 'canceled';
     return cur === 'queued' ? 'canceled' : undefined;
@@ -88,7 +88,7 @@ export async function flushSendQueue(): Promise<{ sent: number; failed: number; 
   for (const [id, job] of due) {
     // Claim-then-send: first writer wins, overlapping cron runs lose cleanly.
     // The null branch is REQUIRED: a transaction's first run sees null (empty
-    // local cache) and returning undefined there aborts without retrying —
+    // local cache) and returning undefined there aborts without retrying -
     // return optimistically and let the server-side compare do the fencing.
     // (Same trap markConversationRead hit, opposite direction.)
     const claim = await db

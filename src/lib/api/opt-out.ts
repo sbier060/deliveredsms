@@ -8,7 +8,7 @@ import { digits10 } from '@/lib/api/phone';
  * texted them and nobody else. A global registry would mean unsubscribing from
  * one sender also kills your login codes from an unrelated one, which is a
  * worse failure than the one it prevents. It is also what makes sandbox
- * enforcement possible — +1 500-555-0006 is the canonical sandbox destination,
+ * enforcement possible - +1 500-555-0006 is the canonical sandbox destination,
  * and a global opt-out on it would permanently break every developer's tests.
  */
 

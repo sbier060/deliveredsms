@@ -8,7 +8,7 @@ export const maxDuration = 15;
 
 /**
  * Accept an invite. Unlike every other console route this must NOT resolve a
- * tenant first — the whole point is that the caller doesn't have one yet.
+ * tenant first - the whole point is that the caller doesn't have one yet.
  */
 export async function POST(req: NextRequest) {
   const user = await requireUser(req);

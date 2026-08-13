@@ -26,7 +26,7 @@ TENANT=$(echo "$CREATE" | jq -r '.tenant.id // empty')
 if [ -z "$TENANT" ]; then fail "tenant create ($CREATE)"; exit 1; fi
 pass "tenant $TENANT"
 if [ -z "$KEY" ]; then
-  # Tenant existed from a previous run — mint a fresh test key.
+  # Tenant existed from a previous run - mint a fresh test key.
   KEY=$(curl -s -X POST "$BASE/api/admin/api-tenants/$TENANT/keys" \
     -H "x-api-secret: $ADMIN_SECRET" -H "Content-Type: application/json" \
     -d '{"mode":"test","name":"e2e"}' | jq -r '.key')
@@ -109,7 +109,7 @@ check "unknown msg 404" "$(curl -s -o /dev/null -w '%{http_code}' -H "$AUTH" "$B
 echo "== 8. Rate limit (60/min) =="
 # The limiter uses a fixed 60s window. One curl process per request is slow
 # enough that a 70-request loop can straddle a window boundary and never
-# accumulate 60 in either half — so hammer well past the limit (130) to stay
+# accumulate 60 in either half - so hammer well past the limit (130) to stay
 # deterministic on a cold server.
 CODE=200
 for i in $(seq 1 130); do

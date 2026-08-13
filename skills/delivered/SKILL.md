@@ -1,12 +1,12 @@
 ---
 name: delivered
-description: Send and receive SMS, verify phone numbers with one-time codes, provision US/Canada phone numbers, and screen spam through the Delivered. Use when a task needs to send a text message, get a phone number, verify/look up a phone number, or check whether a number is spam.
+description: Send and receive SMS, verify phone numbers with one-time codes, and provision US/Canada phone numbers through the Delivered API. Use when a task needs to send a text message, get a phone number, or verify/look up a phone number.
 ---
 
 # Delivered
 
 Delivered is an SMS API for developers: two-way texting, on-demand phone numbers,
-and spam intelligence, backed by the infrastructure of the consumer phone app.
+backed by the infrastructure of the consumer phone app.
 
 ## Setup
 
@@ -19,7 +19,7 @@ await delivered.verify.send({ to: '+14155550132' });
 const { verified } = await delivered.verify.check({ to: '+14155550132', code });
 ```
 
-Raw HTTP works too — everything below is the same API.
+Raw HTTP works too; everything below is the same API.
 
 1. Get a free sandbox key (instant, no card): https://deliveredsms.com/console
 2. Every request: `Authorization: Bearer ghost_sk_test_...`
@@ -27,7 +27,7 @@ Raw HTTP works too — everything below is the same API.
 
 Test keys simulate everything (magic numbers: `+15005550006` delivers,
 `+15005550002` fails, `+15005550001` sticks in queued). Live keys are enabled
-after early-access review from the console.
+after live-access review from the console.
 
 ## Send an SMS
 
@@ -42,10 +42,10 @@ Your numbers: `GET /v1/numbers`. Response has `id` (msg_...) and `status`
 (`queued|sent|delivered|failed`). Retries are safe with an `Idempotency-Key`
 header.
 
-## Phone verification (OTP) — use the `delivered-verify` skill
+## Phone verification (OTP): use the `delivered-verify` skill
 
 For OTP / 2FA / phone verification, use `POST /v1/verify` +
-`POST /v1/verify/check` — never `messages.send()` with a code you generated.
+`POST /v1/verify/check`; never `messages.send()` with a code you generated.
 No number purchase is needed; Delivered sends from its own pool, and billing is
 only on a successful check. Full rules, sandbox codes, and UI guidance live in
 the dedicated skill:
@@ -78,4 +78,4 @@ Treat `spam_score >= 70` as confirmed spam.
 - Full docs (single file): https://deliveredsms.com/docs/llms-full.txt
 - OpenAPI: https://deliveredsms.com/api/v1/openapi.yaml
 - MCP server (same tools, tool-call form): https://deliveredsms.com/api/mcp
-- Errors are always `{"error": {"code", "message"}}` — see https://deliveredsms.com/docs/errors.md
+- Errors are always `{"error": {"code", "message"}}`; see https://deliveredsms.com/docs/errors.md

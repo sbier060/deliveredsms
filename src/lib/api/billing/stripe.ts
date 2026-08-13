@@ -3,13 +3,13 @@ import Stripe from 'stripe';
 /**
  * Stripe client for the developer API billing surface ONLY.
  *
- * Prefers STRIPE_API_BILLING_SECRET_KEY — a RESTRICTED key scoped to
+ * Prefers STRIPE_API_BILLING_SECRET_KEY - a RESTRICTED key scoped to
  * meters/meter events/customers/subscriptions/checkout/portal/invoices. With
  * that key in place a bug in this code physically cannot modify a consumer
  * subscription. Falls back to the shared STRIPE_SECRET_KEY so the code runs in
  * development, but that fallback is logged loudly.
  *
- * apiVersion is pinned to the same version as the rest of the repo — 12 files
+ * apiVersion is pinned to the same version as the rest of the repo - 12 files
  * (including the 2,587-line consumer webhook) are typed against it, so this
  * must not drift.
  */

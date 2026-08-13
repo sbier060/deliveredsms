@@ -29,7 +29,7 @@ export const maxDuration = 30;
 /**
  * Free-tier recipient verification for the console.
  *
- * This runs on GHOST VERIFY — our own OTP primitive — not Twilio Verify.
+ * This runs on GHOST VERIFY - our own OTP primitive - not Twilio Verify.
  * Using Twilio here would mean paying ~$0.05 to a competitor for the exact
  * thing our product does for ~$0.002, in the console of the product that
  * replaces it. It also means our own onboarding exercises the same code path

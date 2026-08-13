@@ -65,7 +65,7 @@ export default function BillingPage() {
         body: JSON.stringify({ phone }),
       });
       setStage('sent');
-      setNotice('Code sent — check that phone.');
+      setNotice('Code sent. Check that phone.');
     } catch (e) {
       setNotice(e instanceof Error ? e.message : 'Could not send code');
     } finally {
@@ -84,7 +84,7 @@ export default function BillingPage() {
       setStage('idle');
       setPhone('');
       setCode('');
-      setNotice('Verified — you can text that number now.');
+      setNotice('Verified. You can text that number now.');
       await load();
     } catch (e) {
       setNotice(e instanceof Error ? e.message : 'Could not verify');
@@ -179,7 +179,7 @@ export default function BillingPage() {
           <p className="mt-3 text-[14px] text-[#918E86]">No usage yet this month.</p>
         )}
         <p className="mt-4 text-[12px] text-[#918E86]">
-          Estimate — your invoice on the 1st is authoritative. Outbound is{' '}
+          Estimate only; your invoice on the 1st is authoritative. Outbound is{' '}
           {formatRate(RATES.outbound_sms.microUsd)} a message, all-in.
         </p>
       </div>
@@ -308,7 +308,7 @@ export default function BillingPage() {
           <>
             <p className="mt-2 text-[14px] leading-[1.6] text-[#C9C6BF]">
               Add a card to lift every cap, text anyone, and unlock live carrier
-              lookups. You&apos;re billed on the 1st for the month just ended —
+              lookups. You&apos;re billed on the 1st for the month just ended;
               no platform fee, no minimum.
             </p>
             <button
@@ -323,7 +323,7 @@ export default function BillingPage() {
           <>
             <p className="mt-2 text-[14px] leading-[1.6] text-[#C9C6BF]">
               Card billing is switching on shortly. In the meantime, ask us and
-              we&apos;ll raise your limits by hand — usually same day.
+              we&apos;ll raise your limits by hand, usually same day.
             </p>
             <div className="mt-4 flex flex-wrap items-center gap-4">
               <Link
@@ -344,7 +344,7 @@ export default function BillingPage() {
 
         {notice && <p className="mt-3 text-[13px] text-[#C9C6BF]">{notice}</p>}
         <p className="mt-4 text-[12px] text-[#918E86]">
-          Delivered billing is standalone — one usage invoice, nothing else.
+          Delivered billing is standalone: one usage invoice, nothing else.
         </p>
       </div>
     </div>

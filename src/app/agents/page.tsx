@@ -6,7 +6,7 @@ import Wordmark from '@/components/Wordmark';
 export const metadata: Metadata = buildMetadata({
   title: 'Phone numbers and SMS for AI agents',
   description:
-    'Give your AI agent a real phone number. Send and receive SMS and run phone verification — with an API, MCP server, and skills built for agents.',
+    'Give your AI agent a real phone number. Send and receive SMS and run phone verification, with an API, MCP server, and skills built for agents.',
   path: '/agents',
   keywords: [
     'sms for ai agents',
@@ -38,12 +38,12 @@ const jsonLd = {
 const capabilities = [
   {
     title: 'A real phone number of its own',
-    body: 'Provision a US or Canada number in one call. Your agent can hold it, text from it, and release it when the job is done — $0.95 a month, 10DLC registration included.',
+    body: 'Provision a US or Canada number in one call. Your agent can hold it, text from it, and release it when the job is done. $0.95 a month, 10DLC registration included.',
     code: 'POST /v1/numbers  { "phone_number": "+14155550132" }',
   },
   {
     title: 'An SMS inbox it can act on',
-    body: 'Inbound texts land as clean JSON events. An agent can poll /v1/events or take a webhook, read the message, and decide what to do next — confirmations, replies, hand-offs.',
+    body: 'Inbound texts land as clean JSON events. An agent can poll /v1/events or take a webhook, read the message, and decide what to do next: confirmations, replies, hand-offs.',
     code: 'GET /v1/events?type=message.received',
   },
   {
@@ -53,7 +53,7 @@ const capabilities = [
   },
   {
     title: 'Know what kind of number it is',
-    body: 'Before an agent trusts a number, one lookup returns line type and carrier — so it can tell a mobile from a landline or a VoIP number before it sends.',
+    body: 'Before an agent trusts a number, one lookup returns line type and carrier, so it can tell a mobile from a landline or a VoIP number before it sends.',
     code: 'GET /v1/lookup/+14155550132',
   },
 ];
@@ -138,7 +138,7 @@ Spec    https://api.deliveredsms.com/v1/openapi.yaml`}</code></pre>
               href="/console"
               className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#00D26A] to-[#009E4F] px-8 py-[15px] text-[15px] text-white transition-[opacity,transform] duration-200 hover:opacity-90 active:scale-[0.97]"
             >
-              Get your API key — free <span aria-hidden="true">→</span>
+              Get your free API key <span aria-hidden="true">→</span>
             </Link>
             <Link
               href="/pricing"

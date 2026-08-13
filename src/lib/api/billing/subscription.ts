@@ -11,11 +11,11 @@ import type { ApiTenant } from '../types';
  * quantity tracks how many live numbers they hold.
  *
  * Numbers are licensed rather than metered so Stripe does the mid-month
- * proration itself and the invoice reads "2 × Phone number — $1.90" instead of
+ * proration itself and the invoice reads "2 × Phone number - $1.90" instead of
  * "60 units × $0.0316". It also means no daily cron.
  *
  * The cycle is anchored to the 1st so the Stripe invoice period is exactly the
- * calendar month our apiUsageMonthly counters use — otherwise the console's
+ * calendar month our apiUsageMonthly counters use - otherwise the console's
  * "this month" estimate and the invoice would disagree and generate tickets.
  */
 
@@ -63,7 +63,7 @@ export async function ensureApiSubscription(
     collection_method: 'charge_automatically',
     billing_cycle_anchor: firstOfNextMonthUnix(),
     proration_behavior: 'none',
-    description: 'Delivered — usage',
+    description: 'Delivered usage',
     // ghost_api_tenant_id ONLY. `userId` is the first thing the consumer
     // subscription.deleted handler reads; it must never appear here.
     metadata: { ghost_api_tenant_id: tenantId, ghost_surface: 'developer_api' },

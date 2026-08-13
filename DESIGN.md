@@ -4,7 +4,7 @@ Inherited layout discipline from the platform's first life; own identity.
 
 ## Identity
 - **Wordmark:** "Delivered" in `#EFEEEC` with a trailing period in the
-  accent green — the punctuation IS the brand mark (delivered. done.). Set in
+  accent green; the punctuation IS the brand mark (delivered. done.). Set in
   the system stack; no logo image until one exists.
 - **Voice:** plain, technical, confident. Numbers over adjectives. No em-dash
   clutter in marketing copy; every claim checkable.

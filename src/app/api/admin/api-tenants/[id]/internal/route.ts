@@ -7,7 +7,7 @@ export const runtime = 'nodejs';
 export const maxDuration = 15;
 
 /**
- * Mark a tenant as internal: unlimited, never metered, never billed — and it
+ * Mark a tenant as internal: unlimited, never metered, never billed - and it
  * stays that way after billing is switched on, because entitlementsFor()
  * short-circuits on the flag before it ever looks at billing state.
  *

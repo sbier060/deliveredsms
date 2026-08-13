@@ -11,7 +11,7 @@ export const maxDuration = 30;
 /**
  * Billing portal for card changes and invoice history.
  *
- * ALWAYS passes an explicit `configuration` — the DEFAULT portal configuration
+ * ALWAYS passes an explicit `configuration` - the DEFAULT portal configuration
  * belongs to the consumer cancel flow (src/app/api/create-portal-session), and
  * mutating or relying on it here would change that flow account-wide.
  */

@@ -59,7 +59,7 @@ export function getGeoRequiresConsent(): boolean | null {
 
 export function hasTrackingConsent(): boolean {
   // An explicit decline (Reject All on /privacy-choices) is honored everywhere,
-  // even in regions where consent isn't geo-required — several US states have
+  // even in regions where consent isn't geo-required - several US states have
   // opt-out laws, and the privacy policy promises the opt-out works.
   if (getConsentStatus() === 'declined') return false;
   const geoRequired = getGeoRequiresConsent();

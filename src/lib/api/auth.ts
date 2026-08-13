@@ -28,7 +28,7 @@ type V1Handler = (
 ) => Promise<Response>;
 
 /**
- * Auth wrapper for every /api/v1 route. FAILS CLOSED at every step — an
+ * Auth wrapper for every /api/v1 route. FAILS CLOSED at every step - an
  * internal error is a 401/500, never a pass-through. (Deliberate departure
  * from the repo's consumer-side fail-open house style.)
  */

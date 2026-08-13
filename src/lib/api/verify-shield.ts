@@ -5,7 +5,7 @@ import { lookupPhone } from './lookup';
 import type { ApiTenant } from './types';
 
 /**
- * Shield — SMS-pumping defense for Verify.
+ * Shield - SMS-pumping defense for Verify.
  *
  * Pumping works by farming revenue-share on expensive destinations, so the
  * controls run cheapest-first: geography, then velocity (three axes), then the
@@ -46,7 +46,7 @@ export async function runShield(input: {
   const { tenant, phone, ip } = input;
   const dest = digits10(phone);
 
-  // 1. Geography. +1 is not "US and Canada" — Caribbean NANP is the classic
+  // 1. Geography. +1 is not "US and Canada" - Caribbean NANP is the classic
   //    pumping destination and looks domestic to every other validator.
   const allowedNpas = tenant.verifyAllowedNpas;
   const npaOk = allowedNpas
@@ -95,7 +95,7 @@ export async function runShield(input: {
     );
   }
 
-  // 4. Per-IP — catches a single attacker spraying many destinations.
+  // 4. Per-IP - catches a single attacker spraying many destinations.
   if (ip && ip !== 'unknown') {
     const ipHour = await takeSlot(`verify_ip_${ip}`, 20, 60 * 60_000);
     if (!ipHour.allowed) {
@@ -108,7 +108,7 @@ export async function runShield(input: {
   }
 
   // 5. Line type. The only control that can cost money, so it runs last, and
-  //    it is nearly free in practice — lookupPhone caches 24h globally.
+  //    it is nearly free in practice - lookupPhone caches 24h globally.
   //    FAILS OPEN: a Twilio outage must not take Verify down; the four
   //    controls above still applied.
   try {

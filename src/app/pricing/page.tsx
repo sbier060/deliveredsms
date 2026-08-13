@@ -20,7 +20,7 @@ import {
 export const metadata: Metadata = buildMetadata({
   title: 'Pricing',
   description:
-    'Delivered pricing: $0.005 per outbound SMS all-in — no carrier surcharge, no platform fee, A2P 10DLC included. Cheaper all-in than Twilio, Telnyx and Plivo. Free tier with 100 live texts a month, no credit card.',
+    'Delivered pricing: $0.005 per outbound SMS all-in: no carrier surcharge, no platform fee, A2P 10DLC included. Cheaper all-in than Twilio, Telnyx and Plivo. Free tier with 100 live texts a month, no credit card.',
   path: '/pricing',
   keywords: [
     'sms api pricing',
@@ -67,7 +67,7 @@ const jsonLd = {
 const faqs: Array<[string, string]> = [
   [
     'How am I billed?',
-    'Usage accrues through the month and we charge your card on the 1st. There is no platform fee, no minimum, and no commitment — a month with no traffic costs nothing.',
+    'Usage accrues through the month and we charge your card on the 1st. There is no platform fee, no minimum, and no commitment; a month with no traffic costs nothing.',
   ],
   [
     'Do failed messages cost anything?',
@@ -75,7 +75,7 @@ const faqs: Array<[string, string]> = [
   ],
   [
     'What happens when I hit the free limit?',
-    `Sends return a 429 with a clear message until the next day or month. Nothing breaks and nothing is charged — add a card to lift every cap. Sandbox keeps working regardless.`,
+    `Sends return a 429 with a clear message until the next day or month. Nothing breaks and nothing is charged; add a card to lift every cap. Sandbox keeps working regardless.`,
   ],
   [
     'Why do I have to verify a recipient on the free tier?',
@@ -83,7 +83,7 @@ const faqs: Array<[string, string]> = [
   ],
   [
     'Does the sandbox count against anything?',
-    'Never. Test keys are unlimited and free forever — every endpoint, no verification, no metering. Build the whole integration before you spend a cent.',
+    'Never. Test keys are unlimited and free forever: every endpoint, no verification, no metering. Build the whole integration before you spend a cent.',
   ],
   [
     'What about A2P 10DLC registration?',
@@ -91,7 +91,7 @@ const faqs: Array<[string, string]> = [
   ],
   [
     'Do you offer volume discounts?',
-    'Yes — once you are past a few hundred thousand messages a month, talk to us and we will quote committed rates.',
+    'Yes. Once you are past a few hundred thousand messages a month, talk to us and we will quote committed rates.',
   ],
 ];
 
@@ -147,7 +147,7 @@ export default function DeveloperPricingPage() {
           </h1>
           <p className="mt-5 max-w-[62ch] text-[16px] leading-[1.65] text-[#C9C6BF]">
             One rate, all-in. The number on this page is the number on your
-            invoice — we don&apos;t pass carrier fees through for you to
+            invoice; we don&apos;t pass carrier fees through for you to
             reconcile at the end of the month.
           </p>
         </div>
@@ -183,7 +183,7 @@ export default function DeveloperPricingPage() {
           </div>
           <p className="mt-4 max-w-[70ch] text-[13px] leading-[1.7] text-[#918E86]">
             US &amp; Canada long code, billed monthly in arrears in USD. You are
-            billed when the carrier accepts the message — failed sends cost
+            billed when the carrier accepts the message; failed sends cost
             nothing. Inbound billing starts when inbound webhooks ship; until
             then inbound is free. We register your 10DLC brand and campaign, so
             there is no registration fee and no wait.
@@ -350,7 +350,7 @@ export default function DeveloperPricingPage() {
           <div className="mt-6 max-w-[70ch] space-y-3 text-[13px] leading-[1.7] text-[#918E86]">
             <p>
               Rates checked {COMPETITORS_CHECKED_ON} from each provider&apos;s
-              public pricing page — every provider name above links to its
+              public pricing page; every provider name above links to its
               source. Carrier fees are AT&amp;T, T-Mobile and Verizon
               pass-throughs: they vary by destination carrier and change
               quarterly, which is why every other row is a range and ours
@@ -361,7 +361,7 @@ export default function DeveloperPricingPage() {
               Plivo rents numbers cheaper than we do ($0.50 against our $0.95),
               and Telnyx&apos;s headline rate is lower than ours before its
               carrier fees are added. On the all-in cost of actually sending a
-              message, we are the cheapest of the four — and the only one whose
+              message, we are the cheapest of the four, and the only one whose
               quoted rate is the whole rate, with 10DLC handled.
             </p>
           </div>

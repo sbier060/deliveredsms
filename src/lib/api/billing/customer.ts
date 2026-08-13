@@ -5,7 +5,7 @@ import type { ApiTenant } from '../types';
 /**
  * The API tenant's Stripe customer.
  *
- * HARD RULE — this customer must be unreachable from the consumer webhook.
+ * HARD RULE - this customer must be unreachable from the consumer webhook.
  * src/app/api/webhook/route.ts resolves a Firebase user two ways only:
  *   1. customer.metadata.firebaseUid
  *   2. users/{uid}/stripeCustomerId  (indexed lookup)
@@ -29,7 +29,7 @@ export async function getOrCreateApiCustomer(tenant: ApiTenant): Promise<string>
   for (const key of FORBIDDEN_METADATA_KEYS) {
     if (key in metadata) {
       throw new Error(
-        `[api-billing] Refusing to create a Stripe customer carrying "${key}" — it would make this customer resolvable by the consumer webhook.`
+        `[api-billing] Refusing to create a Stripe customer carrying "${key}"; it would make this customer resolvable by the consumer webhook.`
       );
     }
   }
@@ -37,7 +37,7 @@ export async function getOrCreateApiCustomer(tenant: ApiTenant): Promise<string>
   const stripe = apiBillingStripe();
   const customer = await stripe.customers.create({
     email: tenant.email,
-    name: `Delivered — ${tenant.name || tenant.id}`,
+    name: `Delivered · ${tenant.name || tenant.id}`,
     description: `Ghost developer API tenant ${tenant.id}`,
     metadata,
   });

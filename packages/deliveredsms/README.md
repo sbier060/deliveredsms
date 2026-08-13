@@ -1,6 +1,6 @@
 # opensms
 
-Official client for the [Delivered](https://deliveredsms.com) —
+Official client for the [Delivered](https://deliveredsms.com) API:
 SMS, phone verification, numbers, and spam lookup. Zero dependencies, works
 anywhere `fetch` does.
 
@@ -29,8 +29,8 @@ The response carries what a UI needs, so you don't track state yourself:
 
 ```js
 const v = await delivered.verify.send({ to: phone });
-v.expires_in;         // 600  — for a countdown
-v.attempts_remaining; // 5    — for "2 tries left"
+v.expires_in;         // 600  - for a countdown
+v.attempts_remaining; // 5    - for "2 tries left"
 ```
 
 ## Send an SMS
@@ -86,7 +86,7 @@ try {
 
 Transient failures (5xx, timeouts, connection errors) are retried
 automatically. Two things deliberately are **not** retried: a `POST` without an
-idempotency key, and a verification cooldown — that's a policy, not a blip, so
+idempotency key, and a verification cooldown; that's a policy, not a blip, so
 it's surfaced to you with `retryAfter`.
 
 ## Testing

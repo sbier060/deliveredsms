@@ -1,4 +1,4 @@
-# Delivered — SEO & AEO Strategy
+# Delivered - SEO & AEO Strategy
 
 _Written 2026-08-13. Domain age at writing: 1 day._
 
@@ -10,20 +10,20 @@ _Written 2026-08-13. Domain age at writing: 1 day._
 | Referring domains | 0 | ~500,000 | ~30,000 | ~15,000 |
 | Indexed | no | yes | yes | yes |
 
-Head terms — "sms api", "programmable sms", "phone verification api" — are not
+Head terms - "sms api", "programmable sms", "phone verification api" - are not
 winnable in year one. Any plan that leads with them is a plan to spend twelve
 months losing. This document assumes we do not compete on authority, because we
 cannot, and instead compete where authority is not the ranking input.
 
 **One structural constraint:** the API product and the consumer product
-(joinghostapp.com) must not cross-link — that is a standing product decision, and
+(joinghostapp.com) must not cross-link - that is a standing product decision, and
 it is enforced in `src/components/dev-docs/DevFooter.tsx`. So the established
 domain cannot pass authority to the new one. The obvious shortcut is closed on
 purpose; nothing in this plan assumes it.
 
 ## Where we actually win
 
-### 1. AEO / the agent channel — the priority
+### 1. AEO / the agent channel - the priority
 
 An answer engine picking a citation weighs "is this machine-readable, specific,
 and unambiguous" far more heavily than "is this domain 18 years old". A one-day-old
@@ -52,7 +52,7 @@ authority, because the query is long and the intent is narrow.
 
 We have a genuinely sharp edge to build them on: verification is billed only on
 success, and 10DLC registration is included rather than a separate brand fee.
-That is a concrete, checkable claim — which is exactly what these pages need, and
+That is a concrete, checkable claim - which is exactly what these pages need, and
 exactly what AI answer engines quote.
 
 Target set, in priority order:
@@ -96,8 +96,8 @@ registry `/docs/errors` renders.
   and it fits there. For a developer API it would be thin content with no query
   behind it.
 - **Volume blogging.** A new domain publishing three generic posts a week builds
-  nothing. One genuinely original piece — a real deliverability benchmark with
-  our own data — is worth more than fifty.
+  nothing. One genuinely original piece - a real deliverability benchmark with
+  our own data - is worth more than fifty.
 
 ## Technical foundation
 
@@ -115,7 +115,7 @@ Standing rules for anything added later:
 - Every new page needs a `.md` twin and an entry in `llms.txt`. The agent surface
   is only as good as its worst-covered page.
 - Schema goes server-side in the document. `next/script` with
-  `strategy="afterInteractive"` means crawlers never see it — that is exactly how
+  `strategy="afterInteractive"` means crawlers never see it - that is exactly how
   the consumer site's FAQPage schema became invisible.
 - Titles are the page name alone; `src/lib/metadata.ts` appends the brand.
 
@@ -135,7 +135,7 @@ fiction.
 | Brand-query impressions | 0 | 100 | 1,000 | 10,000 |
 | Sitelinks on brand SERP | no | no | maybe | likely |
 
-Sitelinks are algorithmic. They need brand-query volume, not markup — the markup
+Sitelinks are algorithmic. They need brand-query volume, not markup - the markup
 is done. The `Brand-query impressions` row is the leading indicator for that
 last row; nothing else moves it.
 
@@ -144,7 +144,7 @@ last row; nothing else moves it.
 - **Search Console** for classic search. Property is verified; sitemap needs
   submitting.
 - **AI citations** are not in GSC. The site logs AI crawler hits server-side via
-  `/api/agent-log` (the `AGENT_UA` matcher in `src/middleware.ts`) — that is the
+  `/api/agent-log` (the `AGENT_UA` matcher in `src/middleware.ts`) - that is the
   closest thing to an AEO analytics feed we have, and it should be reported on
   monthly alongside GSC.
 - **Comparison pages** get tracked on conversion, not rank. Rank without signups

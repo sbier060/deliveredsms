@@ -90,7 +90,7 @@ export async function getOrCreateTenant(
   await db.ref(`apiTenants/${id}`).set(tenant);
   // First-class account-type marker: lets login routing send API developers to
   // the console instead of the consumer dashboard. Additive field on the
-  // consumer users node — nothing else in the app reads it.
+  // consumer users node - nothing else in the app reads it.
   await db.ref(`users/${uid}/apiDeveloper`).set(true).catch(() => {});
   const initialKey = await mintKey({ tenantId: id, mode: 'test' });
   return { tenant, isNew: true, initialKey, sandboxNumber };

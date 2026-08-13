@@ -18,14 +18,14 @@ export const GET = withApiKey(
       return apiError(400, 'invalid_request', 'Provide a valid US/Canada number, e.g. /v1/lookup/+14155550132/spam.', { param: 'phone' });
     }
 
-    // Spam scores bill against their own metric — they come from our own data
+    // Spam scores bill against their own metric - they come from our own data
     // and are priced well below carrier lookups.
     const ent = entitlementsFor(ctx.tenant);
     if (ctx.mode === 'live' && ent.lookupsPerDay === 0) {
       return apiError(
         403,
         'forbidden',
-        'Spam scores need a payment method on file. Add one in the console — sandbox spam checks stay free.'
+        'Spam scores need a payment method on file. Add one in the console; sandbox spam checks stay free.'
       );
     }
     const quota = await takeQuota(ctx.tenantId, 'spam_scores', ent.lookupsPerDay || 1_000_000);

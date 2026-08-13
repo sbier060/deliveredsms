@@ -204,7 +204,7 @@ export default function ContactsPage() {
             {shown.map((c) => (
               <li key={c.id} className="flex items-center justify-between gap-3 bg-[#0F0E0C] px-5 py-3.5">
                 <div className="min-w-0">
-                  <p className="truncate text-[15px] text-[#EFEEEC]">{c.name || '—'}</p>
+                  <p className="truncate text-[15px] text-[#EFEEEC]">{c.name || '-'}</p>
                   <p className={`text-[13px] text-[#918E86] ${MONO}`}>{c.phone}</p>
                 </div>
                 <div className="flex flex-shrink-0 items-center gap-2">

@@ -6,7 +6,7 @@ import type { ApiEventType, PublicEvent } from './types';
 /**
  * Event store + push. Every emitEvent both records the event (pollable via
  * GET /v1/events) and delivers it to the tenant's webhook endpoints
- * (webhooks.ts — signed, retried from the outbox on failure).
+ * (webhooks.ts - signed, retried from the outbox on failure).
  *
  * Storage: apiEvents/{tenantId}/items/{pushKey} = record (push keys give
  * chronological ordering); apiEvents/{tenantId}/byId/{evtId} = pushKey.

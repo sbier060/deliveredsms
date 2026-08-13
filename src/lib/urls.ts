@@ -1,6 +1,6 @@
 /**
  * The ONE place Delivered hostnames live. Every page, doc, snippet, skill, and
- * spec imports from here — the ghost-checkout era's ~60 scattered URL literals
+ * spec imports from here - the ghost-checkout era's ~60 scattered URL literals
  * are what made moving domains painful, and this file is the fix.
  *
  * NEXT_PUBLIC_SITE_DOMAIN lets previews and a future domain change happen

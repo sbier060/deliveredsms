@@ -74,7 +74,7 @@ function CopyButton({ text, label }: { text: string; label?: string }) {
   );
 }
 
-/** "Copy for AI" — hands a coding agent everything it needs in one paste. */
+/** "Copy for AI" - hands a coding agent everything it needs in one paste. */
 function CopyForAi({ apiKey, from }: { apiKey: string | null; from: string }) {
   const [open, setOpen] = useState(false);
   const prompt = `Integrate the Delivered API into my project.
@@ -211,7 +211,7 @@ export default function OnboardingPanel({
           description={
             firstCallDone
               ? 'Your integration is live. Watch delivery in Messages and Events.'
-              : 'Run the command above — this page updates the moment your request lands.'
+              : 'Run the command above; this page updates the moment your request lands.'
           }
           done={firstCallDone}
           last

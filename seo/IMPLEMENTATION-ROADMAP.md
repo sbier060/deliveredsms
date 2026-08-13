@@ -1,9 +1,9 @@
-# Delivered — SEO/AEO Implementation Roadmap
+# Delivered - SEO/AEO Implementation Roadmap
 
 Companion to [SEO-STRATEGY.md](SEO-STRATEGY.md). Ordered by what unblocks what,
 not by phase aesthetics. Items marked **[human]** cannot be done from code.
 
-## Phase 1 — Get indexed at all (week 1)
+## Phase 1 - Get indexed at all (week 1)
 
 Nothing else matters until this is done. The site is currently invisible.
 
@@ -18,7 +18,7 @@ Nothing else matters until this is done. The site is currently invisible.
 
 Phase 1 exit: at least the five nav pages appear in `site:deliveredsms.com`.
 
-## Phase 2 — The agent channel (weeks 2–4)
+## Phase 2 - The agent channel (weeks 2–4)
 
 Highest leverage per hour, and the least dependent on domain authority.
 
@@ -28,18 +28,18 @@ Highest leverage per hour, and the least dependent on domain authority.
 | 2.2 | Publish the skills repo so `npx skills add sbier060/deliveredsms` resolves | code |
 | 2.3 | Expand `/{tool}`: windsurf, cline, zed, n8n, zapier, langchain, vercel-ai-sdk | code |
 | 2.4 | Add each new tool page to `llms.txt`, the sitemap, and `SITE_NAV` if primary | code |
-| 2.5 | Start reporting `/api/agent-log` hits monthly — which crawlers, which paths | code |
+| 2.5 | Start reporting `/api/agent-log` hits monthly - which crawlers, which paths | code |
 | 2.6 | Manually check whether ChatGPT / Claude / Perplexity can answer "how do I send an SMS with Delivered" using only the live site | **[human]** |
 
 2.6 is the real acceptance test for the whole agent surface. If an assistant
 cannot get from cold start to a working `curl` using only what is published,
 something is missing regardless of what the files say.
 
-## Phase 3 — Commercial pages (weeks 4–10)
+## Phase 3 - Commercial pages (weeks 4–10)
 
 | # | Task | Owner |
 |---|---|---|
-| 3.1 | `/twilio-verify-alternative` — the sharpest price delta, build this first | code |
+| 3.1 | `/twilio-verify-alternative` - the sharpest price delta, build this first | code |
 | 3.2 | `/vs/twilio` | code |
 | 3.3 | `/vs/telnyx`, `/vs/plivo`, `/vs/vonage` | code |
 | 3.4 | `/compare/sms-api` category hub linking all of the above | code |
@@ -50,7 +50,7 @@ Every page in this phase ships with: a `.md` twin, an `llms.txt` entry, a
 sitemap entry, and a structured comparison table (tables are what answer engines
 extract). None of them ship with a competitor claim we cannot substantiate.
 
-## Phase 4 — Authority (months 3–12)
+## Phase 4 - Authority (months 3–12)
 
 The slow part. Nothing here is a quick win and pretending otherwise wastes months.
 
@@ -60,14 +60,14 @@ The slow part. Nothing here is a quick win and pretending otherwise wastes month
 | 4.2 | Show HN / Product Hunt / r/webdev launch | **[human]** |
 | 4.3 | Get listed in Twilio-alternative directories and API marketplaces | **[human]** |
 | 4.4 | Case study once a real customer exists (do not fabricate one) | **[human]** |
-| 4.5 | Revisit head terms only once referring domains > 200 | — |
+| 4.5 | Revisit head terms only once referring domains > 200 | - |
 
 ## Standing rules for every future page
 
 These are the ones already violated once in this codebase and fixed:
 
 1. **`dynamicParams = false`** on every dynamic route with `generateStaticParams`.
-   Next 13.4 returns **200** from `notFound()` for unlisted params — a silent soft
+   Next 13.4 returns **200** from `notFound()` for unlisted params - a silent soft
    404. Only reproducible against `next build && next start`.
 2. **Schema server-side in the document.** Never `next/script` +
    `afterInteractive`; crawlers do not see it.
@@ -76,11 +76,11 @@ These are the ones already violated once in this codebase and fixed:
 4. **Titles are the page name alone.** `src/lib/metadata.ts` appends the brand;
    including it in the page title double-stamps it.
 5. **Canonical must point at a URL that exists.** The homepage pointed at
-   `/developers` — a 404 — for the whole life of the domain until it was caught.
+   `/developers` - a 404 - for the whole life of the domain until it was caught.
 
 ## What is explicitly not on this roadmap
 
-- Head-term content for "sms api" — unwinnable at current authority
-- Programmatic location pages — no query behind them for a developer API
-- A high-cadence blog — a new domain gains nothing from volume
-- Any cross-linking with joinghostapp.com — standing product decision
+- Head-term content for "sms api" - unwinnable at current authority
+- Programmatic location pages - no query behind them for a developer API
+- A high-cadence blog - a new domain gains nothing from volume
+- Any cross-linking with joinghostapp.com - standing product decision

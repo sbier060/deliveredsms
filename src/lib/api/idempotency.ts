@@ -30,7 +30,7 @@ export async function checkIdempotency(
       const record: IdempotencyRecord = { payloadHash, createdAt: Date.now() };
       return record;
     }
-    return; // abort — record exists
+    return; // abort - record exists
   });
   if (result.committed) return { kind: 'new' };
 

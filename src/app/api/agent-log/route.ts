@@ -5,7 +5,7 @@ export const runtime = 'nodejs';
 export const maxDuration = 10;
 
 /**
- * Agent-traffic counter. "Check your server logs, not your analytics" —
+ * Agent-traffic counter. "Check your server logs, not your analytics" -
  * agents don't run JS, so Mixpanel never sees them. The middleware fires
  * a beacon here for known AI crawler/agent user-agents; this rolls daily
  * counts per bot and per path into RTDB where the admin surface (and a

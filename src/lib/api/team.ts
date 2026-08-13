@@ -5,7 +5,7 @@ import type { ApiTenant } from './types';
 /**
  * Multi-user teams.
  *
- * The identity model stays 1 uid : 1 tenant — `apiTenantsByUid/{uid}` remains
+ * The identity model stays 1 uid : 1 tenant - `apiTenantsByUid/{uid}` remains
  * the single routing index every console route already resolves through, and
  * invite-accept simply writes it. That keeps `getTenantIdByUid` untouched at
  * its eleven call sites; what teams add is a membership record beside it:
@@ -95,7 +95,7 @@ export type AcceptResult =
  * Two racing accept calls are settled by claiming `usedBy` with a transaction;
  * the routing index is claimed the same way `getOrCreateTenant` claims it, so
  * a user who already owns or belongs to a different tenant is rejected rather
- * than silently rerouted — leaving a tenant is explicit, never a side effect.
+ * than silently rerouted - leaving a tenant is explicit, never a side effect.
  */
 export async function acceptInvite(
   token: string,

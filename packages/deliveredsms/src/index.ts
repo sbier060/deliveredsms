@@ -1,5 +1,5 @@
 /**
- * opensms — the official Delivered client.
+ * opensms - the official Delivered client.
  *
  * Zero dependencies. Uses the platform `fetch`, so it runs on Node 18+, Bun,
  * Deno, Cloudflare Workers and Vercel Edge without a polyfill.
@@ -207,7 +207,7 @@ export class Delivered {
     const env = (globalThis as any).process?.env ?? {};
     const key = apiKey ?? env.DELIVERED_API_KEY ?? env.GHOST_API_KEY;
     if (!apiKey && !env.DELIVERED_API_KEY && env.GHOST_API_KEY) {
-      console.error('opensms: GHOST_API_KEY is deprecated — rename it to DELIVERED_API_KEY.');
+      console.error('opensms: GHOST_API_KEY is deprecated; rename it to DELIVERED_API_KEY.');
     }
     if (!key) {
       throw new Error(
@@ -293,7 +293,7 @@ export class Delivered {
       }
 
       // Retry only when the caller marked it safe. A POST without an
-      // idempotency key is never retried — resending an SMS because a response
+      // idempotency key is never retried - resending an SMS because a response
       // was slow is worse than surfacing the error.
       if (!opts.retryable || !lastError.retryable) break;
       // A verify cooldown is a deliberate policy, not a transient failure.
@@ -340,7 +340,7 @@ class Verify {
   constructor(private readonly client: Delivered) {}
 
   /**
-   * Send a one-time code. You do not need to own a phone number — Delivered sends
+   * Send a one-time code. You do not need to own a phone number; Delivered sends
    * from its own verification pool.
    */
   send(params: { to: string; appName?: string; from?: string }): Promise<Verification> {

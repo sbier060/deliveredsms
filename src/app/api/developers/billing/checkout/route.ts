@@ -15,7 +15,7 @@ export const maxDuration = 30;
  * Setup mode is provably inert against the consumer webhook's
  * checkout.session.completed handler: completeCheckoutSession() returns null
  * unless mode === 'subscription' AND payment_status === 'paid'.
- * We also never set client_reference_id — that is what the consumer path reads
+ * We also never set client_reference_id - that is what the consumer path reads
  * as a Firebase uid.
  */
 export async function POST(req: NextRequest) {

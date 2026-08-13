@@ -10,7 +10,7 @@ export const maxDuration = 20;
 /**
  * Live carrier ingest for inbound SMS.
  *
- * Not a tenant-facing endpoint — this is infrastructure calling us, so it is
+ * Not a tenant-facing endpoint - this is infrastructure calling us, so it is
  * authenticated with a shared secret rather than an API key. Sinch routes
  * inbound per account rather than per number, so every inbound for every number
  * lands on the consumer webhook first; that function forwards the ones whose

@@ -1,6 +1,6 @@
 /**
  * Minimal RFC-4180 CSV. No dependency: the whole need is quoted fields,
- * embedded commas/quotes/newlines — exactly the cases a naive split corrupts.
+ * embedded commas/quotes/newlines - exactly the cases a naive split corrupts.
  */
 
 export function parseCsv(text: string): string[][] {

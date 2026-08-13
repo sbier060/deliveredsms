@@ -7,21 +7,21 @@ import type { ApiTenant } from './types';
 /**
  * Who a verification code is sent FROM.
  *
- * Twilio Verify does not make you buy a number — it "procures and manages
+ * Twilio Verify does not make you buy a number - it "procures and manages
  * short codes, long codes, toll free, and global alpha-sender IDs" on your
  * behalf. We match that: a developer who only wants phone verification needs
  * zero numbers, zero provisioning, and pays no monthly number fee. The sender
  * is irrelevant to them anyway, because nobody replies to an OTP.
  *
  * Pool numbers are Ghost-owned and sent under Delivered's own 10DLC verification
- * campaign — which is the correct structure given we already promise to handle
+ * campaign - which is the correct structure given we already promise to handle
  * 10DLC registration for developers.
  *
  * A developer who wants their own number on the message can still pass `from`
  * explicitly, the same way Twilio lets you override with a Messaging Service.
  */
 
-/** The sandbox sender — lets test-mode verification work with no numbers at all. */
+/** The sandbox sender - lets test-mode verification work with no numbers at all. */
 export const SANDBOX_VERIFY_SENDER = '+15005550100';
 
 let cachedPool: { numbers: string[]; at: number } | null = null;
@@ -111,7 +111,7 @@ export async function resolveVerifySender(input: {
   if (own) return own;
 
   throw new NoSenderAvailableError(
-    'No verification sender is available. Ghost normally sends from its own pool — this is a Ghost configuration problem, not something you need to fix. Contact us.'
+    'No verification sender is available. Ghost normally sends from its own pool; this is a Ghost configuration problem, not something you need to fix. Contact us.'
   );
 }
 
@@ -127,6 +127,6 @@ export async function hasOptedOut(destination: string): Promise<boolean> {
     const snap = await db.ref(`apiVerifyOptOut/${digits10(destination)}`).get();
     return snap.exists();
   } catch {
-    return false; // fail open — an RTDB blip must not block verification
+    return false; // fail open - an RTDB blip must not block verification
   }
 }

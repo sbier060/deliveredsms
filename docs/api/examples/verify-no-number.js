@@ -11,7 +11,7 @@ const ck=(n,a,b)=>{ if(String(a)===String(b)){console.log(`  ✓ ${n}`);pass++;}
   const TN=(await fetch(`${BASE}/api/admin/api-tenants`,{method:'POST',headers:{'x-api-secret':ADMIN,'Content-Type':'application/json'},body:JSON.stringify({email})}).then(r=>r.json())).tenant.id;
   const KEY=(await fetch(`${BASE}/api/admin/api-tenants/${TN}/keys`,{method:'POST',headers:{'x-api-secret':ADMIN,'Content-Type':'application/json'},body:JSON.stringify({mode:'test'})}).then(r=>r.json())).key;
 
-  // strip EVERY number from this tenant — the exact situation a brand-new dev is in
+  // strip EVERY number from this tenant - the exact situation a brand-new dev is in
   await db.ref(`apiTenants/${TN}/numbers`).remove();
   const numbers = await fetch(`${BASE}/api/v1/numbers`,{headers:{Authorization:`Bearer ${KEY}`}}).then(r=>r.json());
   ck('tenant owns zero numbers', numbers.data.length, 0);

@@ -1,7 +1,7 @@
 /**
  * NANP area codes (NPAs) that Delivered Verify will send to.
  *
- * WHY THIS EXISTS: country code +1 is not 'US and Canada' — it covers ~25
+ * WHY THIS EXISTS: country code +1 is not 'US and Canada' - it covers ~25
  * NANP territories including Jamaica (+1876), the Dominican Republic
  * (+1809/829/849), the Bahamas (+1242) and Trinidad (+1868). They are all
  * 11 digits starting with 1, so they pass normalizeE164, pass the carrier's
@@ -11,8 +11,8 @@
  * US list is generated from NANPA's official npa_report.csv via
  * cloud-functions/searchAvailableNumbersSinchExpo/npaToState.js (geographic,
  * in-service codes only; dated 2026-07-15). It deliberately includes US
- * territories — Puerto Rico (787/939), USVI (340), Guam (671), American Samoa
- * (684) — which are served by US carriers and must not be blocked.
+ * territories - Puerto Rico (787/939), USVI (340), Guam (671), American Samoa
+ * (684) - which are served by US carriers and must not be blocked.
  * Canadian NPAs are listed separately because that file excludes Canada.
  *
  * Regenerate the US half by re-running the NANPA filter in that file.

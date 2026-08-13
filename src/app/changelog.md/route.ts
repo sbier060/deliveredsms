@@ -4,7 +4,7 @@ import { getDocsPage } from '@/lib/dev-docs/content';
 export const runtime = 'nodejs';
 
 /**
- * Root-level alias of /docs/changelog.md — the path agents look for first
+ * Root-level alias of /docs/changelog.md - the path agents look for first
  * (Resend serves its changelog index from the root). Same page object.
  */
 export async function GET() {

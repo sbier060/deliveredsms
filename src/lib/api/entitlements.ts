@@ -3,7 +3,7 @@ import type { ApiTenant } from './types';
 
 /**
  * What a tenant is allowed to do right now, derived from its billing state.
- * Pure — no I/O, so it can be unit-tested and called on every request.
+ * Pure - no I/O, so it can be unit-tested and called on every request.
  */
 export interface Entitlements {
   plan: 'free' | 'payg';

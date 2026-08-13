@@ -20,7 +20,7 @@ import {
  * What happens to an inbound message after it is stored.
  *
  * Shared by the sandbox simulator (/v1/test/inbound) and the live carrier
- * ingest (/v1/inbound) so the two cannot diverge — the whole point of the
+ * ingest (/v1/inbound) so the two cannot diverge - the whole point of the
  * sandbox is that it rehearses the real path, and keyword handling is the part
  * developers most need to rehearse.
  */
@@ -58,7 +58,7 @@ export async function processInbound(opts: {
     replyBody = helpBody();
   } else {
     // Ordinary message: the tenant's auto-reply, guarded in the order the
-    // consumer pipeline proved out — keywords always win (handled above),
+    // consumer pipeline proved out - keywords always win (handled above),
     // never answer an OTP, never text an opted-out counterparty, and claim
     // the 4h per-conversation cooldown BEFORE sending so concurrent inbound
     // cannot double-send.

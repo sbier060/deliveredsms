@@ -25,7 +25,7 @@ function RevealedKey({ secret }: { secret: string }) {
   return (
     <div className="mt-4 rounded-xl border border-[#2E2C28] bg-[#0F0E0C] p-4">
       <p className="text-[13px] text-[#C9C6BF]">
-        New key — <span className="text-[#FFFFFF]">shown once, copy it now:</span>
+        New key, <span className="text-[#FFFFFF]">shown once, copy it now:</span>
       </p>
       <div className="mt-2 flex items-center justify-between gap-3 rounded-lg border border-[#2C2C2E] bg-[#111112] px-3.5 py-2.5">
         <code className={`overflow-x-auto whitespace-nowrap text-[13px] text-[#EFEEEC] ${MONO}`}>
@@ -181,7 +181,7 @@ export default function KeysPage() {
       </div>
 
       <p className="mt-4 text-[13px] leading-[1.6] text-[#918E86]">
-        Keys are stored hashed — we can never show one again after it&apos;s
+        Keys are stored hashed, so we can never show one again after it&apos;s
         minted. Rolling revokes the old key immediately.
       </p>
     </div>

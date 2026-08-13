@@ -88,7 +88,7 @@ export default function QuotaCard({
           </p>
         ) : tenant.liveAccess === 'requested' ? (
           <p className="text-[14px] text-[#918E86]">
-            Live access requested — we usually flip the switch same day.
+            Live access requested. We usually flip the switch same day.
           </p>
         ) : !open ? (
           <button
@@ -101,7 +101,7 @@ export default function QuotaCard({
           <div className="space-y-3">
             <p className="text-[14px] leading-[1.6] text-[#C9C6BF]">
               Live access is free. Tell us what you&apos;re sending and
-              we&apos;ll flip the switch — usually same day.
+              we&apos;ll flip the switch, usually same day.
             </p>
             <textarea
               value={useCase}

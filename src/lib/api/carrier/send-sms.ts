@@ -1,11 +1,11 @@
 /**
- * Live SMS send for API tenants — Inteliquent Message Broker, logic extracted
+ * Live SMS send for API tenants - Inteliquent Message Broker, logic extracted
  * from cloud-functions/sendSMSSinch (which is NOT touched or called).
  *
  * Kept from the original pipeline: the moderateMessageSinch content check
- * (blocking, fail-open — calling the deployed function over HTTPS, not
+ * (blocking, fail-open - calling the deployed function over HTTPS, not
  * modifying it) and the fire-and-forget spamMessageDetector call. Message
- * records live only in the rules-locked apiMessages store — API traffic never
+ * records live only in the rules-locked apiMessages store - API traffic never
  * writes the consumer webhooks/{number} node.
  */
 
@@ -91,7 +91,7 @@ export async function carrierSendSms(input: {
     message?: unknown;
   } | null;
   if (!res.ok || !data || data.success !== true) {
-    // Keep the broker's own words — this is the only failure reason we will
+    // Keep the broker's own words - this is the only failure reason we will
     // ever have until DLRs exist, and discarding it left every failed send as
     // an anonymous 502.
     const detail = [data?.error, data?.message]

@@ -73,7 +73,7 @@ POST /v1/numbers            {"phone_number": "+1…"}
 DELETE /v1/numbers/+1…`}</pre>
         <p className="mt-3 text-[13px] text-[#918E86]">
           Test keys provision sandbox numbers instantly. Live numbers require
-          live access — request it from Settings.
+          live access; request it from Settings.
         </p>
       </div>
 

@@ -263,7 +263,7 @@ export default function InboxPage() {
                     value={compose}
                     onChange={(e) => setCompose(e.target.value)}
                     onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); void send(); } }}
-                    placeholder="Type a message — {{first_name}} merges from the contact"
+                    placeholder="Type a message ({{first_name}} merges from the contact)"
                     rows={2}
                     className={`${INPUT} resize-none`}
                   />

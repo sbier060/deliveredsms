@@ -84,7 +84,7 @@ export default function CodeTabs({ snippets, keyAware = false }: CodeTabsProps) 
       {keyAware && sessionKey && (
         <p className="mb-2 text-[12px] text-[#918E86]">
           <span className="text-[#00D26A]">●</span> Your test key is filled into
-          this snippet — treat this page as secret.
+          this snippet; treat this page as secret.
         </p>
       )}
       <div className="overflow-hidden rounded-xl border border-[#2C2C2E] bg-[#111112]">

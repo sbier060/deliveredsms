@@ -11,7 +11,7 @@ import { digits10 } from './phone';
  * reselling it is a structural loss. Owning the store also means we own the
  * TTL, attempt and cooldown policy instead of inheriting Twilio's.
  *
- * Codes are stored sha256-hashed and compared in constant time — the same
+ * Codes are stored sha256-hashed and compared in constant time - the same
  * treatment API keys get in keys.ts. A plaintext code never touches RTDB and
  * never appears in a log line.
  */
@@ -49,7 +49,7 @@ export interface PublicVerification {
   phone: string;
   status: VerificationStatus;
   attempts: number;
-  /** Checks left before the code dies — so a UI can say "2 tries left". */
+  /** Checks left before the code dies - so a UI can say "2 tries left". */
   attempts_remaining: number;
   max_attempts: number;
   test: boolean;
@@ -168,7 +168,7 @@ export async function checkCode(
   if (!record) return { result: 'not_found' };
 
   if (record.status === 'approved') {
-    // Already used — do not allow a second success on one verification.
+    // Already used - do not allow a second success on one verification.
     return { result: 'max_attempts', record };
   }
 

@@ -7,8 +7,8 @@ import type { BillableUnit } from '../pricing';
  *
  * WHY THE GUARD EXISTS: src/app/api/webhook/route.ts (the live consumer Stripe
  * webhook) maps an UNKNOWN price id to subscription type 'main'. If an API
- * price ever reached that webhook unregistered — via
- * customer.subscription.deleted, invoice.payment_failed, etc. — it would set
+ * price ever reached that webhook unregistered - via
+ * customer.subscription.deleted, invoice.payment_failed, etc. - it would set
  * subscribed:0 on a real customer and cascade through multiPlan/vpn/spam,
  * killing a paying customer's phone plan. Registering our price ids as
  * 'irrelevant' makes every one of those handlers skip; this assertion makes it
@@ -27,7 +27,7 @@ export const API_PRICE_IDS: Partial<Record<BillableUnit, string>> = {
   numbers: process.env.STRIPE_API_PRICE_NUMBERS,
 };
 
-/** Stripe meter event names — must match the bootstrap script exactly. */
+/** Stripe meter event names - must match the bootstrap script exactly. */
 export const METER_EVENT_NAMES = {
   outbound_sms: 'ghost_api_outbound_sms',
   inbound_sms: 'ghost_api_inbound_sms',

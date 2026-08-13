@@ -31,7 +31,7 @@ export default function ConsoleOverview() {
         method: 'POST',
       });
       setTenant(res.tenant);
-      // isNew is the exact signup moment — the tenant record was just created.
+      // isNew is the exact signup moment - the tenant record was just created.
       // Identify by Firebase uid so the funnel joins with the rest of the app.
       Mixpanel.identify(auth.currentUser?.uid || res.tenant.id);
       Mixpanel.track(res.isNew ? 'API Signup' : 'API Console Viewed', {
@@ -95,7 +95,7 @@ export default function ConsoleOverview() {
         onFirstCall={() => setTenant({ ...tenant, firstCallAt: Date.now() })}
       />
 
-      {/* Compact account strip — full controls live in Settings. */}
+      {/* Compact account strip - full controls live in Settings. */}
       <div className="rounded-xl border border-[#2E2C28] bg-[#0F0E0C] p-5">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <p className="text-[12px] uppercase tracking-[0.06em] text-[#918E86]">

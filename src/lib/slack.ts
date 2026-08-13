@@ -1,5 +1,5 @@
 /**
- * Minimal Slack notifier. Delivered posts to its own webhook/channel —
+ * Minimal Slack notifier. Delivered posts to its own webhook/channel -
  * deliberately not shared with the consumer product's Slack plumbing.
  * Never throws; ops notifications must not break the request that sent them.
  *
