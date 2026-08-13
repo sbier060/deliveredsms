@@ -31,8 +31,13 @@ Console: ${BASE}/console
 - Every page also supports \`Accept: text/markdown\` content negotiation.
 
 ## Documentation
+- **Docs index** - ${BASE}/docs/llms.txt
 - **Full documentation (single file)** - ${BASE}/docs/llms-full.txt
+- **Everything on this site in one file** - ${BASE}/llms-full.txt
 ${docsLines}
+
+## Migrating from another provider
+- **Migration index** - ${BASE}/migrate.md
 
 ## Command line tool
 - **CLI** - npx deliveredsms — send, verify, numbers, lookup, events from the terminal; --json for scripts and agents; key via DELIVERED_API_KEY or \`deliveredsms login\`
@@ -67,12 +72,12 @@ ${docsLines}
 - **Use Delivered with GitHub Copilot** - ${BASE}/copilot
 
 ## Changelog
-- **Changelog (Markdown)** - ${BASE}/docs/changelog.md
+- **Changelog (Markdown)** - ${BASE}/changelog.md
 - **Changelog (HTML)** - ${BASE}/docs/changelog
 
 ## Legal
-- **Terms of Service** - ${BASE}/terms — operated by Truelabel LLC
-- **Privacy Policy** - ${BASE}/privacy
+- **Terms of Service** - ${BASE}/terms ([md](${BASE}/terms.md)) — operated by Truelabel LLC
+- **Privacy Policy** - ${BASE}/privacy ([md](${BASE}/privacy.md))
 
 ## Product
 - **Landing page** - ${BASE}
