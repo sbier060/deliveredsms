@@ -18,7 +18,7 @@ works instantly against the sandbox.
 ## 1. Get a key
 
 Create a free account at [the console](/console). A sandbox tenant
-is provisioned automatically with a test key (\`ghost_sk_test_...\`) and a
+is provisioned automatically with a test key (\`dsms_sk_test_...\`) and a
 sandbox number. The key is shown once — copy it. If you just signed up in this
 browser, your key is already filled into the snippets below.
 

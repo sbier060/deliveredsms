@@ -61,7 +61,7 @@ export const openApiSpec = {
   info: {
     title: 'Delivered',
     description:
-      'Programmable SMS and phone numbers for developers. Send and receive texts, provision numbers, and screen spam with one REST API. Test keys (ghost_sk_test_...) work instantly against the sandbox; live keys are enabled during early access review.',
+      'Programmable SMS and phone numbers for developers. Send and receive texts, provision numbers, and screen spam with one REST API. Test keys (dsms_sk_test_...) work instantly against the sandbox; live keys are enabled during early access review.',
     version: '1.0.0',
     contact: { url: SITE_URL },
   },
@@ -331,7 +331,7 @@ export const openApiSpec = {
       apiKey: {
         type: 'http',
         scheme: 'bearer',
-        description: 'Your API key, e.g. Authorization: Bearer ghost_sk_test_...',
+        description: 'Your API key, e.g. Authorization: Bearer dsms_sk_test_...',
       },
     },
     schemas: {

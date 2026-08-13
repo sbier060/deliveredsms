@@ -19,7 +19,26 @@ const nextConfig = {
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'origin-when-cross-origin' },
+          // api. and mcp. carry real traffic, so the apex policy has to cover
+          // subdomains or each one has to earn HSTS independently on first hit.
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload',
+          },
         ],
+      },
+      {
+        // The API hosts are machine surfaces. Belt-and-braces with the
+        // robots.txt in middleware: a header travels with every response,
+        // including the JSON index at api./ that would otherwise be indexable.
+        source: '/:path*',
+        has: [{ type: 'host', value: 'api.deliveredsms.com' }],
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+      },
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'mcp.deliveredsms.com' }],
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
       },
     ];
   },

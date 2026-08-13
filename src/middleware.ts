@@ -38,6 +38,25 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
     );
   }
 
+  // Canonical host is the apex. www served an identical 200 for every path,
+  // which is site-wide duplicate content — the canonical tags pointed at the
+  // apex and mitigated it, but a 308 is what actually settles it.
+  if (host === `www.${SITE_DOMAIN}`) {
+    const url = request.nextUrl.clone();
+    url.host = SITE_DOMAIN;
+    return NextResponse.redirect(url, 308);
+  }
+
+  // The API hosts answer JSON, not pages. Without this they are crawlable and
+  // will get indexed as thin duplicates of the docs.
+  if (host === `api.${SITE_DOMAIN}` || host === `mcp.${SITE_DOMAIN}`) {
+    if (pathname === '/robots.txt') {
+      return new NextResponse('User-agent: *\nDisallow: /\n', {
+        headers: { 'Content-Type': 'text/plain' },
+      });
+    }
+  }
+
   // api.<domain>/ serves the API index. This lives in middleware rather than
   // vercel.json because vercel.json rewrites are applied AFTER the filesystem
   // check, so "/" would always match the landing page first. Middleware runs

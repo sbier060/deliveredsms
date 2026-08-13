@@ -105,15 +105,18 @@ access.
 Every request is authenticated with an API key in the \`Authorization\` header:
 
 \`\`\`bash
-Authorization: Bearer ghost_sk_test_...
+Authorization: Bearer dsms_sk_test_...
 \`\`\`
 
 ## Test and live keys
 
 | Prefix | Mode | Behavior |
 | --- | --- | --- |
-| \`ghost_sk_test_\` | Sandbox | Instant, free, simulated delivery — no real SMS ever leaves the sandbox. |
-| \`ghost_sk_live_\` | Live | Real numbers and real delivery. Mintable once your account has live access. |
+| \`dsms_sk_test_\` | Sandbox | Instant, free, simulated delivery — no real SMS ever leaves the sandbox. |
+| \`dsms_sk_live_\` | Live | Real numbers and real delivery. Mintable once your account has live access. |
+
+\`ghost_sk_test_\` and \`ghost_sk_live_\` are legacy prefixes from the Ghost era.
+They are still accepted and will not be revoked, but new keys mint as \`dsms_\`.
 
 Keys never expire, but you can roll or revoke them anytime from the
 [console](/console/keys). Rolling revokes the old key immediately
@@ -139,7 +142,7 @@ minting it. If you lose one, roll it.
     description: 'How test mode works, including magic numbers.',
     markdown: `# Sandbox & test numbers
 
-Test keys (\`ghost_sk_test_\`) run against a fully simulated environment: no
+Test keys (\`dsms_sk_test_\`) run against a fully simulated environment: no
 carrier traffic, no charges, and nothing real ever sent. Every endpoint works,
 so you can build your whole integration — including webhooks — before going
 live.
@@ -255,7 +258,7 @@ Or from the terminal — the CLI ships inside the SDK package, so \`npx\` needs
 no install at all:
 
 \`\`\`bash
-DELIVERED_API_KEY=ghost_sk_test_... npx deliveredsms verify +14155550132
+DELIVERED_API_KEY=dsms_sk_test_... npx deliveredsms verify +14155550132
 npx deliveredsms verify +14155550132 482193   # check the code
 \`\`\`
 
@@ -747,7 +750,7 @@ export function fullDocsMarkdown(): string {
   const header = `# Delivered — SMS for Developers
 
 Programmable SMS and phone numbers. Base URL: https://api.deliveredsms.com/v1
-Authentication: Authorization: Bearer ghost_sk_test_... (or ghost_sk_live_...)
+Authentication: Authorization: Bearer dsms_sk_test_... (or dsms_sk_live_...)
 Console (free sandbox keys): https://deliveredsms.com/console
 OpenAPI: https://deliveredsms.com/api/v1/openapi.yaml (also .json)
 
