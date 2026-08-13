@@ -11,7 +11,7 @@ import Wordmark from '@/components/Wordmark';
 
 export const metadata: Metadata = buildMetadata({
   description:
-    'Programmable SMS and phone numbers for developers. Send and receive texts, verify phone numbers, and provision real numbers across 200+ area codes with one REST API.',
+    'Programmable SMS and phone numbers for developers. Send and receive texts, verify phone numbers, and provision real numbers across 200+ area codes with one REST API. Shared inbox, broadcasts, scheduled sends, and STOP handling built in.',
   path: '/',
   keywords: [
     'sms api',
@@ -20,6 +20,8 @@ export const metadata: Metadata = buildMetadata({
     'send sms api',
     'receive sms api',
     'phone lookup api',
+    'shared sms inbox',
+    'sms broadcast',
     'twilio alternative',
   ],
 });
@@ -152,6 +154,111 @@ const featureSections = [
   "status": "approved",
   "charged": true
 }`}</pre>
+      </div>
+    ),
+  },
+  {
+    id: 'inbox',
+    docsHref: '/docs/inbox',
+    eyebrow: 'INBOX & TEAMS',
+    bright: 'A shared inbox, built in.',
+    muted: 'Every number, every conversation, your whole team.',
+    body: 'Inbound and outbound texts thread into conversations with unread counts, contact names, and reply templates. Invite teammates with a link, keep billing and keys admin-only with roles, and see exactly who sent what.',
+    endpoints: ['Conversations & unread state', 'Contacts, tags & CSV import', 'Invite links · admin & member roles'],
+    visual: (
+      <div className="p-5">
+        <p className="mb-3 text-[12px] uppercase tracking-[0.06em] text-[#918E86]">
+          Inbox
+        </p>
+        <ul className="divide-y divide-[#2E2C28]">
+          {[
+            ['Dana Whitfield', 'Perfect, see you at 2pm.', '3', 'now'],
+            ['+1 (415) 555-0176', 'Is the unit still available?', '1', '12m'],
+            ['Marcus Lee', 'You: Your order shipped today.', '', '1h'],
+          ].map(([name, preview, unread, when]) => (
+            <li key={name} className="flex items-center gap-3 py-2.5">
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-[14px] text-[#EFEEEC]">{name}</p>
+                <p className="truncate text-[13px] text-[#918E86]">{preview}</p>
+              </div>
+              {unread && (
+                <span className="rounded-full bg-[#00D26A] px-1.5 text-[11px] leading-[18px] text-black">
+                  {unread}
+                </span>
+              )}
+              <span className="text-[12px] text-[#5C5A55]">{when}</span>
+            </li>
+          ))}
+        </ul>
+        <p className={`mt-3 text-[12px] text-[#918E86] ${MONO}`}>
+          sent by Maya · template: appointment-confirm
+        </p>
+      </div>
+    ),
+  },
+  {
+    id: 'broadcasts',
+    docsHref: '/docs/broadcasts',
+    eyebrow: 'BROADCASTS & SCHEDULED',
+    bright: 'Message a list. Or send it later.',
+    muted: 'Merge fields in, opt-outs skipped, counts out.',
+    body: 'Pick a tag, write once with merge fields, and every contact gets an individual text. Anyone who replied STOP is skipped and counted, never messaged. Add scheduled_at to any send and cancel it up to the minute it goes out.',
+    endpoints: ['scheduled_at on POST /v1/messages', 'broadcast.complete', '{{first_name}} merge fields'],
+    visual: (
+      <div className="p-5">
+        <div className="flex items-center justify-between">
+          <p className="text-[12px] uppercase tracking-[0.06em] text-[#918E86]">
+            Broadcast · Appointment reminders
+          </p>
+          <span className="rounded-full border border-[#2C2C2E] bg-[#1C1C1E] px-2.5 py-0.5 text-[11px] text-[#00D26A]">
+            complete
+          </span>
+        </div>
+        <div className="mt-4 grid grid-cols-3 gap-px overflow-hidden rounded-lg border border-[#2E2C28] bg-[#2E2C28]">
+          {[
+            ['240', 'recipients'],
+            ['236', 'sent'],
+            ['4', 'skipped opt-out'],
+          ].map(([value, label]) => (
+            <div key={label} className="bg-[#111112] p-3">
+              <p className={`text-[18px] tabular-nums text-[#EFEEEC] ${MONO}`}>{value}</p>
+              <p className="mt-0.5 text-[12px] text-[#918E86]">{label}</p>
+            </div>
+          ))}
+        </div>
+        <p className={`mt-3 text-[12px] text-[#918E86] ${MONO}`}>
+          Hi {'{{first_name}}'}, your appointment is tomorrow at {'{{field:time}}'}.
+        </p>
+      </div>
+    ),
+  },
+  {
+    id: 'opt-out',
+    docsHref: '/docs/opt-out',
+    eyebrow: 'COMPLIANCE',
+    bright: 'STOP means stop. Automatically.',
+    muted: 'CTIA keywords handled on every number.',
+    body: 'Reply STOP and Delivered confirms it, blocks every future send to that person, and emits message.opted_out so your app can mirror it. START opts back in, HELP answers with your support contact, and auto-replies respect office hours and never touch keywords or verification codes.',
+    endpoints: ['STOP / START / HELP', 'message.opted_out', 'Auto-reply with office hours'],
+    visual: (
+      <div className="space-y-3 p-5">
+        <p className="text-[12px] uppercase tracking-[0.06em] text-[#918E86]">
+          Opt-out
+        </p>
+        <div className="flex justify-start">
+          <div className="rounded-2xl rounded-bl-md border border-[#2E2C28] px-4 py-2.5 text-[14px] text-[#C9C6BF]">
+            STOP
+          </div>
+        </div>
+        <div className="flex justify-end">
+          <div className="max-w-[85%] rounded-2xl rounded-br-md bg-[#1C1C1E] px-4 py-2.5 text-[14px] text-[#EFEEEC]">
+            You have been unsubscribed and will receive no further messages.
+            Reply START to resubscribe.
+          </div>
+        </div>
+        <p className={`text-[12px] text-[#918E86] ${MONO}`}>
+          message.opted_out · future sends blocked
+        </p>
       </div>
     ),
   },
