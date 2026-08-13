@@ -6,7 +6,15 @@ import {
   clearOptOut,
   confirmationBody,
   helpBody,
+  hasOptedOut,
 } from '@/lib/api/opt-out';
+import {
+  getAutoReply,
+  shouldFire,
+  claimCooldown,
+  looksLikeVerificationCode,
+  AUTO_REPLY_MAX_LENGTH,
+} from '@/lib/api/auto-reply';
 
 /**
  * What happens to an inbound message after it is stored.
@@ -37,6 +45,7 @@ export async function processInbound(opts: {
 
   const intent = classify(body);
   let replyBody: string | null = null;
+  let autoReply = false;
 
   if (intent === 'opt_out') {
     await recordOptOut(tenantId, from, test ? 'sandbox_keyword' : 'sms_keyword', messageId);
@@ -47,6 +56,25 @@ export async function processInbound(opts: {
     await emitEvent(tenantId, 'message.opted_in', { phone: from, keyword: body.trim() });
   } else if (intent === 'help') {
     replyBody = helpBody();
+  } else {
+    // Ordinary message: the tenant's auto-reply, guarded in the order the
+    // consumer pipeline proved out — keywords always win (handled above),
+    // never answer an OTP, never text an opted-out counterparty, and claim
+    // the 4h per-conversation cooldown BEFORE sending so concurrent inbound
+    // cannot double-send.
+    const config = await getAutoReply(tenantId, to);
+    if (
+      config &&
+      shouldFire(config) &&
+      !looksLikeVerificationCode(body) &&
+      !(await hasOptedOut(tenantId, from))
+    ) {
+      const convKey = convKeyFor({ to, from, direction: 'inbound' });
+      if (await claimCooldown(tenantId, convKey)) {
+        replyBody = config.message.slice(0, AUTO_REPLY_MAX_LENGTH);
+        autoReply = true;
+      }
+    }
   }
 
   // The confirmation is the one message permitted to a number that just opted
@@ -67,6 +95,7 @@ export async function processInbound(opts: {
       from: to,
       body: replyBody,
       auto_reply: true,
+      ...(autoReply ? { kind: 'auto_reply' } : { kind: 'keyword_reply' }),
     });
   }
 

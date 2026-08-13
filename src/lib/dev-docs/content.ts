@@ -641,6 +641,230 @@ Lookups count against a daily quota (default 250/day live, 100/day sandbox).
 `,
   },
   {
+    slug: 'inbox',
+    title: 'Inbox & conversations',
+    description: 'Threaded conversations, unread counts, and the shared team inbox.',
+    markdown: `# Inbox & conversations
+
+Every message on your numbers is grouped into conversations — one per
+(your number, counterparty) pair. The console inbox is a shared view: your
+whole team sees the same threads and the same unread state.
+
+## How threading works
+
+The thread key is \`{ourDigits}_{theirDigits}\`. Inbound messages increment the
+conversation's unread counter; opening the thread in the console clears it.
+\`message.received\` webhook events carry a \`conversation\` field with the same
+key so your own systems can thread without re-deriving it.
+
+## Attribution
+
+Messages composed in the console are stamped with the sender's name and show
+up in the thread as "sent by Alice". API sends are attributed to the key.
+
+## Media
+
+Inbound MMS attachments are stored on the message (\`media\` array) and shown in
+the thread. Outbound MMS returns \`mms_not_enabled\` until numbers are
+provisioned for MMS.
+`,
+  },
+  {
+    slug: 'contacts',
+    title: 'Contacts',
+    description: 'The address book: custom fields, tags, CSV import and export.',
+    markdown: `# Contacts
+
+Contacts are keyed by phone number — one contact per number per account, and
+imports upsert rather than duplicate.
+
+## Fields
+
+- \`name\`, \`phone\` (E.164), \`notes\`
+- \`tags\` — free-form labels that double as broadcast audiences
+- \`fields\` — up to 20 custom key/values, usable in merge fields as \`{{field:key}}\`
+
+## CSV import
+
+Console → Contacts → Import CSV. The first row must be a header including a
+phone column (\`phone\`, \`number\`, \`mobile\`…). Unrecognized columns become
+custom fields. Existing contacts are enriched, never wiped: a row with only
+name+phone will not erase tags you added by hand.
+
+## Export
+
+Console → Contacts → Export downloads the whole book as CSV, custom fields as
+columns.
+
+## Names in the inbox
+
+Inbound messages resolve the sender against contacts, so threads show
+"Jane Doe" instead of a raw number the moment a contact exists.
+`,
+  },
+  {
+    slug: 'teams',
+    title: 'Teams',
+    description: 'Multiple users on one account: roles, invite links, signatures.',
+    markdown: `# Teams
+
+One account, many users. The owner and admins manage the account; members work
+the inbox.
+
+## Roles
+
+| Role | Can |
+| --- | --- |
+| \`admin\` | Everything: keys, billing, webhooks, numbers, team, plus all member abilities. |
+| \`member\` | Inbox, contacts, broadcasts, templates, messaging. |
+
+Admin-only routes return \`403\` to members.
+
+## Invites
+
+Console → Team → Create invite link. Links are single-use and expire after 7
+days; share them however you like. The recipient signs in (Google or email)
+and lands on your team. An account that already belongs to another team must
+use a different sign-in.
+
+## Signatures
+
+Each user can set a signature (Console → Team → your profile); it is appended
+to messages they compose in the console.
+`,
+  },
+  {
+    slug: 'broadcasts',
+    title: 'Broadcasts',
+    description: 'One message to a tagged audience, sent as individual personalized texts.',
+    markdown: `# Broadcasts
+
+A broadcast sends one message to every contact carrying a tag — as N
+individual texts. Recipients never see each other, and merge fields
+personalize each body.
+
+## Merge fields
+
+\`{{name}}\`, \`{{first_name}}\`, \`{{phone}}\`, \`{{field:company}}\` — resolved
+per recipient at send time, so a contact edit made after scheduling still
+lands. Unresolvable fields render as empty, never as the raw tag.
+
+## Opt-outs are enforced per recipient
+
+Every recipient passes the full send pipeline independently. Contacts who
+replied STOP are counted in \`skipped_opt_out\` — they are never texted and
+never silently dropped from the math.
+
+## Scheduling and progress
+
+Pick a future time to schedule; leave it blank to send on the next queue
+flush (within a minute). The broadcast page shows \`sent / total\` live, and a
+\`broadcast.complete\` webhook event fires when the last job settles.
+
+## Limits
+
+Up to 2,000 recipients per broadcast. Each send counts against your normal
+message quota and billing — a broadcast is exactly N messages.
+`,
+  },
+  {
+    slug: 'scheduled',
+    title: 'Scheduled messages',
+    description: 'Send later: schedule 1:1 messages up to 30 days out.',
+    markdown: `# Scheduled messages
+
+Pass \`scheduled_at\` (ISO timestamp or epoch ms, up to 30 days out) to
+\`POST /v1/messages\` and the message is queued instead of sent:
+
+\`\`\`bash
+curl -X POST https://api.deliveredsms.com/v1/messages \
+  -H "Authorization: Bearer $DELIVERED_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"to":"+14155550132","from":"+15005550110","body":"Reminder!","scheduled_at":"2026-09-01T15:00:00Z"}'
+\`\`\`
+
+The response is a \`scheduled_message\` with a \`job_\` id. Delivery happens on
+the next queue flush after the timestamp (within a minute).
+
+## The schedule reserves nothing
+
+Opt-out and quota are re-checked at send time, not at scheduling. A recipient
+who opts out between scheduling and sending is skipped; a schedule does not
+hold quota.
+
+## Listing and canceling
+
+\`GET /api/developers/scheduled\` lists pending jobs;
+\`DELETE /api/developers/scheduled?id=job_...\` cancels one that has not sent
+yet. Cancellation races are settled atomically — a job mid-send cannot be
+canceled.
+`,
+  },
+  {
+    slug: 'auto-reply',
+    title: 'Auto-replies & office hours',
+    description: 'Per-number automatic replies, optionally only outside business hours.',
+    markdown: `# Auto-replies & office hours
+
+Each number can answer inbound texts automatically — an away message, an
+out-of-office, or a first-touch acknowledgement.
+
+## Configuration
+
+Per number: \`enabled\`, \`message\` (max 320 chars), and optional office hours
+(\`tz\` as an IANA zone, open \`days\`, \`start\`/\`end\` as HH:MM, and \`mode\`):
+
+- \`always\` — reply to every eligible inbound.
+- \`after_hours\` — the out-of-office pattern: reply only OUTSIDE the hours.
+
+## Guardrails (not configurable)
+
+- STOP / START / HELP keywords always win; the auto-reply never answers them.
+- Verification codes are never answered.
+- Opted-out counterparties are never texted.
+- One auto-reply per conversation per 4 hours, claimed atomically — two
+  simultaneous inbound messages cannot double-send.
+
+## Testing
+
+Works identically in sandbox: simulate an inbound with
+\`POST /v1/test/inbound\` and the reply appears in the thread with an
+\`auto_reply: true\` marker on its event.
+`,
+  },
+  {
+    slug: 'porting',
+    title: 'Number porting',
+    description: 'Bring an existing business number to Delivered.',
+    markdown: `# Number porting
+
+You can bring a number you already own. Porting is a carrier-side process with
+paperwork and multi-day timelines, so it runs as a tracked request rather than
+an instant API call.
+
+## What we need
+
+- The number, your current carrier, and the account number with them
+- The last 4 of your account PIN (if your carrier uses one)
+- The name of the person authorized to approve the transfer
+
+Submit from Console → Numbers → Port a number (admins only).
+
+## Timeline
+
+| Status | Meaning |
+| --- | --- |
+| \`requested\` | We received your request. |
+| \`submitted\` | Filed with the carrier. |
+| \`foc_set\` | The carrier set a Firm Order Commitment date. |
+| \`complete\` | The number is live on Delivered. |
+| \`rejected\` | The carrier rejected it — the note says why (usually a detail mismatch). |
+
+The status timeline is visible in the console; keep the old service active
+until the port completes.
+`,
+  },
+  {
     slug: 'opt-out',
     title: 'Opt-out (STOP)',
     description: 'How STOP, START and HELP are handled, and what is blocked.',

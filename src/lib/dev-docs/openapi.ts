@@ -17,6 +17,9 @@ const messageSchema = {
     status: { type: 'string', enum: ['queued', 'sent', 'delivered', 'failed', 'received'] },
     test: { type: 'boolean' },
     created_at: { type: 'string', format: 'date-time' },
+    media: { type: 'array', items: { type: 'string', format: 'uri' }, description: 'MMS attachments (inbound today).' },
+    sent_by: { type: 'string', description: 'Console user or API key that composed it.' },
+    failure_reason: { type: 'string', description: 'Present when the carrier rejected the send.' },
   },
 };
 
@@ -88,6 +91,15 @@ export const openApiSpec = {
                   to: { type: 'string', example: '+15005550006' },
                   from: { type: 'string', example: '+15005550100' },
                   body: { type: 'string', maxLength: 1600 },
+                  scheduled_at: {
+                    type: 'string',
+                    description: 'Optional. Future ISO timestamp (or epoch ms), up to 30 days out. The message is queued and the response is a scheduled_message object instead of a message.',
+                  },
+                  media: {
+                    type: 'array',
+                    items: { type: 'string', format: 'uri' },
+                    description: 'Reserved for MMS; currently returns 400 mms_not_enabled.',
+                  },
                 },
               },
             },
