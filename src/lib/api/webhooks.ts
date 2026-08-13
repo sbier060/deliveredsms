@@ -251,12 +251,11 @@ export async function flushWebhookOutbox(): Promise<{
   remaining: number;
 }> {
   const now = Date.now();
-  const snap = await db
-    .ref('apiWebhookOutbox')
-    .orderByChild('nextAt')
-    .endAt(now)
-    .limitToFirst(100)
-    .get();
+  // Unordered fetch + in-code filter: an orderByChild query would need an
+  // .indexOn rule on the shared RTDB, which isn't worth touching for a queue
+  // that only holds currently-failing deliveries. Not-yet-due rows are simply
+  // skipped and picked up on a later run.
+  const snap = await db.ref('apiWebhookOutbox').limitToFirst(100).get();
   if (!snap.exists()) return { sent: 0, rescheduled: 0, dropped: 0, remaining: 0 };
 
   let sent = 0;
@@ -264,7 +263,8 @@ export async function flushWebhookOutbox(): Promise<{
   let dropped = 0;
   const jobs: Array<{ key: string; job: RetryJob }> = [];
   snap.forEach((child) => {
-    jobs.push({ key: child.key as string, job: child.val() as RetryJob });
+    const job = child.val() as RetryJob;
+    if (job.nextAt <= now) jobs.push({ key: child.key as string, job });
   });
 
   for (const { key, job } of jobs) {
