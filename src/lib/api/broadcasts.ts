@@ -32,6 +32,8 @@ export async function listBroadcasts(tenantId: string): Promise<Broadcast[]> {
   const snap = await db.ref(`apiBroadcasts/${tenantId}`).get();
   if (!snap.exists()) return [];
   return (Object.values(snap.val()) as Broadcast[])
+    // Drop malformed rows (e.g. historical phantoms) rather than crash the UI.
+    .filter((b) => b && typeof b.createdAt === 'number' && b.id)
     .map((b) => ({
       ...b,
       // Counter children are created lazily by the cron; hydrate defaults.

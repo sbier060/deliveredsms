@@ -177,6 +177,11 @@ export async function flushSendQueue(): Promise<{ sent: number; failed: number; 
 async function bumpBroadcast(job: SendJob, counter: 'sent' | 'failed' | 'skipped_opt_out'): Promise<void> {
   if (!job.broadcastId) return;
   const base = `apiBroadcasts/${job.tenantId}/${job.broadcastId}`;
+  // Existence first: transacting a counter under a deleted record would
+  // resurrect it as a phantom {counts} object with no name or createdAt,
+  // which then crashes anything that renders the list.
+  const before = await db.ref(base).get();
+  if (!before.exists() || !(before.val() as { createdAt?: number }).createdAt) return;
   await db.ref(`${base}/counts/${counter}`).transaction((cur: number | null) => (cur || 0) + 1);
 
   const snap = await db.ref(base).get();

@@ -9,6 +9,8 @@ import {
   PageHeading,
   EmptyState,
 } from '@/components/dev-console/ConsoleTable';
+import AutoReplyCard from './AutoReplyCard';
+import PortingCard from './PortingCard';
 
 export default function NumbersPage() {
   const [tenant, setTenant] = useState<DevTenant | null>(null);
@@ -44,16 +46,16 @@ export default function NumbersPage() {
         <div className="overflow-hidden rounded-xl border border-[#2E2C28]">
           <ul className="divide-y divide-[#2E2C28]">
             {tenant.numbers.map((n) => (
-              <li
-                key={n.phone_number}
-                className="flex items-center justify-between bg-[#0F0E0C] px-5 py-4"
-              >
-                <span className={`text-[15px] text-[#EFEEEC] ${CONSOLE_MONO}`}>
-                  {n.phone_number}
-                </span>
-                <span className="rounded-md border border-[#2C2C2E] bg-[#1C1C1E] px-1.5 py-0.5 text-[11px] text-[#918E86]">
-                  {n.mode}
-                </span>
+              <li key={n.phone_number} className="bg-[#0F0E0C]">
+                <div className="flex items-center justify-between px-5 py-4">
+                  <span className={`text-[15px] text-[#EFEEEC] ${CONSOLE_MONO}`}>
+                    {n.phone_number}
+                  </span>
+                  <span className="rounded-md border border-[#2C2C2E] bg-[#1C1C1E] px-1.5 py-0.5 text-[11px] text-[#918E86]">
+                    {n.mode}
+                  </span>
+                </div>
+                <AutoReplyCard number={n.phone_number} />
               </li>
             ))}
           </ul>
@@ -74,6 +76,8 @@ DELETE /v1/numbers/+1…`}</pre>
           live access — request it from Settings.
         </p>
       </div>
+
+      <PortingCard isAdmin />
     </div>
   );
 }
