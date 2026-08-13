@@ -20,9 +20,13 @@ Base URL: https://api.deliveredsms.com/v1
 Auth: Authorization: Bearer ghost_sk_test_... (free sandbox keys, instant)
 Console: ${BASE}/console
 
+## Authentication
+- **How to get and handle credentials (agents start here)** - ${BASE}/auth.md
+
 ## Markdown twins of site pages
 - **Landing (Markdown)** - ${BASE}/index.md
 - **Agents page (Markdown)** - ${BASE}/agents.md
+- **Pricing (Markdown)** - ${BASE}/pricing.md
 - **Per-tool pages** - append .md to any tool page, e.g. ${BASE}/claude-code.md
 - Every page also supports \`Accept: text/markdown\` content negotiation.
 
@@ -37,8 +41,9 @@ ${docsLines}
 - **Node.js / TypeScript** - npm install deliveredsms — zero dependencies, works on Node 18+, Bun, Deno, Workers and Edge; ships the CLI as its bin
 
 ## OpenAPI spec
-- **OpenAPI spec (YAML)** - ${BASE}/api/v1/openapi.yaml
-- **OpenAPI spec (JSON)** - ${BASE}/api/v1/openapi.json
+- **OpenAPI spec (YAML)** - ${BASE}/openapi.yaml
+- **OpenAPI spec (JSON)** - ${BASE}/openapi.json
+- Also served from the API host at ${API_URL}/v1/openapi.yaml and ${API_URL}/v1/openapi.json
 
 ## MCP Server
 - **Streamable HTTP MCP server** - ${BASE}/api/mcp — send/receive SMS, numbers, lookup, and events as MCP tools; authenticate with your API key
@@ -70,9 +75,9 @@ ${docsLines}
 - **Privacy Policy** - ${BASE}/privacy
 
 ## Product
-- **Landing page** - ${BASE}/developers
+- **Landing page** - ${BASE}
 - **Pricing (HTML)** - ${BASE}/pricing
-- **Pricing (Markdown)** - ${BASE}/docs/pricing.md
+- **Pricing (Markdown)** - ${BASE}/pricing.md
 `;
 
   return new NextResponse(body, {
