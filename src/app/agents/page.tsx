@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { generateMetadata as buildMetadata, BASE_URL } from '@/lib/metadata';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Phone numbers and SMS for AI agents — Delivered',
+  title: 'Phone numbers and SMS for AI agents',
   description:
     'Give your AI agent a real phone number. Send and receive SMS, run phone verification, and screen spam — with an API, MCP server, and skills built for agents.',
   path: '/agents',
@@ -68,7 +68,7 @@ export default function AgentsPage() {
       <header className="border-b border-[#2E2C28]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-[16px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
+            <span className="text-[24px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
           </Link>
           <nav className="flex items-center gap-6">
             <Link

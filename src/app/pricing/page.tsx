@@ -17,7 +17,7 @@ import {
 } from '@/lib/api/pricing';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Pricing | Delivered — SMS for Developers',
+  title: 'Pricing',
   description:
     'Delivered pricing: $0.005 per outbound SMS all-in — no carrier surcharge, no platform fee, A2P 10DLC included. Cheaper all-in than Twilio, Telnyx and Plivo. Free tier with 100 live texts a month, no credit card.',
   path: '/pricing',

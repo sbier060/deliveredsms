@@ -109,7 +109,7 @@ export default function ToolPage({ params }: { params: { tool: string } }) {
       <header className="border-b border-[#2E2C28]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-[16px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
+            <span className="text-[24px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
           </Link>
           <nav className="flex items-center gap-6">
             <Link

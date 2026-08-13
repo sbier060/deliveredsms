@@ -9,10 +9,9 @@ import { RATES, FREE_TIER, formatRate, formatMoney } from '@/lib/api/pricing';
 import DevFunnelTracker from '@/components/dev-docs/DevFunnelTracker';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Delivered — SMS for Developers',
   description:
     'Programmable SMS and phone numbers for developers. Send and receive texts, provision real numbers across 200+ area codes, and screen spam with one REST API.',
-  path: '/developers',
+  path: '/',
   keywords: [
     'sms api',
     'programmable sms',
@@ -39,25 +38,24 @@ const CODE_CHIP = `rounded-md border border-[#2C2C2E] bg-[#1C1C1E] px-1.5 py-0.5
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
+    // These pointed at ${BASE_URL}/developers, a 404 left over from the
+    // extraction — the landing page is / now.
     {
       '@type': 'WebPage',
-      '@id': `${BASE_URL}/developers`,
-      url: `${BASE_URL}/developers`,
-      name: 'Delivered — SMS for Developers',
+      '@id': `${BASE_URL}/#webpage`,
+      url: BASE_URL,
+      name: 'Delivered · SMS for developers',
       description:
         'Programmable SMS and phone numbers for developers. Send and receive texts, provision real numbers, and screen spam with one REST API.',
+      isPartOf: { '@id': `${BASE_URL}/#website` },
     },
     {
       '@type': 'SoftwareApplication',
       name: 'Delivered',
       applicationCategory: 'DeveloperApplication',
       operatingSystem: 'Any',
-      url: `${BASE_URL}/developers`,
-      provider: {
-        '@type': 'Organization',
-        name: 'Delivered',
-        url: BASE_URL,
-      },
+      url: BASE_URL,
+      provider: { '@id': `${BASE_URL}/#organization` },
     },
   ],
 };
@@ -209,11 +207,14 @@ export default function DevelopersPage() {
       <header className="border-b border-[#2E2C28]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-[16px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
+            <span className="text-[24px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
           </Link>
           <nav className="flex items-center gap-6">
+            {/* These four are SITE_NAV in src/lib/site-schema.ts. Google draws
+                sitelinks from real, linked, indexable nav destinations, so the
+                schema and this markup have to agree. */}
             <Link
-              href="/docs/quickstart"
+              href="/docs"
               className="hover-underline-gradient hidden text-[14px] text-[#918E86] transition-colors duration-150 hover:text-[#EFEEEC] sm:block"
             >
               Docs
@@ -223,6 +224,12 @@ export default function DevelopersPage() {
               className="hover-underline-gradient hidden text-[14px] text-[#918E86] transition-colors duration-150 hover:text-[#EFEEEC] sm:block"
             >
               Pricing
+            </Link>
+            <Link
+              href="/login"
+              className="hover-underline-gradient hidden text-[14px] text-[#918E86] transition-colors duration-150 hover:text-[#EFEEEC] sm:block"
+            >
+              Log in
             </Link>
             <Link
               href="/console"

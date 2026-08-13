@@ -37,6 +37,10 @@ const URLSET_OPEN =
 let main = URLSET_OPEN;
 main += entry(`${BASE}/`, '1.0');
 main += entry(`${BASE}/pricing`, '0.9');
+// Primary nav destinations — these are what Google draws sitelinks from, so
+// they must be in the sitemap as well as in SITE_NAV (src/lib/site-schema.ts).
+main += entry(`${BASE}/login`, '0.8');
+main += entry(`${BASE}/signup`, '0.8');
 main += entry(`${BASE}/agents`, '0.8');
 main += entry(`${BASE}/terms`, '0.4');
 main += entry(`${BASE}/privacy`, '0.4');

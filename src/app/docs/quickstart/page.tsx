@@ -5,7 +5,7 @@ import CodeTabs from '@/components/dev-docs/CodeTabs';
 import { buildSendSnippets } from '@/lib/dev-docs/snippets';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Quickstart | Delivered Docs',
+  title: 'Quickstart',
   description: 'Send your first SMS with the Delivered in under five minutes.',
   path: '/docs/quickstart',
 });

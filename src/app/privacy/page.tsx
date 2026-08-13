@@ -17,7 +17,7 @@ export default function PrivacyPage() {
       <header className="border-b border-[#2E2C28]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-[16px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
+            <span className="text-[24px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
           </Link>
           <Link href="/console" className="rounded-full border border-[#2E2C28] px-5 py-2 text-[14px] text-[#EFEEEC] transition-colors duration-150 hover:border-[#918E86]">
             Console

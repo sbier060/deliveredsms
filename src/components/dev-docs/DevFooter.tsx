@@ -11,9 +11,10 @@ const COLUMNS: Array<{ title: string; links: Array<{ label: string; href: string
   {
     title: 'Product',
     links: [
-      { label: 'Docs', href: '/docs/quickstart' },
+      { label: 'Docs', href: '/docs' },
       { label: 'Pricing', href: '/pricing' },
-      { label: 'Console', href: '/console' },
+      { label: 'Log in', href: '/login' },
+      { label: 'Create an account', href: '/signup' },
       { label: 'Changelog', href: '/docs/changelog' },
     ],
   },

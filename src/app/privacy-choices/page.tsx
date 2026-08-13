@@ -18,7 +18,7 @@ export default function PrivacyChoicesPage() {
     <div className="min-h-screen bg-[#0A0A0B] text-white">
       <header className="border-b border-[#2E2C28]">
         <div className="mx-auto flex max-w-6xl items-center px-6 py-4">
-          <Link href="/" className="text-[16px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></Link>
+          <Link href="/" className="text-[24px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></Link>
         </div>
       </header>
       <main className="mx-auto max-w-2xl px-6 py-16">

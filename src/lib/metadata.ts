@@ -3,7 +3,10 @@ import { SITE_URL } from '@/lib/urls';
 
 export const BASE_URL = SITE_URL;
 
-const SITE_TITLE = 'Delivered — SMS & Phone Verification API';
+// "Brand · Tagline" is the shape Google renders as the headline of a brand
+// result (resend.com uses "Resend · Email for developers"). Keep it short: the
+// homepage title is the anchor for every branded search.
+const SITE_TITLE = 'Delivered · SMS for developers';
 const DEFAULT_DESCRIPTION =
   'Programmable SMS, phone verification, and real US/Canada phone numbers with one REST API. Built for developers and AI agents. Free sandbox, no card.';
 

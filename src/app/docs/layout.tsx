@@ -8,7 +8,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
       <header className="border-b border-[#2E2C28]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-[15px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
+            <span className="text-[22px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
             <span className="text-[15px] text-[#918E86]">Docs</span>
           </Link>
           <nav className="flex items-center gap-5">
