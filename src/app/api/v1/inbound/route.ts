@@ -38,7 +38,10 @@ export async function POST(req: NextRequest) {
   } catch {
     return NextResponse.json({ error: 'invalid_json' }, { status: 400 });
   }
-  const { to, from, body, carrierMessageId } = (raw || {}) as Record<string, unknown>;
+  const { to, from, body, carrierMessageId, media } = (raw || {}) as Record<string, unknown>;
+  const mediaUrls = Array.isArray(media)
+    ? media.filter((u): u is string => typeof u === 'string' && /^https?:\/\//.test(u)).slice(0, 10)
+    : [];
 
   const toE164 = normalizeE164(to);
   const fromE164 = normalizeE164(from);
@@ -62,6 +65,7 @@ export async function POST(req: NextRequest) {
     status: 'received',
     test: false,
     ...(typeof carrierMessageId === 'string' ? { carrierMessageId } : {}),
+    ...(mediaUrls.length ? { media: mediaUrls } : {}),
   });
 
   const { intent } = await processInbound({

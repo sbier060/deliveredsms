@@ -14,6 +14,7 @@ const NAV: Array<{
   soon?: boolean;
 }> = [
   { href: '/console', label: 'Overview' },
+  { href: '/console/inbox', label: 'Inbox' },
   { href: '/console/messages', label: 'Messages' },
   { href: '/console/contacts', label: 'Contacts' },
   { href: '/console/team', label: 'Team' },
@@ -150,7 +151,11 @@ export default function ConsoleShell({ children }: { children: React.ReactNode }
           </div>
         </header>
         <main className="px-6 py-8 md:px-10">
-          <div className="mx-auto max-w-3xl">{children}</div>
+          {/* The inbox is a two-pane layout and needs the full width; every
+              other page keeps the readable column. */}
+          <div className={`mx-auto ${pathname === '/console/inbox' ? 'max-w-none' : 'max-w-3xl'}`}>
+            {children}
+          </div>
         </main>
       </div>
     </div>

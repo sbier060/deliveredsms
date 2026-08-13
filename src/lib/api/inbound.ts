@@ -1,4 +1,4 @@
-import { storeMessage } from '@/lib/api/messages';
+import { storeMessage, convKeyFor } from '@/lib/api/messages';
 import { emitEvent } from '@/lib/api/events';
 import {
   classify,
@@ -31,6 +31,8 @@ export async function processInbound(opts: {
     to,
     from,
     body,
+    // Thread key so webhook consumers can group without re-deriving it.
+    conversation: convKeyFor({ to, from, direction: 'inbound' }),
   });
 
   const intent = classify(body);

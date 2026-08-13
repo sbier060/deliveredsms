@@ -15,6 +15,7 @@ export type ApiErrorCode =
   | 'verification_not_found'
   | 'idempotency_conflict'
   | 'carrier_error'
+  | 'mms_not_enabled'
   | 'internal_error';
 
 /**

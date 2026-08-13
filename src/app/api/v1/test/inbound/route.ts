@@ -23,7 +23,10 @@ export const POST = withApiKey(
     } catch {
       return apiError(400, 'invalid_request', 'Request body must be JSON.');
     }
-    const { to, from, body } = (raw || {}) as Record<string, unknown>;
+    const { to, from, body, media } = (raw || {}) as Record<string, unknown>;
+    const mediaUrls = Array.isArray(media)
+      ? media.filter((u): u is string => typeof u === 'string' && /^https?:\/\//.test(u)).slice(0, 10)
+      : [];
 
     const toE164 = normalizeE164(to);
     const fromE164 = normalizeE164(from);
@@ -44,6 +47,7 @@ export const POST = withApiKey(
       direction: 'inbound',
       status: 'received',
       test: true,
+      ...(mediaUrls.length ? { media: mediaUrls } : {}),
     });
     // Same processor the live carrier ingest uses, so STOP/START/HELP behave
     // identically in sandbox and a developer can actually rehearse opt-out.

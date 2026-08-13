@@ -21,7 +21,9 @@ export async function GET(req: NextRequest) {
       role: 'admin',
       isOwner: true,
     },
-    members: Object.entries(members).map(([uid, m]) => ({
+    // The owner may have a lazily-created member record (signature storage);
+    // don't list them twice.
+    members: Object.entries(members).filter(([uid]) => uid !== ctx.tenant.uid).map(([uid, m]) => ({
       uid,
       email: m.email,
       name: m.name,
