@@ -21,6 +21,7 @@ interface ApiEvent {
 export default function EventsPage() {
   const [events, setEvents] = useState<ApiEvent[] | null>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [replayed, setReplayed] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
@@ -82,6 +83,26 @@ export default function EventsPage() {
                       2
                     )}
                   </pre>
+                )}
+                {expanded === e.id && (
+                  <div className="border-t border-[#2C2C2E] bg-[#111112] px-4 py-2.5">
+                    <button
+                      onClick={async () => {
+                        setReplayed(null);
+                        try {
+                          await devFetch(`/api/developers/events/${e.id}/replay`, { method: 'POST' });
+                          setReplayed(e.id);
+                        } catch {
+                          setReplayed('error');
+                        }
+                      }}
+                      className="text-[12px] text-[#918E86] underline underline-offset-4 transition-colors duration-150 hover:text-[#EFEEEC]"
+                    >
+                      Replay to webhooks
+                    </button>
+                    {replayed === e.id && <span className="ml-3 text-[12px] text-[#00D26A]">Replayed</span>}
+                    {replayed === 'error' && <span className="ml-3 text-[12px] text-[#C9C6BF]">Replay failed</span>}
+                  </div>
                 )}
               </li>
             ))}

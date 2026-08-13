@@ -47,6 +47,13 @@ async function moderate(
   }
 }
 
+export class CarrierRejectedError extends Error {
+  constructor(public httpStatus: number, public detail: string) {
+    super(detail);
+    this.name = 'CarrierRejectedError';
+  }
+}
+
 export class SendBlockedError extends Error {}
 
 export async function carrierSendSms(input: {
@@ -80,9 +87,18 @@ export async function carrierSendSms(input: {
   const data = (await res.json().catch(() => null)) as {
     success?: boolean;
     result?: { referenceId?: string };
+    error?: unknown;
+    message?: unknown;
   } | null;
   if (!res.ok || !data || data.success !== true) {
-    throw new Error(`Message Broker send failed (${res.status})`);
+    // Keep the broker's own words — this is the only failure reason we will
+    // ever have until DLRs exist, and discarding it left every failed send as
+    // an anonymous 502.
+    const detail = [data?.error, data?.message]
+      .filter((x): x is string => typeof x === 'string')
+      .join('; ')
+      .slice(0, 300);
+    throw new CarrierRejectedError(res.status, detail || `Message Broker send failed (${res.status})`);
   }
 
   // Feed the spam graph, same as the consumer pipeline (fire-and-forget).

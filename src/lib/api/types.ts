@@ -122,7 +122,8 @@ export type ApiEventType =
   | 'verification.blocked'
   | 'verification.sent_to_opted_out'
   | 'message.opted_out'
-  | 'message.opted_in';
+  | 'message.opted_in'
+  | 'broadcast.complete';
 
 export interface PublicEvent {
   id: string;

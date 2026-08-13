@@ -5,6 +5,7 @@ import { normalizeE164, digits10 } from '@/lib/api/phone';
 import { activeNumbers } from '@/lib/api/tenants';
 import { listMessages } from '@/lib/api/messages';
 import { sendOutbound } from '@/lib/api/send-core';
+import { enqueueSend } from '@/lib/api/send-queue';
 import { emitEvent } from '@/lib/api/events';
 import { checkIdempotency, saveIdempotentResponse } from '@/lib/api/idempotency';
 import type { ApiContext } from '@/lib/api/types';
@@ -19,7 +20,7 @@ export const POST = withApiKey(async (req: NextRequest, ctx: ApiContext) => {
   } catch {
     return apiError(400, 'invalid_request', 'Request body must be JSON.');
   }
-  const { to, from, body, media } = (raw || {}) as Record<string, unknown>;
+  const { to, from, body, media, scheduled_at } = (raw || {}) as Record<string, unknown>;
 
   // MMS groundwork: the field is part of the contract now, but every number is
   // provisioned SMS-only at the carrier until the SMSMMS feature flip lands.
@@ -53,6 +54,39 @@ export const POST = withApiKey(async (req: NextRequest, ctx: ApiContext) => {
       'forbidden',
       `\`from\` must be a number owned by your account. Your numbers: ${activeNumbers(ctx.tenant).join(', ') || '(none)'}.`,
       { param: 'from' }
+    );
+  }
+
+  // Scheduled sends divert to the queue after the same validation. The cron
+  // re-checks opt-out and quota at send time, so a schedule is a reservation
+  // of nothing — "failed sends cost nothing" includes future ones.
+  if (scheduled_at !== undefined) {
+    const runAt = typeof scheduled_at === 'string' ? Date.parse(scheduled_at) : Number(scheduled_at);
+    if (!Number.isFinite(runAt) || runAt <= Date.now()) {
+      return apiError(400, 'invalid_request', '`scheduled_at` must be a future ISO timestamp or epoch ms.', { param: 'scheduled_at' });
+    }
+    if (runAt > Date.now() + 30 * 24 * 60 * 60_000) {
+      return apiError(400, 'invalid_request', '`scheduled_at` must be within 30 days.', { param: 'scheduled_at' });
+    }
+    const jobId = await enqueueSend({
+      tenantId: ctx.tenantId,
+      to: toE164,
+      from: fromE164,
+      body,
+      runAt,
+      sentBy: { name: 'API' },
+    });
+    return apiJson(
+      {
+        id: jobId,
+        object: 'scheduled_message',
+        to: toE164,
+        from: fromE164,
+        body,
+        run_at: new Date(runAt).toISOString(),
+        status: 'queued',
+      },
+      201
     );
   }
 

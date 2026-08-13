@@ -405,7 +405,7 @@ export const openApiSpec = {
           object: { type: 'string', enum: ['event'] },
           type: {
             type: 'string',
-            enum: ['message.sent', 'message.delivered', 'message.failed', 'message.received', 'message.opted_out', 'message.opted_in', 'number.purchased', 'number.released', 'verification.sent', 'verification.approved', 'verification.failed', 'verification.blocked'],
+            enum: ['message.sent', 'message.delivered', 'message.failed', 'message.received', 'message.opted_out', 'message.opted_in', 'broadcast.complete', 'number.purchased', 'number.released', 'verification.sent', 'verification.approved', 'verification.failed', 'verification.blocked'],
           },
           created_at: { type: 'string', format: 'date-time' },
           data: { type: 'object' },

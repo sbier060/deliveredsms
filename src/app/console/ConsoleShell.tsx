@@ -17,6 +17,7 @@ const NAV: Array<{
   { href: '/console/inbox', label: 'Inbox' },
   { href: '/console/messages', label: 'Messages' },
   { href: '/console/contacts', label: 'Contacts' },
+  { href: '/console/broadcasts', label: 'Broadcasts' },
   { href: '/console/team', label: 'Team' },
   { href: '/console/numbers', label: 'Numbers' },
   { href: '/console/events', label: 'Events' },

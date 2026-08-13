@@ -20,6 +20,7 @@ const VALID_EVENTS: ApiEventType[] = [
   'message.received',
   'message.opted_out',
   'message.opted_in',
+  'broadcast.complete',
   'number.purchased',
   'number.released',
   'verification.sent',

@@ -1,4 +1,5 @@
 import { digits10 } from './phone';
+import { db } from '@/lib/firebase-admin';
 import { isUsOrCanadaNpa } from './nanp';
 import { hasOptedOut } from './opt-out';
 import { takeSlot } from './rate-limit';
@@ -10,7 +11,7 @@ import { takeQuota, takeQuotaDayMonth, refundQuotaDayMonth } from './usage';
 import { entitlementsFor } from './entitlements';
 import { isVerifiedRecipient } from './verified-recipients';
 import { formatRate, RATES } from './pricing';
-import { carrierSendSms, SendBlockedError } from './carrier/send-sms';
+import { carrierSendSms, SendBlockedError, CarrierRejectedError } from './carrier/send-sms';
 import { reportMeterEvent } from './billing/meter';
 import type { ApiTenant, MessageStatus, PublicMessage } from './types';
 
@@ -128,6 +129,26 @@ export async function sendOutbound(
       if (error instanceof SendBlockedError) {
         return { ok: false, status: 403, code: 'forbidden', message: error.message };
       }
+      // A carrier rejection is a real outcome, not just an HTTP error: store
+      // the failed message with the broker's own reason and emit
+      // message.failed, so delivery reporting shows WHY, not only that.
+      const reason = error instanceof CarrierRejectedError ? error.detail : 'carrier_unavailable';
+      const failed = await storeMessage(tenantId, {
+        to: toE164,
+        from: fromE164,
+        body,
+        direction: 'outbound',
+        status: 'failed',
+        test: false,
+        failureReason: reason,
+        ...(sentBy ? { sentBy } : {}),
+      });
+      await emitEvent(tenantId, 'message.failed', {
+        message_id: failed.id,
+        to: toE164,
+        code: 'carrier_rejected',
+        reason,
+      });
       console.error('[send-core] carrier send failed:', error);
       return { ok: false, status: 502, code: 'carrier_error', message: 'The carrier rejected this message. Try again shortly.' };
     }
@@ -148,6 +169,13 @@ export async function sendOutbound(
       from: fromE164,
       carrier_reference: referenceId,
     });
+
+    // DLR seam: when delivery receipts land (carrier work), the callback will
+    // carry this referenceId and needs to find the message. Written now so
+    // receipts light up historical sends the moment the carrier side ships.
+    db.ref(`apiCarrierRefs/${referenceId.replace(/[.#$/\[\]]/g, '_')}`)
+      .set({ tenantId, messageId: stored.id, at: Date.now() })
+      .catch(() => {});
 
     // Bill only after the carrier accepted it.
     if (ent.meterEvents && tenant.billing?.stripeCustomerId) {

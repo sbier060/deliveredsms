@@ -12,7 +12,7 @@ import type { ApiEventType, PublicEvent } from './types';
  * chronological ordering); apiEvents/{tenantId}/byId/{evtId} = pushKey.
  */
 
-interface StoredEvent {
+export interface StoredEvent {
   id: string;
   type: ApiEventType;
   createdAt: number;
