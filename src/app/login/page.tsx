@@ -2,10 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { generateMetadata as buildMetadata } from '@/lib/metadata';
 import DevFooter from '@/components/dev-docs/DevFooter';
+import AuthPanel from '@/components/auth/AuthPanel';
 
 // Indexable landing for "delivered login" style queries, and one of the primary
 // nav destinations in the site schema. The console itself is noindex (it is
 // behind auth), so without this page the section is invisible to search.
+// The form is the real one: the console redirects here rather than rendering
+// its own copy, so there is a single auth surface.
 export const metadata: Metadata = buildMetadata({
   title: 'Log in',
   description:
@@ -39,25 +42,9 @@ export default function LoginPage() {
           account.
         </p>
 
-        <Link
-          href="/console"
-          className="inline-flex rounded-full bg-[#00D26A] px-6 py-3 text-[15px] font-medium text-[#0A0A0B] transition-opacity duration-150 hover:opacity-90"
-        >
-          Continue to the console
-        </Link>
+        <AuthPanel mode="login" />
 
         <div className="mt-12 border-t border-[#2E2C28] pt-8">
-          <h2 className="mb-3 text-[18px] text-[#EFEEEC]">Do not have an account?</h2>
-          <p className="mb-4 text-[15px] leading-relaxed text-[#918E86]">
-            Signing up is free and takes about a minute. You get a sandbox API
-            key and a test number immediately, with no card required.
-          </p>
-          <Link href="/signup" className="text-[15px] text-[#00D26A] hover:underline">
-            Create a Delivered account
-          </Link>
-        </div>
-
-        <div className="mt-10 border-t border-[#2E2C28] pt-8">
           <h2 className="mb-3 text-[18px] text-[#EFEEEC]">Lost your API key?</h2>
           <p className="text-[15px] leading-relaxed text-[#918E86]">
             Keys are stored hashed and cannot be displayed again after they are

@@ -3,10 +3,9 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { onAuthStateChanged, signOut, type User } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
-import AuthCard from './AuthCard';
 
 const NAV: Array<{
   href: string;
@@ -59,14 +58,16 @@ function NavLinks({ pathname }: { pathname: string }) {
 export default function ConsoleShell({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
   const pathname = usePathname() || '';
 
   useEffect(() => {
     return onAuthStateChanged(auth, (u) => {
       setUser(u);
       setLoading(false);
+      if (!u) router.replace('/login');
     });
-  }, []);
+  }, [router]);
 
   if (loading) {
     return (
@@ -78,24 +79,15 @@ export default function ConsoleShell({ children }: { children: React.ReactNode }
     );
   }
 
+  // The console used to render its own copy of the auth form. The form now
+  // lives on /login (and /signup), which are indexable pages, so there is one
+  // auth surface instead of two that can drift.
   if (!user) {
     return (
       <div className="min-h-screen bg-[#0A0A0B] text-white">
-        <header className="border-b border-[#2E2C28]">
-          <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="text-[22px] text-[#EFEEEC]">Delivered<span className="text-[#00D26A]">.</span></span>
-              <span className="text-[15px] text-[#918E86]">Console</span>
-            </Link>
-            <Link
-              href="/docs/quickstart"
-              className="hover-underline-gradient text-[14px] text-[#918E86] transition-colors duration-150 hover:text-[#EFEEEC]"
-            >
-              Docs
-            </Link>
-          </div>
-        </header>
-        <AuthCard />
+        <div className="mx-auto max-w-5xl px-6 py-24 text-[15px] text-[#918E86]">
+          Redirecting to log in…
+        </div>
       </div>
     );
   }

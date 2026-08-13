@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { generateMetadata as buildMetadata } from '@/lib/metadata';
 import DevFooter from '@/components/dev-docs/DevFooter';
+import AuthPanel from '@/components/auth/AuthPanel';
 import { FREE_TIER } from '@/lib/api/pricing';
 
 // Indexable landing for "create a Delivered account" style queries, and one of
@@ -42,12 +43,7 @@ export default function SignupPage() {
           the sandbox so you can build the whole integration before going live.
         </p>
 
-        <Link
-          href="/console"
-          className="inline-flex rounded-full bg-[#00D26A] px-6 py-3 text-[15px] font-medium text-[#0A0A0B] transition-opacity duration-150 hover:opacity-90"
-        >
-          Sign up free
-        </Link>
+        <AuthPanel mode="signup" />
 
         <div className="mt-12 border-t border-[#2E2C28] pt-8">
           <h2 className="mb-4 text-[18px] text-[#EFEEEC]">What you get</h2>
