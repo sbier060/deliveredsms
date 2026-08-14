@@ -36,7 +36,7 @@ const GITHUB_ENABLED = process.env.NEXT_PUBLIC_GITHUB_AUTH === '1';
 
 function LastUsedChip() {
   return (
-    <span className="pointer-events-none absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md border border-[#2E2C28] bg-[#EFEEEC] px-2 py-0.5 text-[11px] font-medium text-[#0A0A0B]">
+    <span className="pointer-events-none absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md border border-[#2E2C28] bg-[#0F0E0C] px-2 py-0.5 text-[11px] font-medium text-[#C9C6BF]">
       Last used
     </span>
   );
