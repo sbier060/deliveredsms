@@ -106,6 +106,10 @@ export async function sendFirstPartyVerification(input: {
   // tenant's marketing still needs their login code.
   if (await hasOptedOut(FIRST_PARTY_TENANT_ID, e164)) {
     await logOptOutOverride(FIRST_PARTY_TENANT_ID, e164, 'first_party_verification_exempt');
+    await emitEvent(FIRST_PARTY_TENANT_ID, 'verification.sent_to_opted_out', {
+      phone: e164,
+      reason: 'first_party_verification_exempt',
+    });
   }
 
   const verdict = await runShield({ tenant: FIRST_PARTY_TENANT, phone: e164, ip: input.ip });

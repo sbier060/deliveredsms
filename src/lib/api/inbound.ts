@@ -2,12 +2,14 @@ import { storeMessage, convKeyFor } from '@/lib/api/messages';
 import { emitEvent } from '@/lib/api/events';
 import {
   classify,
+  classifyRevocationPhrase,
   recordOptOut,
-  clearOptOut,
+  recordOptIn,
   confirmationBody,
   helpBody,
   hasOptedOut,
 } from '@/lib/api/opt-out';
+import { aiRevocationCheck } from '@/lib/api/revocation-ai';
 import {
   getAutoReply,
   shouldFire,
@@ -43,17 +45,70 @@ export async function processInbound(opts: {
     conversation: convKeyFor({ to, from, direction: 'inbound' }),
   });
 
-  const intent = classify(body);
+  let intent = classify(body);
   let replyBody: string | null = null;
   let autoReply = false;
+  // Which revocation tier fired: exact keyword, plain-English phrase, or the
+  // LLM. Keywords always win; the later tiers only run when earlier ones miss.
+  let method: 'keyword' | 'phrase' | 'ai' = 'keyword';
+  let detected = body.trim();
+  let confidence: number | undefined;
+
+  if (intent === null) {
+    const phrase = classifyRevocationPhrase(body);
+    if (phrase.hit) {
+      intent = 'opt_out';
+      method = 'phrase';
+      detected = phrase.phrase ?? detected;
+    } else if (
+      body.trim().length <= 300 &&
+      !looksLikeVerificationCode(body) &&
+      // Cheap prefilter so ordinary chatter never reaches the model; anything
+      // revocation-shaped contains at least one of these.
+      /\b(stop|quit|unsubscribe|remove|text|txt|message|msg|contact|sms|off|enough|spam|not?|never)\b/i.test(body) &&
+      // Sandbox inbounds are simulator traffic; keep them deterministic and
+      // free unless explicitly enabled for QA.
+      (!test || process.env.CONSENT_AI_IN_SANDBOX === '1')
+    ) {
+      // Tier 3: awaited inline with a hard 2.5s cap (fail-silent without a
+      // key), because serverless gives fire-and-forget no time to land.
+      const verdict = await aiRevocationCheck(body);
+      if (verdict?.revocation && verdict.confidence >= 0.8) {
+        intent = 'opt_out';
+        method = 'ai';
+        confidence = verdict.confidence;
+      }
+    }
+  }
 
   if (intent === 'opt_out') {
-    await recordOptOut(tenantId, from, test ? 'sandbox_keyword' : 'sms_keyword', messageId);
-    await emitEvent(tenantId, 'message.opted_out', { phone: from, keyword: body.trim() });
+    const viaPrefix = test ? 'sandbox' : 'sms';
+    const via =
+      method === 'keyword' ? `${viaPrefix}_keyword` : method === 'phrase' ? `${viaPrefix}_phrase` : 'ai_detected';
+    await recordOptOut(tenantId, from, via, messageId, {
+      method,
+      keyword: detected,
+      ...(confidence !== undefined ? { confidence } : {}),
+    });
+    await emitEvent(tenantId, 'message.opted_out', {
+      phone: from,
+      keyword: detected,
+      method,
+      message_id: messageId,
+      ...(confidence !== undefined ? { confidence } : {}),
+    });
     replyBody = confirmationBody();
   } else if (intent === 'opt_in') {
-    await clearOptOut(tenantId, from);
-    await emitEvent(tenantId, 'message.opted_in', { phone: from, keyword: body.trim() });
+    await recordOptIn(tenantId, from, test ? 'sandbox_keyword' : 'sms_keyword', {
+      method: 'keyword',
+      keyword: detected,
+    });
+    await emitEvent(tenantId, 'message.opted_in', {
+      phone: from,
+      keyword: detected,
+      method: 'keyword',
+      message_id: messageId,
+    });
   } else if (intent === 'help') {
     replyBody = helpBody();
   } else {

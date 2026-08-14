@@ -19,6 +19,7 @@ examples use the Delivered.
 
 ## Opt-out: non-negotiable
 
+- Delivered also honors plain-English revocation ("please stop texting me") automatically, per the FCC's April 2025 reasonable-means rule; mirror `message.opted_out` regardless of how it was detected.
 - Honor STOP instantly and permanently. Delivered handles the STOP/START/HELP
   keywords and blocks further sends to that number for your account; subscribe to
   `message.opted_out` and mirror it. Never re-add an opted-out number.

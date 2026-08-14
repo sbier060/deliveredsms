@@ -27,6 +27,7 @@ const VALID_EVENTS: ApiEventType[] = [
   'verification.approved',
   'verification.failed',
   'verification.blocked',
+  'verification.sent_to_opted_out',
 ];
 
 export async function GET(req: NextRequest) {

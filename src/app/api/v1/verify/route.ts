@@ -112,6 +112,16 @@ export const POST = withApiKey(
       if (!isSandboxNumber(e164) && !isVerifiedRecipient(ctx.tenant, e164)) {
         // Sandbox is permissive, but keep the magic-number story coherent.
       }
+      // Same transactional exemption audit as live, so the sandbox rehearses
+      // the whole consent path including the ledger entry and event.
+      if (await hasOptedOut(ctx.tenantId, e164)) {
+        await logOptOutOverride(ctx.tenantId, e164, 'verification_exempt');
+        await emitEvent(ctx.tenantId, 'verification.sent_to_opted_out', {
+          phone: e164,
+          reason: 'transactional_exemption',
+          test: true,
+        });
+      }
       const record = await createVerification({
         tenantId: ctx.tenantId,
         phone: e164,

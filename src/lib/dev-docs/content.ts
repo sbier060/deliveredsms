@@ -865,13 +865,31 @@ until the port completes.
   },
   {
     slug: 'opt-out',
-    title: 'Opt-out (STOP)',
-    description: 'How STOP, START and HELP are handled, and what is blocked.',
-    markdown: `# Opt-out (STOP)
+    title: 'Opt-out, consent & TCPA',
+    description: 'Revocation in plain English, the consent ledger, and what is blocked.',
+    markdown: `# Opt-out, consent & TCPA
 
 Honouring opt-out is a legal obligation, not a feature. Delivered enforces it on
-your behalf for every send, and gives you the events to keep your own systems in
-sync.
+your behalf for every send, keeps an append-only consent ledger you can export,
+and gives you the events to keep your own systems in sync. There is nothing to
+configure; every account gets this by default.
+
+## Revocation in plain English
+
+The FCC's April 2025 revocation rule requires honouring a revocation expressed
+by any reasonable means, not just the standard keywords. Delivered detects
+revocation in three tiers, in order:
+
+| Tier | Detects | Example |
+| --- | --- | --- |
+| Keywords | The exact CTIA keywords | "STOP" |
+| Phrases | Common plain-English forms, deterministically | "please stop texting me", "remove me from your list" |
+| AI | Everything else revocation-shaped, with a confidence score | "i would rather you didn't message this number" |
+
+All three record the opt-out, send the single confirmation reply, block future
+sends, and emit \`message.opted_out\` with a \`method\` field
+(\`keyword\`, \`phrase\`, or \`ai\`) so you can see how it was
+detected. A revocation is never answered by an auto-reply.
 
 ## Keywords
 
@@ -881,9 +899,10 @@ sync.
 | \`START\`, \`UNSTOP\`, \`YES\` | Opts back in. |
 | \`HELP\`, \`INFO\` | Sends the standard help reply. |
 
-Matching is exact: the message has to *be* the keyword, ignoring case,
+Keyword matching is exact: the message has to *be* the keyword, ignoring case,
 surrounding whitespace and punctuation. "please stop by tomorrow" is an ordinary
-message and does not unsubscribe anyone.
+message; the phrase tier only fires on messaging-directed forms like "stop
+texting me".
 
 ## Scope is per-account
 
@@ -901,35 +920,81 @@ that would turn an unsubscribe into an account lockout.
   "param": "to" } }
 \`\`\`
 
-**One-time passcodes are exempt.** \`POST /v1/verify\` still delivers, because a
-user asking to log in is asking for that code, and blocking it locks them out of
-their own account. Every such send is recorded and emits
-\`verification.sent_to_opted_out\` so the pattern stays auditable.
+Broadcast recipients who opted out are skipped and counted, never messaged.
+Scheduled sends re-check consent at send time.
+
+**One-time passcodes are exempt.** \`POST /v1/verify\` still delivers,
+because a user asking to log in is asking for that code, and blocking it locks
+them out of their own account. Every such send is written to the consent ledger
+and emits \`verification.sent_to_opted_out\` so the pattern stays auditable.
+
+## The consent ledger
+
+Every consent change is appended to a per-number history that is never deleted:
+opt-outs (with the detected text and method), opt-ins, imports, API changes, and
+verification exemptions. That history is your TCPA audit trail.
+
+\`\`\`bash
+# Current state + full history for one number
+curl https://api.deliveredsms.com/v1/consent/+14155550132 \\
+  -H "Authorization: Bearer $DELIVERED_API_KEY"
+
+# Set consent from your own system (CRM sync, web form, support tool)
+curl -X POST https://api.deliveredsms.com/v1/consent/+14155550132 \\
+  -H "Authorization: Bearer $DELIVERED_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{"status": "opted_out", "note": "revoked by email"}'
+
+# The whole suppression list, paginated
+curl "https://api.deliveredsms.com/v1/consent?limit=100" \\
+  -H "Authorization: Bearer $DELIVERED_API_KEY"
+
+# Bulk import (up to 500 per request), e.g. when migrating from Twilio
+curl -X POST https://api.deliveredsms.com/v1/consent/import \\
+  -H "Authorization: Bearer $DELIVERED_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{"phone_numbers": ["+14155550132", "+16155550176"]}'
+
+# Export everything as CSV
+curl https://api.deliveredsms.com/v1/consent/export \\
+  -H "Authorization: Bearer $DELIVERED_API_KEY"
+\`\`\`
+
+The [console Compliance page](/console/compliance) shows the same ledger with
+search, per-number history, import and export.
 
 ## Events
 
 | Event | When |
 | --- | --- |
-| \`message.opted_out\` | A recipient sent a stop keyword |
-| \`message.opted_in\` | A recipient sent a start keyword |
-| \`verification.sent_to_opted_out\` | A passcode went to an opted-out number under the exemption |
+| \`message.opted_out\` | A revocation was detected (any tier) or set via API. Payload includes \`method\` and, for AI detections, \`confidence\`. |
+| \`message.opted_in\` | A recipient opted back in (START or API). |
+| \`verification.sent_to_opted_out\` | A passcode went to an opted-out number under the exemption. |
 
 Subscribe to these and mirror the state in your own database. You should never
-re-add a number that opted out, even though we block it.
+re-add a number that opted out, even though we block it. Imports do not emit
+per-number events; the ledger records each one.
 
 ## Testing it
 
 Opt-out works in the sandbox exactly as it does live, scoped to your account, so
-you can rehearse the whole path before going live:
+you can rehearse the whole path before going live. The phrase tier is
+deterministic, so it is testable too:
 
 \`\`\`bash
 curl -X POST https://api.deliveredsms.com/v1/test/inbound \\
   -H "Authorization: Bearer $DELIVERED_API_KEY" \\
   -H "Content-Type: application/json" \\
-  -d '{"from":"+15005550006","to":"<your sandbox number>","body":"STOP"}'
+  -d '{"from":"+15005550006","to":"<your sandbox number>","body":"please stop texting me"}'
 \`\`\`
 
-The next send to that number returns 403. Send \`START\` to clear it.
+The next send to that number returns 403, and
+\`GET /v1/consent/+15005550006\` shows the opt-out with
+\`"method": "phrase"\`. Send \`START\` to opt back in; the history keeps
+both entries.
+
+This page is educational, not legal advice. Your own counsel decides what your
+consent program needs; Delivered gives you enforcement and records by default.
 `,
   },
   {
@@ -1008,6 +1073,22 @@ cost estimator.
     title: 'Changelog',
     description: 'What changed in the Delivered.',
     markdown: `# Changelog
+
+## 2026-08-14: Consent autopilot (TCPA)
+
+- **Revocation in plain English**: "please stop texting me" now opts a number
+  out, not just the STOP keyword. Three detection tiers (keyword, phrase, AI
+  with confidence scores), per the FCC's April 2025 reasonable-means rule.
+- **Consent ledger**: every opt-out, opt-in, import and verification exemption
+  is appended to a per-number history that is never deleted.
+- **Consent API**: \`GET/POST /v1/consent/{phone}\`, paginated
+  \`GET /v1/consent\`, bulk \`/v1/consent/import\` (up to 500), and
+  CSV \`/v1/consent/export\`.
+- **Console Compliance page**: suppression list with per-number history,
+  import, export, and the verification-exemption audit log.
+- \`message.opted_out\` events now carry \`method\` and (for AI
+  detections) \`confidence\`; \`verification.sent_to_opted_out\` is
+  now subscribable as a webhook event.
 
 ## 2026-08-06: Early access launch
 

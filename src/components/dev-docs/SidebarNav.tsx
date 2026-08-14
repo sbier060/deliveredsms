@@ -27,7 +27,7 @@ const PLATFORM_LINKS = [
   { href: '/docs/broadcasts', label: 'Broadcasts' },
   { href: '/docs/scheduled', label: 'Scheduled messages' },
   { href: '/docs/auto-reply', label: 'Auto-replies' },
-  { href: '/docs/opt-out', label: 'Opt-out (STOP)' },
+  { href: '/docs/opt-out', label: 'Opt-out & consent' },
   { href: '/docs/porting', label: 'Number porting' },
 ];
 

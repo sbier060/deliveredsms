@@ -295,6 +295,101 @@ export const openApiSpec = {
         },
       },
     },
+    '/consent': {
+      get: {
+        operationId: 'listConsent',
+        summary: 'List opted-out numbers (suppression list)',
+        parameters: [
+          { name: 'limit', in: 'query', schema: { type: 'integer', maximum: 100, default: 25 } },
+          { name: 'cursor', in: 'query', schema: { type: 'string' } },
+        ],
+        responses: {
+          '200': { description: 'Suppressions in numeric order', content: { 'application/json': { schema: listOf('#/components/schemas/Consent') } } },
+          ...errorResponses,
+        },
+      },
+    },
+    '/consent/{phone}': {
+      get: {
+        operationId: 'getConsent',
+        summary: 'Consent state and append-only history for one number',
+        parameters: [{ name: 'phone', in: 'path', required: true, schema: { type: 'string', example: '+14155550132' } }],
+        responses: {
+          '200': { description: 'Consent record', content: { 'application/json': { schema: { $ref: '#/components/schemas/ConsentDetail' } } } },
+          ...errorResponses,
+        },
+      },
+      post: {
+        operationId: 'setConsent',
+        summary: 'Set consent state from your own system (CRM sync)',
+        parameters: [{ name: 'phone', in: 'path', required: true, schema: { type: 'string' } }],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                required: ['status'],
+                properties: {
+                  status: { type: 'string', enum: ['opted_out', 'opted_in'] },
+                  note: { type: 'string', maxLength: 200 },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          '200': { description: 'Updated consent state', content: { 'application/json': { schema: { $ref: '#/components/schemas/Consent' } } } },
+          ...errorResponses,
+        },
+      },
+    },
+    '/consent/import': {
+      post: {
+        operationId: 'importConsent',
+        summary: 'Bulk-import a suppression list (up to 500 numbers)',
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                required: ['phone_numbers'],
+                properties: { phone_numbers: { type: 'array', items: { type: 'string' }, maxItems: 500 } },
+              },
+            },
+          },
+        },
+        responses: {
+          '200': {
+            description: 'Import counts',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    object: { type: 'string', example: 'consent_import' },
+                    imported: { type: 'integer' },
+                    skipped: { type: 'array', items: { type: 'object', properties: { value: { type: 'string' }, reason: { type: 'string' } } } },
+                  },
+                },
+              },
+            },
+          },
+          ...errorResponses,
+        },
+      },
+    },
+    '/consent/export': {
+      get: {
+        operationId: 'exportConsent',
+        summary: 'Export the whole suppression list as CSV',
+        responses: {
+          '200': { description: 'CSV: phone,status,updated_at,via,method,detected', content: { 'text/csv': { schema: { type: 'string' } } } },
+          ...errorResponses,
+        },
+      },
+    },
     '/events': {
       get: {
         operationId: 'listEvents',
@@ -410,6 +505,45 @@ export const openApiSpec = {
           reports: { type: 'integer' },
         },
       },
+      Consent: {
+        type: 'object',
+        properties: {
+          object: { type: 'string', enum: ['consent'] },
+          phone: { type: 'string', example: '+14155550132' },
+          status: { type: 'string', enum: ['opted_out', 'opted_in', 'no_record'] },
+          updated_at: { type: 'string', format: 'date-time' },
+          via: { type: 'string', example: 'sms_phrase' },
+          method: { type: 'string', enum: ['keyword', 'phrase', 'ai', 'api', 'import'] },
+          detected: { type: 'string', description: 'The keyword or phrase that triggered detection' },
+          confidence: { type: 'number', description: 'AI-tier detections only, 0 to 1' },
+        },
+      },
+      ConsentDetail: {
+        allOf: [
+          { $ref: '#/components/schemas/Consent' },
+          {
+            type: 'object',
+            properties: {
+              history: {
+                type: 'array',
+                description: 'Append-only consent history, newest first',
+                items: {
+                  type: 'object',
+                  properties: {
+                    at: { type: 'string', format: 'date-time' },
+                    type: { type: 'string', enum: ['opt_out', 'opt_in', 'exempt_send', 'import', 'api_set'] },
+                    via: { type: 'string' },
+                    method: { type: 'string' },
+                    detected: { type: 'string' },
+                    confidence: { type: 'number' },
+                    note: { type: 'string' },
+                  },
+                },
+              },
+            },
+          },
+        ],
+      },
       Event: {
         type: 'object',
         properties: {
@@ -417,7 +551,7 @@ export const openApiSpec = {
           object: { type: 'string', enum: ['event'] },
           type: {
             type: 'string',
-            enum: ['message.sent', 'message.delivered', 'message.failed', 'message.received', 'message.opted_out', 'message.opted_in', 'broadcast.complete', 'number.purchased', 'number.released', 'verification.sent', 'verification.approved', 'verification.failed', 'verification.blocked'],
+            enum: ['message.sent', 'message.delivered', 'message.failed', 'message.received', 'message.opted_out', 'message.opted_in', 'broadcast.complete', 'number.purchased', 'number.released', 'verification.sent', 'verification.approved', 'verification.failed', 'verification.blocked', 'verification.sent_to_opted_out'],
           },
           created_at: { type: 'string', format: 'date-time' },
           data: { type: 'object' },

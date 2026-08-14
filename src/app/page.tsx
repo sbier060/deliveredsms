@@ -266,7 +266,7 @@ const featureSections = [
     eyebrow: 'COMPLIANCE',
     bright: 'STOP means stop. Automatically.',
     muted: 'CTIA keywords handled on every number.',
-    body: 'Reply STOP and Delivered confirms it, blocks every future send to that person, and emits message.opted_out so your app can mirror it. START opts back in, HELP answers with your support contact, and auto-replies respect office hours and never touch keywords or verification codes.',
+    body: 'Reply STOP, or just say it in plain English, and Delivered confirms it, blocks every future send to that person, and emits message.opted_out so your app can mirror it. Every consent change lands in an exportable ledger. START opts back in, and auto-replies never touch keywords or verification codes.',
     endpoints: ['STOP / START / HELP', 'message.opted_out', 'Auto-reply with office hours'],
     visual: (
       <div className="space-y-3 p-5">
