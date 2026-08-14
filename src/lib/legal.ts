@@ -1,25 +1,31 @@
 import { SITE_DOMAIN, SITE_URL } from '@/lib/urls';
 
 /**
- * Legal documents for the Delivered service, operated by Truelabel LLC.
+ * Legal documents for the Delivered service, operated by Truelabel Inc.
  * Drafted to CPaaS norms (consent warranty, indemnity, carrier disclaimers);
  * have an attorney review before relying on them in a dispute.
  *
  * Company identity uses the registered business mailing address only - never
  * personal addresses or ID details.
+ *
+ * The entity is a Wyoming profit corporation (Articles filed 04/21/2026) -
+ * "Inc", not "LLC" - and carrier/Sinch KYC reviews cross-check this name
+ * against the state filing, so keep legalName and entityType in sync with
+ * the Articles of Incorporation.
  */
 
 export const COMPANY = {
-  legalName: 'Truelabel LLC',
+  legalName: 'Truelabel Inc',
   dba: 'Delivered',
+  entityType: 'corporation',
   address: '5830 E 2nd St, Ste 7000, PMB 35111, Casper, WY 82609, USA',
   state: 'Wyoming',
   email: `legal@${SITE_DOMAIN}`,
   supportEmail: `support@${SITE_DOMAIN}`,
 };
 
-export const TERMS_UPDATED = 'August 12, 2026';
-export const PRIVACY_UPDATED = 'August 12, 2026';
+export const TERMS_UPDATED = 'August 14, 2026';
+export const PRIVACY_UPDATED = 'August 14, 2026';
 
 export const TERMS_MD = `# Terms of Service
 
@@ -27,7 +33,7 @@ export const TERMS_MD = `# Terms of Service
 
 These Terms of Service ("Terms") govern access to and use of the Delivered
 platform, APIs, SDKs, console, and websites (the "Service"), operated by
-**${COMPANY.legalName}**, a ${COMPANY.state} limited liability company doing
+**${COMPANY.legalName}**, a ${COMPANY.state} ${COMPANY.entityType} doing
 business as "${COMPANY.dba}" ("Delivered", "we", "us"). By creating an
 account or using the Service you agree to these Terms on behalf of yourself
 and any organization you represent ("you", "Customer").
@@ -55,11 +61,16 @@ immediate suspension.
 prior express consent appropriate to the message type (including, for
 marketing to US recipients, prior express written consent under the
 Telephone Consumer Protection Act). You warrant that you obtain, record, and
-can produce evidence of such consent for every recipient.
+can produce evidence of such consent for every recipient, and that you will
+provide that evidence to us within five (5) business days of our request.
 
-**3.2 Opt-outs.** You must honor opt-out requests immediately and
-permanently. Delivered enforces STOP at the platform level; you must also
-never re-add an opted-out recipient in your own systems.
+**3.2 Opt-outs and help.** You must honor opt-out requests immediately and
+permanently. Delivered enforces the standard opt-out keywords - STOP,
+STOPALL, END, CANCEL, UNSUBSCRIBE, and QUIT - at the platform level, and
+replies to HELP with program information and support contact details. You
+must also never re-add an opted-out recipient in your own systems; a
+recipient who has opted out may only be messaged again after a new,
+documented opt-in.
 
 **3.3 Prohibited content and uses.** You may not use the Service for:
 content that is illegal in the destination jurisdiction; deceptive,
@@ -69,6 +80,14 @@ where expressly permitted by carrier programs; harassment, abuse, or
 threats; SMS pumping, artificially inflated traffic, or any scheme that
 generates traffic for revenue-share; snowshoeing or evading carrier
 filtering; or messages to emergency services.
+
+In addition, the following campaign types are prohibited on 10DLC traffic
+unless expressly approved in advance by the carriers and by Delivered:
+third-party lead generation, affiliate marketing, and the sale or sharing of
+consumer data; payday, short-term high-interest, or title loans; debt
+relief, debt consolidation, debt reduction, or credit repair; cannabis,
+CBD, and kratom; gambling, sweepstakes, and contests; and get-rich-quick,
+multi-level marketing, or work-from-home schemes.
 
 **3.4 Sender identification.** Messages must identify you or your product as
 sender. You may not impersonate any person or organization, including in the
@@ -81,7 +100,15 @@ carrier codes of conduct. Delivered registers numbers under its A2P 10DLC
 campaigns; you agree to provide accurate information we reasonably request
 for such registration.
 
-**3.6 Enforcement.** We may filter, block, or refuse any message, suspend
+**3.6 Opt-in disclosures.** Your call to action must disclose, at the point
+of opt-in: your program or brand name; message frequency (or "message
+frequency varies"); the phrase "Message and data rates may apply"; opt-out
+instructions ("Reply STOP to cancel") and help instructions ("Reply HELP
+for help"); and a link to your privacy policy and terms. We review these
+disclosures during campaign registration and may require changes before
+activating a campaign.
+
+**3.7 Enforcement.** We may filter, block, or refuse any message, suspend
 any key, or terminate any account that we reasonably believe violates this
 Section, harms the platform's deliverability, or exposes us or carriers to
 liability; with notice where practicable, without notice where necessary.
@@ -110,7 +137,9 @@ message content and metadata to deliver messages, prevent fraud and abuse,
 comply with law, and improve the Service. Our handling of personal data is
 described in the [Privacy Policy](/privacy). As between the parties, you are
 the controller of your recipients' data; we process it on your behalf to
-provide the Service.
+provide the Service. A Data Processing Addendum (incorporating standard
+contractual clauses where applicable) is available on request from
+${COMPANY.email}.
 
 ## 7. Service Levels and Disclaimers
 
@@ -224,22 +253,33 @@ disclose data when required by law, and in connection with a merger or sale
 of the business. Carriers may process message content per their own legal
 obligations.
 
-## 4. International Transfers
+## 4. SMS Opt-In Data and Mobile Information
+
+Mobile phone numbers and text-messaging originator opt-in data and consent
+are **not** shared with, sold to, or rented to any third party or affiliate
+for marketing or promotional purposes under any circumstances. The sharing
+described in Section 3 excludes this information: it is disclosed only to
+telecommunications carriers and aggregators as strictly necessary to deliver
+the messages a recipient has consented to receive, to maintain opt-out
+lists, or to comply with law. Message recipients can revoke consent at any
+time by replying STOP, and can reply HELP for assistance.
+
+## 5. International Transfers
 
 We are a US company and process data in the United States. Where we receive
 personal data subject to GDPR/UK GDPR, we rely on appropriate safeguards
 such as standard contractual clauses with our subprocessors.
 
-## 5. Retention
+## 6. Retention
 
 Account data is kept while your account is active and for a reasonable
 period afterward for legal and accounting purposes. Message content and
 metadata are retained for the operational window shown in your plan and then
 deleted or de-identified. Fraud, abuse, and opt-out registries are retained
 as long as needed to protect the platform. You may request deletion earlier
-(Section 6).
+(Section 7).
 
-## 6. Your Rights
+## 7. Your Rights
 
 Depending on where you live (including under GDPR and US state privacy
 laws), you may have rights to access, correct, delete, port, or restrict
@@ -249,19 +289,29 @@ the time required by law. If you are a message recipient, we will route your
 request to the customer who messaged you where the law requires them to
 respond; you can always stop receiving messages by replying STOP.
 
-## 7. Security
+## 8. Do Not Sell or Share My Personal Information
+
+We do not sell or share personal information as those terms are defined by
+the California Consumer Privacy Act (CCPA/CPRA), and we have not done so in
+the preceding 12 months. We do not use or disclose sensitive personal
+information for purposes that would require a right to limit. California
+residents - and residents of other US states with similar laws - may
+exercise the rights described in Section 7 without discrimination, directly
+or through an authorized agent, by emailing ${COMPANY.email}.
+
+## 9. Security
 
 Data in transit is encrypted with TLS. API keys and verification codes are
 stored as salted hashes. Access to production systems is limited and
 audited. No system is perfectly secure; we will notify affected parties of
 breaches as required by law.
 
-## 8. Children
+## 10. Children
 
 The Service is for business use and not directed to children under 16; we do
 not knowingly collect their data.
 
-## 9. Changes
+## 11. Changes
 
 We will post changes here and, for material changes, notify account holders
 via the console or email.

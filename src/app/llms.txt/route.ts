@@ -77,7 +77,7 @@ ${docsLines}
 - [Changelog (HTML)](${BASE}/docs/changelog)
 
 ## Legal
-- [Terms of Service](${BASE}/terms.md): operated by Truelabel LLC. HTML at ${BASE}/terms
+- [Terms of Service](${BASE}/terms.md): operated by Truelabel Inc. HTML at ${BASE}/terms
 - [Privacy Policy](${BASE}/privacy.md): HTML at ${BASE}/privacy
 
 ## Product

@@ -72,7 +72,7 @@ export default function DevFooter() {
           ))}
         </div>
         <p className="mt-12 text-[13px] text-[#918E86]">
-          © {new Date().getFullYear()} Truelabel LLC, d/b/a Delivered
+          © {new Date().getFullYear()} Truelabel Inc, d/b/a Delivered
         </p>
       </div>
     </footer>

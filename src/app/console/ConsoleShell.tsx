@@ -77,6 +77,25 @@ export default function ConsoleShell({ children }: { children: React.ReactNode }
     });
   }, [router]);
 
+  // Idle timeout: sign console sessions out after 30 minutes of inactivity
+  // (stated in our carrier KYC). Any interaction resets the clock; the timer
+  // only runs while someone is signed in.
+  useEffect(() => {
+    if (!user) return;
+    const IDLE_MS = 30 * 60 * 1000;
+    let timer = window.setTimeout(() => signOut(auth), IDLE_MS);
+    const reset = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => signOut(auth), IDLE_MS);
+    };
+    const events: (keyof DocumentEventMap)[] = ['pointerdown', 'keydown', 'scroll', 'visibilitychange'];
+    events.forEach((e) => document.addEventListener(e, reset, { passive: true }));
+    return () => {
+      window.clearTimeout(timer);
+      events.forEach((e) => document.removeEventListener(e, reset));
+    };
+  }, [user]);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-[#0A0A0B] text-white">

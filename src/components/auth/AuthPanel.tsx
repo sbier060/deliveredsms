@@ -29,6 +29,50 @@ const OAUTH_BTN =
 type AuthMethod = 'google' | 'github' | 'email';
 const LAST_AUTH_KEY = 'delivered-last-auth';
 
+/**
+ * Password policy: at least 12 characters with upper- and lowercase letters,
+ * a digit, and a special character. Stated in our carrier KYC; keep the
+ * Firebase console password policy configured to match so the rule is also
+ * enforced server-side, not just here.
+ */
+const PASSWORD_RULES = [
+  { test: (p: string) => p.length >= 12, label: '12+ characters' },
+  { test: (p: string) => /[a-z]/.test(p) && /[A-Z]/.test(p), label: 'upper & lower case' },
+  { test: (p: string) => /\d/.test(p), label: 'a number' },
+  { test: (p: string) => /[^A-Za-z0-9]/.test(p), label: 'a special character' },
+];
+const passwordOk = (p: string) => PASSWORD_RULES.every((r) => r.test(p));
+
+/**
+ * Brute-force lockout: after 12 consecutive failed password sign-ins this
+ * browser is locked out for 15 minutes (also stated in our carrier KYC).
+ * Firebase additionally throttles repeated failures server-side
+ * (auth/too-many-requests); this makes the policy explicit and user-visible.
+ */
+const FAILS_KEY = 'delivered-auth-fails';
+const MAX_FAILED_ATTEMPTS = 12;
+const LOCKOUT_MS = 15 * 60 * 1000;
+
+type FailState = { count: number; lockedUntil: number };
+
+function readFails(): FailState {
+  try {
+    const raw = localStorage.getItem(FAILS_KEY);
+    if (raw) return JSON.parse(raw) as FailState;
+  } catch {
+    // Unreadable state counts as clean.
+  }
+  return { count: 0, lockedUntil: 0 };
+}
+
+function writeFails(state: FailState) {
+  try {
+    localStorage.setItem(FAILS_KEY, JSON.stringify(state));
+  } catch {
+    // Private mode: Firebase's server-side throttling still applies.
+  }
+}
+
 // GitHub is fully wired but stays hidden until the provider is enabled in
 // Firebase (needs a GitHub OAuth app). Flip NEXT_PUBLIC_GITHUB_AUTH=1 once
 // the IdP config exists; shipping the button before that is a dead click.
@@ -116,6 +160,20 @@ export default function AuthPanel({
       setError('Email and password are required.');
       return;
     }
+    const fails = readFails();
+    if (Date.now() < fails.lockedUntil) {
+      const minutes = Math.max(1, Math.ceil((fails.lockedUntil - Date.now()) / 60000));
+      setError(
+        `Too many failed sign-in attempts. Try again in ${minutes} minute${minutes === 1 ? '' : 's'}.`
+      );
+      return;
+    }
+    if (mode === 'signup' && !passwordOk(password)) {
+      setError(
+        'Password must be at least 12 characters and include uppercase and lowercase letters, a number, and a special character.'
+      );
+      return;
+    }
     setBusy(true);
     try {
       if (mode === 'signup') {
@@ -132,15 +190,30 @@ export default function AuthPanel({
       } else {
         await signInWithEmailAndPassword(auth, email, password);
       }
+      writeFails({ count: 0, lockedUntil: 0 });
       rememberMethod('email');
     } catch (e) {
       const code = (e as { code?: string }).code || '';
-      if (
-        mode === 'login' &&
-        (code === 'auth/user-not-found' ||
-          code === 'auth/invalid-credential' ||
-          code === 'auth/invalid-login-credentials')
-      ) {
+      const isCredentialFailure =
+        code === 'auth/user-not-found' ||
+        code === 'auth/wrong-password' ||
+        code === 'auth/invalid-credential' ||
+        code === 'auth/invalid-login-credentials';
+      if (isCredentialFailure) {
+        const next = { ...readFails() };
+        next.count += 1;
+        if (next.count >= MAX_FAILED_ATTEMPTS) {
+          next.lockedUntil = Date.now() + LOCKOUT_MS;
+          next.count = 0;
+        }
+        writeFails(next);
+        if (next.lockedUntil > Date.now()) {
+          setError('Too many failed sign-in attempts. Try again in 15 minutes.');
+          setBusy(false);
+          return;
+        }
+      }
+      if (mode === 'login' && isCredentialFailure) {
         setError(
           <>
             No account matches that email and password.{' '}
@@ -221,6 +294,12 @@ export default function AuthPanel({
           className={INPUT}
           autoComplete={isSignup ? 'new-password' : 'current-password'}
         />
+        {isSignup && (
+          <p className="mt-2 text-[12px] leading-[1.6] text-[#918E86]">
+            At least 12 characters, with uppercase and lowercase letters, a
+            number, and a special character.
+          </p>
+        )}
       </div>
 
       <button
