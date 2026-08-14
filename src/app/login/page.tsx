@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { generateMetadata as buildMetadata } from '@/lib/metadata';
-import DevFooter from '@/components/dev-docs/DevFooter';
 import AuthPanel from '@/components/auth/AuthPanel';
 import Wordmark from '@/components/Wordmark';
 
@@ -20,46 +19,45 @@ export const metadata: Metadata = buildMetadata({
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-[#0A0A0B] text-white">
-      <header className="border-b border-[#2E2C28]">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center gap-2">
+    <div className="relative flex min-h-screen flex-col bg-[#0A0A0B] text-white">
+      <Link
+        href="/"
+        className="absolute left-6 top-6 flex items-center gap-1 text-[13px] font-medium text-[#918E86] transition-colors duration-150 hover:text-[#EFEEEC]"
+      >
+        <span aria-hidden="true">‹</span> Home
+      </Link>
+
+      <main className="mx-auto flex w-full max-w-[400px] flex-1 flex-col justify-center px-6 py-24">
+        <div className="text-center">
+          <div className="flex justify-center">
             <Wordmark />
-          </Link>
-          <Link
-            href="/signup"
-            className="rounded-full border border-[#2E2C28] px-5 py-2 text-[14px] text-[#EFEEEC] transition-colors duration-150 hover:border-[#918E86]"
-          >
-            Create an account
-          </Link>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-2xl px-6 pb-24 pt-16">
-        <h1 className="mb-4 text-[32px] leading-tight text-[#EFEEEC]">Log in to Delivered</h1>
-        <p className="mb-8 text-[16px] leading-relaxed text-[#918E86]">
-          The console is where you manage API keys, phone numbers, webhooks, and
-          usage. Sign in with Google or with the email and password on your
-          account.
-        </p>
-
-        <AuthPanel mode="login" />
-
-        <div className="mt-12 border-t border-[#2E2C28] pt-8">
-          <h2 className="mb-3 text-[18px] text-[#EFEEEC]">Lost your API key?</h2>
-          <p className="text-[15px] leading-relaxed text-[#918E86]">
-            Keys are stored hashed and cannot be displayed again after they are
-            minted. Roll the key from the console and the old one is revoked
-            immediately. See{' '}
-            <Link href="/docs/authentication" className="text-[#00D26A] hover:underline">
-              Authentication
+          </div>
+          <h1 className="mt-6 text-[26px] leading-tight text-[#EFEEEC]">
+            Log in to Delivered
+          </h1>
+          <p className="mt-2 text-[14px] text-[#918E86]">
+            Don&apos;t have an account?{' '}
+            <Link href="/signup" className="font-medium text-[#00D26A] hover:underline">
+              Sign up
             </Link>
             .
           </p>
         </div>
-      </main>
 
-      <DevFooter />
+        <AuthPanel mode="login" />
+
+        <p className="mt-8 text-center text-[12px] leading-[1.6] text-[#918E86]">
+          By signing in, you agree to our{' '}
+          <Link href="/terms" className="underline underline-offset-2 hover:text-[#C9C6BF]">
+            Terms
+          </Link>{' '}
+          and{' '}
+          <Link href="/privacy" className="underline underline-offset-2 hover:text-[#C9C6BF]">
+            Privacy Policy
+          </Link>
+          .
+        </p>
+      </main>
     </div>
   );
 }
