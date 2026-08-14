@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { generateMetadata as buildMetadata, BASE_URL } from '@/lib/metadata';
 import { AGENT_TOOLS, toolBySlug } from '@/lib/dev-docs/tools';
+import { PRIMARY_CTA, SECONDARY_CTA } from '@/lib/cta';
 
 export const dynamicParams = false;
 
@@ -148,18 +149,12 @@ export default function ToolPage({ params }: { params: { tool: string } }) {
               <li>/api/v1/openapi.yaml</li>
               <li>/docs/llms-full.txt</li>
             </ul>
-            <div className="mt-8 flex flex-wrap items-center gap-6">
-              <Link
-                href="/console"
-                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#00D26A] to-[#009E4F] px-8 py-[15px] text-[15px] text-white transition-[opacity,transform] duration-200 hover:opacity-90 active:scale-[0.97]"
-              >
-                Get your free API key <span aria-hidden="true">→</span>
+            <div className="mt-8 flex flex-wrap items-center gap-2">
+              <Link href="/console" className={PRIMARY_CTA}>
+                Get started <span aria-hidden="true">→</span>
               </Link>
-              <Link
-                href="/"
-                className="text-[15px] text-[#918E86] underline underline-offset-4 transition-colors duration-150 hover:text-[#EFEEEC]"
-              >
-                About the Delivered
+              <Link href="/docs" className={SECONDARY_CTA}>
+                Documentation
               </Link>
             </div>
           </section>

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import SiteHeader from '@/components/SiteHeader';
 import type { Metadata } from 'next';
 import { generateMetadata as buildMetadata, BASE_URL } from '@/lib/metadata';
+import { PRIMARY_CTA, SECONDARY_CTA } from '@/lib/cta';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Phone numbers and SMS for AI agents',
@@ -113,18 +114,12 @@ export default function AgentsPage() {
 Skills  npx skills add sbier060/deliveredsms
 Docs    https://deliveredsms.com/docs/llms-full.txt
 Spec    https://api.deliveredsms.com/v1/openapi.yaml`}</code></pre>
-          <div className="mt-8 flex flex-wrap items-center gap-6">
-            <Link
-              href="/console"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#00D26A] to-[#009E4F] px-8 py-[15px] text-[15px] text-white transition-[opacity,transform] duration-200 hover:opacity-90 active:scale-[0.97]"
-            >
-              Get your free API key <span aria-hidden="true">→</span>
+          <div className="mt-8 flex flex-wrap items-center gap-2">
+            <Link href="/console" className={PRIMARY_CTA}>
+              Get started <span aria-hidden="true">→</span>
             </Link>
-            <Link
-              href="/pricing"
-              className="text-[15px] text-[#918E86] underline underline-offset-4 transition-colors duration-150 hover:text-[#EFEEEC]"
-            >
-              Pricing
+            <Link href="/docs" className={SECONDARY_CTA}>
+              Documentation
             </Link>
           </div>
         </section>

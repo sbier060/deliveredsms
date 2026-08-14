@@ -5,6 +5,7 @@ import Wordmark from '@/components/Wordmark';
 import DocsCommandK from '@/components/dev-docs/DocsCommandK';
 import SiteNavMenus from '@/components/SiteNavMenus';
 import { buildDocsIndex } from '@/lib/dev-docs/docs-search';
+import { HEADER_CTA } from '@/lib/cta';
 
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
   const searchIndex = buildDocsIndex();
@@ -18,11 +19,8 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
           <nav className="flex items-center gap-5">
             <SiteNavMenus />
             <DocsCommandK index={searchIndex} />
-            <Link
-              href="/console"
-              className="rounded-full border border-[#2E2C28] px-4 py-1.5 text-[13px] text-[#EFEEEC] transition-colors duration-150 hover:border-[#918E86]"
-            >
-              Console
+            <Link href="/console" className={HEADER_CTA}>
+              Get started
             </Link>
           </nav>
         </div>

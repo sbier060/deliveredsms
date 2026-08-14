@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Wordmark from '@/components/Wordmark';
 import SiteNavMenus from '@/components/SiteNavMenus';
+import { HEADER_CTA } from '@/lib/cta';
 
 /**
  * Shared marketing header: wordmark + Resend-style dropdown nav.
@@ -29,11 +30,8 @@ export default function SiteHeader({ children }: { children?: React.ReactNode })
             Log in
           </Link>
           {children}
-          <Link
-            href="/console"
-            className="rounded-full border border-[#2E2C28] px-5 py-2 text-[14px] text-[#EFEEEC] transition-colors duration-150 hover:border-[#918E86]"
-          >
-            Console
+          <Link href="/console" className={HEADER_CTA}>
+            Get started
           </Link>
         </nav>
       </div>

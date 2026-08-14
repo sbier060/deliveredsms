@@ -10,6 +10,7 @@ import DevFunnelTracker from '@/components/dev-docs/DevFunnelTracker';
 import IntegrationTiles from '@/components/dev-docs/IntegrationTiles';
 import LiveEventsCard from '@/components/dev-docs/LiveEventsCard';
 import SiteHeader from '@/components/SiteHeader';
+import { PRIMARY_CTA, SECONDARY_CTA } from '@/lib/cta';
 
 export const metadata: Metadata = buildMetadata({
   description:
@@ -33,9 +34,6 @@ const MONO =
 
 const HEADLINE =
   'text-[clamp(30px,4.5vw,44px)] leading-[1.15] tracking-[-0.02em] [text-wrap:balance]';
-
-const PRIMARY_CTA =
-  'inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#00D26A] to-[#009E4F] px-8 py-[15px] text-[15px] text-white transition-[opacity,transform] duration-150 ease-out-strong hover:opacity-90 motion-safe:active:scale-[0.97]';
 
 const CODE_CHIP = `rounded-md border border-[#2C2C2E] bg-[#1C1C1E] px-1.5 py-0.5 text-[13px] text-[#C9C6BF] ${MONO}`;
 
@@ -366,15 +364,12 @@ export default function DevelopersPage() {
               Programmable messaging, phone verification, and on-demand phone
               numbers, the same infrastructure behind a 400k-download consumer phone app.
             </p>
-            <div className="hero-rise mt-8 flex flex-wrap items-center gap-6 [animation-delay:180ms]">
+            <div className="hero-rise mt-8 flex flex-wrap items-center gap-2 [animation-delay:180ms]">
               <Link href="/console" className={PRIMARY_CTA}>
-                Get your free API key <span aria-hidden="true">→</span>
+                Get started <span aria-hidden="true">→</span>
               </Link>
-              <Link
-                href="/docs/quickstart"
-                className="text-[15px] text-[#918E86] underline underline-offset-4 transition-colors duration-150 hover:text-[#EFEEEC]"
-              >
-                Read the docs
+              <Link href="/docs" className={SECONDARY_CTA}>
+                Documentation
               </Link>
             </div>
           </div>
@@ -560,15 +555,12 @@ export default function DevelopersPage() {
             Create a free account, get a sandbox key instantly, and send your
             first test message before your coffee cools.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-6">
+          <div className="mt-8 flex flex-wrap items-center gap-2">
             <Link href="/console" className={PRIMARY_CTA}>
-              Start building <span aria-hidden="true">→</span>
+              Get started <span aria-hidden="true">→</span>
             </Link>
-            <Link
-              href="/agents"
-              className="text-[15px] text-[#918E86] underline underline-offset-4 transition-colors duration-150 hover:text-[#EFEEEC]"
-            >
-              Building an AI agent?
+            <Link href="/docs" className={SECONDARY_CTA}>
+              Documentation
             </Link>
           </div>
         </div>

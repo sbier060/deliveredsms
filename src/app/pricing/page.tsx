@@ -16,6 +16,7 @@ import {
   formatMoney,
   type UnitRate,
 } from '@/lib/api/pricing';
+import { PRIMARY_CTA, SECONDARY_CTA } from '@/lib/cta';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Pricing',
@@ -37,9 +38,6 @@ const MONO =
 
 const HEADLINE =
   'text-[clamp(30px,4.5vw,44px)] leading-[1.15] tracking-[-0.02em] [text-wrap:balance]';
-
-const PRIMARY_CTA =
-  'inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#00D26A] to-[#009E4F] px-8 py-[15px] text-[15px] text-white transition-[opacity,transform] duration-200 hover:opacity-90 active:scale-[0.97]';
 
 const rateList = Object.values(RATES) as UnitRate[];
 
@@ -371,15 +369,12 @@ export default function DeveloperPricingPage() {
               sandbox.
             </span>
           </h2>
-          <div className="mt-8 flex flex-wrap items-center gap-6">
+          <div className="mt-8 flex flex-wrap items-center gap-2">
             <Link href="/console" className={PRIMARY_CTA}>
-              Get your API key <span aria-hidden="true">→</span>
+              Get started <span aria-hidden="true">→</span>
             </Link>
-            <Link
-              href="/docs/quickstart"
-              className="text-[15px] text-[#918E86] underline underline-offset-4 transition-colors duration-150 hover:text-[#EFEEEC]"
-            >
-              Read the docs
+            <Link href="/docs" className={SECONDARY_CTA}>
+              Documentation
             </Link>
           </div>
         </div>
