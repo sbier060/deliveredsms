@@ -5,7 +5,7 @@
  */
 export default function GithubMark() {
   return (
-    <svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true" className="shrink-0">
       <path
         fill="#E3E3E3"
         fillRule="evenodd"

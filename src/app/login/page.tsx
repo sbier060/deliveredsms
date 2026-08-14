@@ -27,7 +27,7 @@ export default function LoginPage() {
         <span aria-hidden="true">‹</span> Home
       </Link>
 
-      <main className="mx-auto flex w-full max-w-[400px] flex-1 flex-col justify-center px-6 py-24">
+      <main className="mx-auto flex w-full max-w-[440px] flex-1 flex-col justify-center px-6 py-24">
         <div className="text-center">
           <div className="flex justify-center">
             <Wordmark />

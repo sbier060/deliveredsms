@@ -23,7 +23,7 @@ const INPUT =
 const LABEL = 'mb-2 flex items-center gap-2 text-[13px] text-[#918E86]';
 
 const OAUTH_BTN =
-  'relative flex h-11 w-full items-center justify-center gap-2.5 rounded-xl border border-[#8E918F] bg-[#131314] text-[14px] font-medium text-[#E3E3E3] transition-colors duration-150 hover:bg-[#1B1B1C] motion-safe:active:scale-[0.99] disabled:opacity-30';
+  'relative flex h-11 w-full items-center justify-center gap-2.5 whitespace-nowrap rounded-xl border border-[#8E918F] bg-[#131314] px-4 text-[14px] font-medium text-[#E3E3E3] transition-colors duration-150 hover:bg-[#1B1B1C] motion-safe:active:scale-[0.99] disabled:opacity-30';
 
 /** Which methods can carry the "Last used" chip. */
 type AuthMethod = 'google' | 'github' | 'email';

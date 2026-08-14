@@ -6,6 +6,9 @@
  * violation and, more practically, reads as less trustworthy than the button
  * every user already recognises. Inlined rather than fetched so it cannot be
  * blocked or fail to load on the one screen that has to work.
+ *
+ * shrink-0 is load-bearing: as a flex item next to a label, the SVG is squeezed
+ * to a few px wide before the text ever wraps.
  */
 export default function GoogleMark({ size = 18 }: { size?: number }) {
   return (
@@ -15,6 +18,7 @@ export default function GoogleMark({ size = 18 }: { size?: number }) {
       viewBox="0 0 48 48"
       aria-hidden="true"
       focusable="false"
+      className="shrink-0"
     >
       <path
         fill="#EA4335"
