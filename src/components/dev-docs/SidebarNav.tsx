@@ -28,6 +28,7 @@ const PLATFORM_LINKS = [
   { href: '/docs/scheduled', label: 'Scheduled messages' },
   { href: '/docs/auto-reply', label: 'Auto-replies' },
   { href: '/docs/opt-out', label: 'Opt-out & consent' },
+  { href: '/docs/security', label: 'Security best practices' },
   { href: '/docs/porting', label: 'Number porting' },
 ];
 

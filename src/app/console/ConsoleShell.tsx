@@ -77,6 +77,29 @@ export default function ConsoleShell({ children }: { children: React.ReactNode }
     });
   }, [router]);
 
+  // Password sign-ins owe an email-OTP second factor before the console will
+  // serve data (server routes 401 without it). Bounce unverified sessions to
+  // /login, where AuthPanel resumes the code step.
+  useEffect(() => {
+    if (!user) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const token = await user.getIdToken();
+        const res = await fetch('/api/auth/mfa/status', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = (await res.json()) as { required?: boolean };
+        if (!cancelled && res.ok && data.required) router.replace('/login');
+      } catch {
+        // Status outage: leave the session alone; data routes still enforce.
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [user, router]);
+
   // Idle timeout: sign console sessions out after 30 minutes of inactivity
   // (stated in our carrier KYC). Any interaction resets the clock; the timer
   // only runs while someone is signed in.

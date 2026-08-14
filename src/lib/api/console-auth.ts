@@ -3,28 +3,54 @@ import { auth } from '@/lib/firebase-admin';
 import type { ApiTenant } from './types';
 import { getTenantIdByUid, getTenant } from './tenants';
 import { roleOf, type TeamRole } from './team';
+import { isMfaVerified, mfaAvailable } from './mfa';
 
 /**
  * Console-route auth: verify a Firebase ID token from Authorization: Bearer.
  * No body-uid fallback, ever (the consumer dashboard's localStorage pattern
  * must not leak into the developer surface).
+ *
+ * Password sign-ins additionally require the email-OTP second factor for the
+ * current sign-in (see lib/api/mfa.ts); federated sign-ins (Google) carry
+ * their own 2FA and are exempt. The MFA routes themselves pass
+ * `enforceMfa: false` - they are how a session becomes verified.
  */
 export interface ConsoleUser {
   uid: string;
   email: string;
   name: string;
+  /** Sign-in provider from the token: 'password', 'google.com', ... */
+  provider: string;
+  /** Token auth_time in seconds - the moment of the underlying sign-in. */
+  authTime: number;
 }
 
-export async function requireUser(req: NextRequest): Promise<ConsoleUser | null> {
+export async function requireUser(
+  req: NextRequest,
+  opts: { enforceMfa?: boolean } = {}
+): Promise<ConsoleUser | null> {
+  const { enforceMfa = true } = opts;
   const header = req.headers.get('authorization') || '';
   const match = header.match(/^Bearer\s+(.+)$/);
   if (!match) return null;
   try {
     const decoded = await auth.verifyIdToken(match[1]);
+    const provider = (decoded.firebase?.sign_in_provider as string) || 'unknown';
+    const authTime = decoded.auth_time as number;
+    if (
+      enforceMfa &&
+      provider === 'password' &&
+      mfaAvailable() &&
+      !(await isMfaVerified(decoded.uid, authTime))
+    ) {
+      return null;
+    }
     return {
       uid: decoded.uid,
       email: decoded.email || '',
       name: (decoded.name as string) || decoded.email?.split('@')[0] || 'Developer',
+      provider,
+      authTime,
     };
   } catch {
     return null;

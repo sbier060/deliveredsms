@@ -998,6 +998,79 @@ consent program needs; Delivered gives you enforcement and records by default.
 `,
   },
   {
+    slug: 'security',
+    title: 'Security best practices',
+    description: 'Protect your account, API keys, and users: key hygiene, phishing awareness, and how we handle your data.',
+    markdown: `# Security best practices
+
+Delivered secures the platform; you secure your side of it. This page covers
+what we do, what you should do, and how to recognize the attacks that target
+messaging accounts.
+
+## Protect your API keys
+
+- Keys are shown **once** at creation and stored only as salted hashes on our
+  side. If you lose one, roll it - there is nothing to recover.
+- Keep keys in environment variables or a secrets manager, never in source
+  control, client-side code, or chat logs. A key in a public repo should be
+  treated as compromised and rotated immediately.
+- Rotate keys periodically (we recommend at least every 90 days) and on any
+  team departure. Rotation is instant in the console under **API keys**.
+- Use test keys everywhere except production. Test keys cannot send real
+  traffic, so a leaked test key cannot run up a bill or spam anyone.
+
+## Protect your account
+
+- Console passwords must be at least 12 characters with uppercase, lowercase,
+  numeric, and special characters. Use a password manager and a unique
+  password.
+- Accounts lock temporarily after repeated failed sign-in attempts, and
+  console sessions expire after 30 minutes of inactivity.
+- Only invite teammates who need access, and remove them when they leave.
+
+## Recognize social engineering
+
+Messaging accounts are a target: attackers want your sending capability, your
+keys, or your customers' trust.
+
+- **We will never ask for your password or a full API key** - not by email,
+  not by text, not in support conversations. Anyone who does is not us.
+- Verify unusual requests **out of band**: if an email or message asks you to
+  change payment details, share credentials, or approve access, confirm
+  through a channel you already trust (the console, or a contact you already
+  have) before acting.
+- Check sender addresses carefully. Our email comes from the
+  deliveredsms.com domain; lookalike domains are the most common phishing
+  tell.
+- Spear phishing is personalized - a message knowing your name, role, or
+  vendor list is not proof it is genuine.
+- Report anything suspicious to [support@deliveredsms.com](mailto:support@deliveredsms.com);
+  we investigate every report.
+
+## Protect your users
+
+- Send only to recipients who opted in, honor opt-outs (we enforce STOP and
+  its variants platform-wide), and identify yourself as the sender - see
+  [Opt-out & consent](/docs/opt-out).
+- Never put credentials, one-time codes you did not generate, or sensitive
+  personal data in outbound messages beyond what the use case requires.
+- Verify [webhook signatures](/docs/webhooks) so spoofed callbacks cannot
+  inject fake delivery or inbound events into your systems.
+
+## What we do on our side
+
+- TLS for all data in transit; encryption at rest; API keys and verification
+  codes stored as salted hashes, never logged in plaintext.
+- Real-time content filtering, velocity limits, and 24x7 automated fraud
+  monitoring with automatic suspension of abusive traffic.
+- Production access restricted to authorized personnel and audited.
+- Details in the [Privacy Policy](/privacy).
+
+Found a vulnerability? Email [support@deliveredsms.com](mailto:support@deliveredsms.com)
+with details; we respond quickly and appreciate responsible disclosure.
+`,
+  },
+  {
     slug: 'errors',
     title: 'Errors',
     description: 'The error envelope and every error code.',
