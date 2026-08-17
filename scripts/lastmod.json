@@ -32,7 +32,7 @@
     "date": "2026-08-17"
   },
   "https://deliveredsms.com/docs": {
-    "hash": "a471b2d789d529ec",
+    "hash": "15f8d2ca5c7e3d03",
     "date": "2026-08-17"
   },
   "https://deliveredsms.com/docs/authentication": {
@@ -103,6 +103,10 @@
     "hash": "261783361debc183",
     "date": "2026-08-17"
   },
+  "https://deliveredsms.com/docs/security": {
+    "hash": "4b4d564e959f87dd",
+    "date": "2026-08-17"
+  },
   "https://deliveredsms.com/docs/teams": {
     "hash": "bca2a6ab23496398",
     "date": "2026-08-17"
@@ -124,7 +128,7 @@
     "date": "2026-08-17"
   },
   "https://deliveredsms.com/privacy": {
-    "hash": "ea33bed527fa6308",
+    "hash": "7c8ffb808d1ce733",
     "date": "2026-08-17"
   },
   "https://deliveredsms.com/signup": {
@@ -132,7 +136,7 @@
     "date": "2026-08-17"
   },
   "https://deliveredsms.com/terms": {
-    "hash": "79648b9b35df3c5f",
+    "hash": "7df2d5265392eddf",
     "date": "2026-08-17"
   }
 }
