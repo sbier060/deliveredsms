@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { withMdHeader } from '@/lib/md-header';
 import { SITE_URL, API_URL, MCP_URL } from '@/lib/urls';
 
 export const runtime = 'nodejs';
@@ -130,7 +131,7 @@ See \`${SITE_URL}/skills/sms-best-practices/SKILL.md\` before your first live se
 - OpenAPI spec: \`${SITE_URL}/openapi.json\` / \`${SITE_URL}/openapi.yaml\`
 `;
 
-  return new NextResponse(body, {
+  return new NextResponse(withMdHeader(body, '/auth.md'), {
     headers: {
       'Content-Type': 'text/markdown; charset=utf-8',
       'Cache-Control': 'public, max-age=300, s-maxage=3600',

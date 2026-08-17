@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { withMdHeader } from '@/lib/md-header';
 import {
   pricingTableMarkdown,
   freeTierMarkdown,
@@ -34,7 +35,7 @@ ${freeTierMarkdown()}
 - Full docs: https://deliveredsms.com/docs/llms-full.txt
 `;
 
-  return new NextResponse(body, {
+  return new NextResponse(withMdHeader(body, '/pricing'), {
     headers: {
       'Content-Type': 'text/markdown; charset=utf-8',
       'Cache-Control': 'public, max-age=300, s-maxage=3600',

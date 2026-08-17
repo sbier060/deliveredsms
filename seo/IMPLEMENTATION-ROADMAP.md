@@ -72,11 +72,30 @@ These are the ones already violated once in this codebase and fixed:
 2. **Schema server-side in the document.** Never `next/script` +
    `afterInteractive`; crawlers do not see it.
 3. **`.md` twin + `llms.txt` entry** for every new page, or the agent surface
-   degrades page by page.
+   degrades page by page. The twin opens with the shared header from
+   `src/lib/md-header.ts` (Source + Index), because a twin gets read detached
+   from the site and has to be able to say which page it is a twin of. /login,
+   /signup and /docs sat in the sitemap with no twin at all until 2026-08-17,
+   under an llms.txt telling agents to append `.md` to any page.
 4. **Titles are the page name alone.** `src/lib/metadata.ts` appends the brand;
    including it in the page title double-stamps it.
 5. **Canonical must point at a URL that exists.** The homepage pointed at
    `/developers` - a 404 - for the whole life of the domain until it was caught.
+6. **Every page gets an og:image.** `src/lib/metadata.ts` supplies /og.png by
+   default (regenerate with `node scripts/make-og-image.js`). All 35 indexed
+   pages had og:title and og:description and no image until 2026-08-17, so every
+   link pasted into Slack unfurled as a grey box with a hostname.
+7. **`lastmod` is a claim about the page, not about the build.**
+   `scripts/lastmod.json` records a hash per URL - a doc's own block in
+   `content.ts`, not the whole file - plus the date it last changed, and it is
+   committed: regenerating it from scratch re-dates every page to today, which
+   is the bug it replaced. Google discards lastmod it finds inconsistent with
+   the page.
+8. **Announce after deploying, never in postbuild.** `node scripts/indexnow.js`
+   pushes changed URLs to Bing/Yandex/Seznam/Naver/DuckDuckGo once the Vercel
+   deployment is Ready. At build time it would ask them to re-read the version
+   you are replacing. Google does not participate; that path is still Search
+   Console.
 
 ## What is explicitly not on this roadmap
 

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { withMdHeader } from '@/lib/md-header';
 import { AGENT_TOOLS, toolBySlug } from '@/lib/dev-docs/tools';
 import { SITE_URL, API_URL, MCP_URL } from '@/lib/urls';
 import { RATES, FREE_TIER, formatRate, formatMoney } from '@/lib/api/pricing';
@@ -97,9 +98,11 @@ export async function GET(
   _req: Request,
   { params }: { params: { slug: string } }
 ) {
-  if (params.slug === 'index') return md(landingMd());
-  if (params.slug === 'agents') return md(agentsMd());
+  // The path each twin is a twin OF, so the file can name its own canonical
+  // URL (src/lib/md-header.ts). 'index' is the landing page, i.e. '/'.
+  if (params.slug === 'index') return md(withMdHeader(landingMd(), '/'));
+  if (params.slug === 'agents') return md(withMdHeader(agentsMd(), '/agents'));
   const tool = toolMd(params.slug);
-  if (tool) return md(tool);
+  if (tool) return md(withMdHeader(tool, `/${params.slug}`));
   return new NextResponse('Not found', { status: 404 });
 }
