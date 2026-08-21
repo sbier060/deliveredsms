@@ -6,7 +6,7 @@ import { buildSendSnippets } from '@/lib/dev-docs/snippets';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Quickstart',
-  description: 'Send your first SMS with the Delivered in under five minutes.',
+  description: 'Send your first SMS with the Resms in under five minutes.',
   path: '/docs/quickstart',
 });
 
@@ -18,7 +18,7 @@ works instantly against the sandbox.
 ## 1. Get a key
 
 Create a free account at [the console](/console). A sandbox tenant
-is provisioned automatically with a test key (\`dsms_sk_test_...\`) and a
+is provisioned automatically with a test key (\`resms_sk_test_...\`) and a
 sandbox number. The key is shown once, so copy it. If you just signed up in this
 browser, your key is already filled into the snippets below.
 
@@ -33,7 +33,7 @@ const REST = `## 3. Read the response
   "object": "message",
   "to": "+15005550006",
   "from": "+15005550100",
-  "body": "Hello from Delivered",
+  "body": "Hello from Resms",
   "direction": "outbound",
   "status": "sent",
   "test": true,
@@ -47,8 +47,8 @@ lifecycle in \`GET /v1/events\`; a \`message.delivered\` event follows ~2s later
 ## 4. Simulate a reply
 
 \`\`\`bash
-curl -X POST https://api.deliveredsms.com/v1/test/inbound \\
-  -H "Authorization: Bearer dsms_sk_test_YOUR_KEY" \\
+curl -X POST https://api.resms.com/v1/test/inbound \\
+  -H "Authorization: Bearer resms_sk_test_YOUR_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
     "to": "+15005550100",

@@ -5,14 +5,14 @@ export const runtime = 'nodejs';
 export const maxDuration = 30;
 
 /**
- * Delivered MCP server - Streamable HTTP transport in stateless JSON mode
+ * Resms MCP server - Streamable HTTP transport in stateless JSON mode
  * (every POST gets a single application/json response; no SSE, no sessions).
  * Hand-rolled JSON-RPC 2.0 - deliberately no SDK dependency.
  *
  * A protocol adapter over the public REST API: every tool call self-fetches
  * /api/v1/* with the caller's Authorization header passed through, so auth,
  * rate limits, quotas, and validation are enforced by exactly one code path.
- * Connect with: Authorization: Bearer dsms_sk_test_... (same keys as the API).
+ * Connect with: Authorization: Bearer resms_sk_test_... (same keys as the API).
  */
 
 const PROTOCOL_VERSION = '2025-03-26';
@@ -28,7 +28,7 @@ const TOOLS = [
   {
     name: 'send_message',
     description:
-      'Send an SMS from one of your Delivered numbers. In sandbox (test keys), delivery is simulated: +15005550006 delivers, +15005550002 fails.',
+      'Send an SMS from one of your Resms numbers. In sandbox (test keys), delivery is simulated: +15005550006 delivers, +15005550002 fails.',
     inputSchema: {
       type: 'object',
       required: ['from', 'to', 'body'],
@@ -77,7 +77,7 @@ const TOOLS = [
   {
     name: 'send_verification',
     description:
-      'Send a one-time verification code (OTP) to a phone number. Delivered generates the code, handles expiry (10 min) and attempt limits (5), and blocks SMS-pumping fraud. Prefer this over building OTP on send_message.',
+      'Send a one-time verification code (OTP) to a phone number. Resms generates the code, handles expiry (10 min) and attempt limits (5), and blocks SMS-pumping fraud. Prefer this over building OTP on send_message.',
     inputSchema: {
       type: 'object',
       required: ['phone'],
@@ -170,7 +170,7 @@ const TOOLS = [
   },
   {
     name: 'lookup_spam',
-    description: "Get the aggregate spam signal for a number from Delivered's detection graph.",
+    description: "Get the aggregate spam signal for a number from Resms's detection graph.",
     inputSchema: {
       type: 'object',
       required: ['phone'],
@@ -250,12 +250,12 @@ export async function POST(req: NextRequest) {
       return rpcResult(rpc.id, {
         protocolVersion: PROTOCOL_VERSION,
         capabilities: { tools: {} },
-        serverInfo: { name: 'delivered', version: '1.0.0' },
+        serverInfo: { name: 'resms', version: '1.0.0' },
         instructions:
-          'Delivered MCP server: programmable SMS, phone numbers, and spam lookup. ' +
-          'Authenticate with your API key (Authorization: Bearer dsms_sk_...). ' +
-          'Free sandbox keys: https://deliveredsms.com/console. ' +
-          'Docs: https://deliveredsms.com/docs/quickstart',
+          'Resms MCP server: programmable SMS, phone numbers, and spam lookup. ' +
+          'Authenticate with your API key (Authorization: Bearer resms_sk_...). ' +
+          'Free sandbox keys: https://resms.com/console. ' +
+          'Docs: https://resms.com/docs/quickstart',
       });
 
     case 'notifications/initialized':
@@ -280,7 +280,7 @@ export async function POST(req: NextRequest) {
         return rpcError(
           rpc.id,
           -32001,
-          'Authentication required: pass your API key as Authorization: Bearer dsms_sk_...'
+          'Authentication required: pass your API key as Authorization: Bearer resms_sk_...'
         );
       }
       const name = String(rpc.params?.name || '');
@@ -313,11 +313,11 @@ export async function POST(req: NextRequest) {
 export async function GET() {
   return NextResponse.json(
     {
-      name: 'delivered',
+      name: 'resms',
       transport: 'streamable-http',
       mode: 'stateless',
       endpoint: MCP_URL,
-      hint: 'POST JSON-RPC 2.0 (initialize, tools/list, tools/call) with Authorization: Bearer dsms_sk_...',
+      hint: 'POST JSON-RPC 2.0 (initialize, tools/list, tools/call) with Authorization: Bearer resms_sk_...',
     },
     { status: 405 }
   );

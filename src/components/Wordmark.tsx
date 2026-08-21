@@ -1,5 +1,5 @@
 /**
- * The Delivered wordmark. One definition so size, weight, and the accent-green
+ * The Resms wordmark. One definition so size, weight, and the accent-green
  * period stay identical everywhere - it was duplicated across nine files and
  * had already drifted to two different sizes.
  *
@@ -25,7 +25,7 @@ export default function Wordmark({
       <span
         className={`${SIZES[size]} font-semibold tracking-[-0.02em] text-[#EFEEEC]`}
       >
-        Delivered<span className="text-[#00D26A]">.</span>
+        Resms<span className="text-[#00D26A]">.</span>
       </span>
       {suffix && <span className="text-[15px] text-[#918E86]">{suffix}</span>}
     </>

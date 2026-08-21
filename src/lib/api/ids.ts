@@ -23,7 +23,7 @@ export const newKeyId = () => `key_${randomBase62(12)}`;
 export const newEndpointId = () => `we_${randomBase62(12)}`;
 
 export function newKeySecret(mode: 'test' | 'live'): string {
-  return `dsms_sk_${mode}_${randomBase62(32)}`;
+  return `resms_sk_${mode}_${randomBase62(32)}`;
 }
 
 export const newWebhookSecret = () => `whsec_${randomBase62(32)}`;

@@ -4,7 +4,7 @@ import { randomBase62 } from './ids';
 import { digits10 } from './phone';
 
 /**
- * OTP store for Delivered Verify.
+ * OTP store for Resms Verify.
  *
  * We generate and check codes ourselves rather than proxying Twilio Verify:
  * Twilio charges ~$0.05 per verification against our $0.025 price, so

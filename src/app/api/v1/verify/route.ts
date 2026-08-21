@@ -59,10 +59,10 @@ export const POST = withApiKey(
 
     const fromOverride = requestedFrom === undefined ? null : normalizeE164(requestedFrom);
     if (requestedFrom !== undefined && !fromOverride) {
-      return apiError(400, 'invalid_request', '`from` must be a valid US/Canada number you own, or omitted to use the Delivered verification pool.', { param: 'from' });
+      return apiError(400, 'invalid_request', '`from` must be a valid US/Canada number you own, or omitted to use the Resms verification pool.', { param: 'from' });
     }
 
-    // No number required: Delivered sends verifications from its own pool, the
+    // No number required: Resms sends verifications from its own pool, the
     // same way Twilio Verify manages senders for you.
     let from: string;
     try {

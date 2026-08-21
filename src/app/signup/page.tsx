@@ -4,14 +4,14 @@ import { generateMetadata as buildMetadata } from '@/lib/metadata';
 import AuthPanel from '@/components/auth/AuthPanel';
 import Wordmark from '@/components/Wordmark';
 
-// Indexable landing for "create a Delivered account" style queries, and one of
+// Indexable landing for "create a Resms account" style queries, and one of
 // the primary nav destinations in the site schema.
 export const metadata: Metadata = buildMetadata({
-  title: 'Create a Delivered account',
+  title: 'Create a Resms account',
   description:
-    'Create a free Delivered account and get a sandbox API key and test number instantly. No credit card, no sales call. Send your first SMS in under five minutes.',
+    'Create a free Resms account and get a sandbox API key and test number instantly. No credit card, no sales call. Send your first SMS in under five minutes.',
   path: '/signup',
-  keywords: ['delivered sms signup', 'free sms api', 'sms api sandbox key'],
+  keywords: ['resms signup', 'delivered sms signup', 'free sms api', 'sms api sandbox key'],
 });
 
 export default function SignupPage() {
@@ -30,7 +30,7 @@ export default function SignupPage() {
             <Wordmark />
           </div>
           <h1 className="mt-6 text-[26px] leading-tight text-[#EFEEEC]">
-            Create a Delivered account
+            Create a Resms account
           </h1>
           <p className="mt-2 text-[14px] text-[#918E86]">
             Already have an account?{' '}

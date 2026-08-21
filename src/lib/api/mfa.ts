@@ -67,13 +67,13 @@ export async function sendMfaCode(
 
   const ok = await sendNoReplyMail({
     to: email,
-    subject: `${code} is your Delivered verification code`,
+    subject: `${code} is your Resms verification code`,
     html: `
       <div style="font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;max-width:420px;margin:0 auto;padding:24px 0;color:#1a1a1a">
-        <p style="font-size:15px">Your Delivered verification code:</p>
+        <p style="font-size:15px">Your Resms verification code:</p>
         <p style="font-size:32px;font-weight:700;letter-spacing:6px;margin:16px 0">${code}</p>
         <p style="font-size:13px;color:#666">It expires in 10 minutes. If you didn't try to sign in,
-        change your password and contact support@deliveredsms.com.</p>
+        change your password and contact support@resms.com.</p>
       </div>`,
   });
   if (!ok) {

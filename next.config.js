@@ -27,19 +27,19 @@ const nextConfig = {
           },
         ],
       },
-      {
-        // The API hosts are machine surfaces. Belt-and-braces with the
-        // robots.txt in middleware: a header travels with every response,
-        // including the JSON index at api./ that would otherwise be indexable.
-        source: '/:path*',
-        has: [{ type: 'host', value: 'api.deliveredsms.com' }],
-        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
-      },
-      {
-        source: '/:path*',
-        has: [{ type: 'host', value: 'mcp.deliveredsms.com' }],
-        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
-      },
+      // The API hosts are machine surfaces. Belt-and-braces with the
+      // robots.txt in middleware: a header travels with every response,
+      // including the JSON index at api./ that would otherwise be indexable.
+      // The deliveredsms.com pair are the Delivered-era hosts, kept alive for
+      // SDKs published before the Resms rebrand - they serve the same machine
+      // surface, so they need the same noindex.
+      ...['api.resms.com', 'mcp.resms.com', 'api.deliveredsms.com', 'mcp.deliveredsms.com'].map(
+        (value) => ({
+          source: '/:path*',
+          has: [{ type: 'host', value }],
+          headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+        })
+      ),
     ];
   },
 };

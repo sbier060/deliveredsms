@@ -344,7 +344,7 @@ export default function BillingPage() {
 
         {notice && <p className="mt-3 text-[13px] text-[#C9C6BF]">{notice}</p>}
         <p className="mt-4 text-[12px] text-[#918E86]">
-          Delivered billing is standalone: one usage invoice, nothing else.
+          Resms billing is standalone: one usage invoice, nothing else.
         </p>
       </div>
     </div>

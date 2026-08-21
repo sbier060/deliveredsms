@@ -10,9 +10,9 @@ import { SITE_URL } from '@/lib/urls';
 export const metadata: Metadata = buildMetadata({
   title: 'Documentation',
   description:
-    'Delivered API documentation: quickstart, authentication, sandbox, messages, verification, webhooks, numbers, lookup, errors, and migration guides.',
+    'Resms API documentation: quickstart, authentication, sandbox, messages, verification, webhooks, numbers, lookup, errors, and migration guides.',
   path: '/docs',
-  keywords: ['sms api documentation', 'phone verification api docs', 'delivered api reference'],
+  keywords: ['sms api documentation', 'phone verification api docs', 'resms api reference'],
 });
 
 export default function DocsIndex() {
@@ -20,7 +20,7 @@ export default function DocsIndex() {
     <div className="mx-auto max-w-3xl px-6 pb-24 pt-12">
       <h1 className="mb-4 text-[32px] leading-tight text-[#EFEEEC]">Documentation</h1>
       <p className="mb-10 text-[16px] leading-relaxed text-[#918E86]">
-        To get started with Delivered you will need a sandbox API key, which is
+        To get started with Resms you will need a sandbox API key, which is
         free and issued the moment you{' '}
         <Link href="/signup" className="text-[#00D26A] hover:underline">
           create an account

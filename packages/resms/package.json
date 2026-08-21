@@ -1,7 +1,7 @@
 {
-  "name": "deliveredsms",
+  "name": "resms",
   "version": "1.0.0",
-  "description": "Official client + CLI for Delivered (deliveredsms.com): SMS, phone verification, and phone numbers. Zero dependencies.",
+  "description": "Official client + CLI for Resms (resms.com): SMS, phone verification, and phone numbers. Zero dependencies.",
   "keywords": [
     "sms",
     "otp",
@@ -11,12 +11,11 @@
     "sms api",
     "ai agents"
   ],
-  "homepage": "https://deliveredsms.com",
+  "homepage": "https://resms.com",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "deliveredsms": "./dist/cli.cjs",
-    "dsms": "./dist/cli.cjs"
+    "resms": "./dist/cli.cjs"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

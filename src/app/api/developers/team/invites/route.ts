@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
   const { token, invite } = await createInvite(ctx.tenantId, role, ctx.user.uid);
   return NextResponse.json({
     token,
-    url: `https://deliveredsms.com/join/${token}`,
+    url: `https://resms.com/join/${token}`,
     role: invite.role,
     expiresAt: invite.expiresAt,
   });

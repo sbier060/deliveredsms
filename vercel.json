@@ -10,6 +10,16 @@
       "has": [
         {
           "type": "host",
+          "value": "api.resms.com"
+        }
+      ]
+    },
+    {
+      "source": "/v1/:path*",
+      "destination": "/api/v1/:path*",
+      "has": [
+        {
+          "type": "host",
           "value": "api.deliveredsms.com"
         }
       ]

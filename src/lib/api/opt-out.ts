@@ -293,10 +293,10 @@ export async function listSuppressions(
 }
 
 /** The one message allowed to a number that just opted out. */
-export function confirmationBody(brand = 'Delivered'): string {
+export function confirmationBody(brand = 'Resms'): string {
   return `You have been unsubscribed and will receive no further messages from ${brand}. Reply START to resubscribe.`;
 }
 
-export function helpBody(brand = 'Delivered'): string {
-  return `${brand}: for help, contact support@deliveredsms.com. Reply STOP to unsubscribe.`;
+export function helpBody(brand = 'Resms'): string {
+  return `${brand}: for help, contact support@resms.com. Reply STOP to unsubscribe.`;
 }

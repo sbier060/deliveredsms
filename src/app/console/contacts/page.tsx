@@ -146,7 +146,7 @@ export default function ContactsPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'delivered-contacts.csv';
+    a.download = 'resms-contacts.csv';
     a.click();
     URL.revokeObjectURL(url);
   };

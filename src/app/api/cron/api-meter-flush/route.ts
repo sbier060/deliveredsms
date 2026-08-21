@@ -26,11 +26,11 @@ export async function GET(req: NextRequest) {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: `*Delivered meter outbox*\nsent ${result.sent} · failed ${result.failed} · remaining ${result.remaining}`,
+            text: `*Resms meter outbox*\nsent ${result.sent} · failed ${result.failed} · remaining ${result.remaining}`,
           },
         },
       ],
-      `Delivered meter outbox: ${result.failed} failed, ${result.remaining} remaining`
+      `Resms meter outbox: ${result.failed} failed, ${result.remaining} remaining`
     ).catch(() => {});
   }
   return NextResponse.json({ ok: true, ...result });

@@ -51,7 +51,7 @@ const RESOURCES: MenuLink[] = [
   { href: '/agents', label: 'For AI agents', desc: 'MCP server, skills, llms.txt' },
   { href: '/openapi.json', label: 'OpenAPI spec', desc: 'Machine-readable endpoints' },
   { href: '/llms.txt', label: 'llms.txt', desc: 'The whole product for LLMs' },
-  { href: 'mailto:support@deliveredsms.com', label: 'Support', desc: 'A human reads every email' },
+  { href: 'mailto:support@resms.com', label: 'Support', desc: 'A human reads every email' },
 ];
 
 function Item({ link, onNavigate }: { link: MenuLink; onNavigate: () => void }) {

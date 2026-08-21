@@ -29,7 +29,7 @@ export const GET = withApiKey(async (_req: NextRequest, ctx: ApiContext) => {
   return new NextResponse(toCsv(rows), {
     headers: {
       'Content-Type': 'text/csv; charset=utf-8',
-      'Content-Disposition': 'attachment; filename="delivered-consent.csv"',
+      'Content-Disposition': 'attachment; filename="resms-consent.csv"',
     },
   });
 });

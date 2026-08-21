@@ -1,16 +1,16 @@
 /**
- * deliveredsms - the official Delivered client.
+ * resms - the official Resms client.
  *
  * Zero dependencies. Uses the platform `fetch`, so it runs on Node 18+, Bun,
  * Deno, Cloudflare Workers and Vercel Edge without a polyfill.
  */
 
 export const VERSION = '1.0.0';
-const DEFAULT_BASE_URL = 'https://api.deliveredsms.com';
+const DEFAULT_BASE_URL = 'https://api.resms.com';
 
 // ── errors ──────────────────────────────────────────────────────────────────
 
-export type DeliveredErrorCode =
+export type ResmsErrorCode =
   | 'invalid_api_key'
   | 'tenant_suspended'
   | 'live_access_required'
@@ -28,8 +28,8 @@ export type DeliveredErrorCode =
   | 'internal_error'
   | 'connection_error';
 
-export class DeliveredError extends Error {
-  readonly code: DeliveredErrorCode;
+export class ResmsError extends Error {
+  readonly code: ResmsErrorCode;
   readonly status: number;
   /** Which request field was wrong, when the API could tell. */
   readonly param?: string;
@@ -41,7 +41,7 @@ export class DeliveredError extends Error {
   constructor(
     message: string,
     opts: {
-      code: DeliveredErrorCode;
+      code: ResmsErrorCode;
       status: number;
       param?: string;
       retryAfter?: number;
@@ -49,7 +49,7 @@ export class DeliveredError extends Error {
     }
   ) {
     super(message);
-    this.name = 'DeliveredError';
+    this.name = 'ResmsError';
     this.code = opts.code;
     this.status = opts.status;
     this.param = opts.param;
@@ -162,7 +162,7 @@ export interface Page<T> {
   next_cursor: string | null;
 }
 
-export interface DeliveredOptions {
+export interface ResmsOptions {
   baseUrl?: string;
   /** Retries for transient failures. Default 2. */
   maxRetries?: number;
@@ -190,7 +190,7 @@ function randomId(): string {
 
 // ── client ──────────────────────────────────────────────────────────────────
 
-export class Delivered {
+export class Resms {
   readonly messages: Messages;
   readonly verify: Verify;
   readonly numbers: Numbers;
@@ -203,15 +203,15 @@ export class Delivered {
   private readonly timeout: number;
   private readonly fetchImpl: typeof globalThis.fetch;
 
-  constructor(apiKey?: string, options: DeliveredOptions = {}) {
+  constructor(apiKey?: string, options: ResmsOptions = {}) {
     const env = (globalThis as any).process?.env ?? {};
-    const key = apiKey ?? env.DELIVERED_API_KEY ?? env.GHOST_API_KEY;
-    if (!apiKey && !env.DELIVERED_API_KEY && env.GHOST_API_KEY) {
-      console.error('deliveredsms: GHOST_API_KEY is deprecated; rename it to DELIVERED_API_KEY.');
+    const key = apiKey ?? env.RESMS_API_KEY ?? env.DELIVERED_API_KEY ?? env.GHOST_API_KEY;
+    if (!apiKey && !env.RESMS_API_KEY && (env.DELIVERED_API_KEY || env.GHOST_API_KEY)) {
+      console.error('resms: DELIVERED_API_KEY/GHOST_API_KEY are deprecated; rename to RESMS_API_KEY.');
     }
     if (!key) {
       throw new Error(
-        'No Delivered key. Pass one to new Delivered(...) or set DELIVERED_API_KEY. Get one free at https://deliveredsms.com/console'
+        'No Resms key. Pass one to new Resms(...) or set RESMS_API_KEY. Get one free at https://resms.com/console'
       );
     }
     this.apiKey = key;
@@ -234,7 +234,7 @@ export class Delivered {
 
   /** @internal */
   async request<T>(opts: RequestOptions): Promise<T> {
-    let lastError: DeliveredError | null = null;
+    let lastError: ResmsError | null = null;
 
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
       if (attempt > 0) {
@@ -249,7 +249,7 @@ export class Delivered {
       try {
         const headers: Record<string, string> = {
           Authorization: `Bearer ${this.apiKey}`,
-          'User-Agent': `deliveredsms/${VERSION}`,
+          'User-Agent': `resms/${VERSION}`,
         };
         if (opts.body !== undefined) headers['Content-Type'] = 'application/json';
         if (opts.idempotencyKey) headers['Idempotency-Key'] = opts.idempotencyKey;
@@ -267,10 +267,10 @@ export class Delivered {
         if (res.ok) return json as T;
 
         const err = json?.error ?? {};
-        lastError = new DeliveredError(
+        lastError = new ResmsError(
           err.message || `Request failed with status ${res.status}`,
           {
-            code: (err.code as DeliveredErrorCode) || 'internal_error',
+            code: (err.code as ResmsErrorCode) || 'internal_error',
             status: res.status,
             param: err.param,
             reason: err.reason,
@@ -282,10 +282,10 @@ export class Delivered {
           }
         );
       } catch (cause) {
-        lastError = new DeliveredError(
+        lastError = new ResmsError(
           cause instanceof Error && cause.name === 'AbortError'
             ? `Request timed out after ${this.timeout}ms`
-            : `Could not reach the Delivered API: ${(cause as Error)?.message ?? cause}`,
+            : `Could not reach the Resms API: ${(cause as Error)?.message ?? cause}`,
           { code: 'connection_error', status: 0 }
         );
       } finally {
@@ -307,7 +307,7 @@ export class Delivered {
 // ── resources ───────────────────────────────────────────────────────────────
 
 class Messages {
-  constructor(private readonly client: Delivered) {}
+  constructor(private readonly client: Resms) {}
 
   /**
    * Send an SMS. Retries are safe: an Idempotency-Key is generated
@@ -337,10 +337,10 @@ class Messages {
 }
 
 class Verify {
-  constructor(private readonly client: Delivered) {}
+  constructor(private readonly client: Resms) {}
 
   /**
-   * Send a one-time code. You do not need to own a phone number; Delivered sends
+   * Send a one-time code. You do not need to own a phone number; Resms sends
    * from its own verification pool.
    */
   send(params: { to: string; appName?: string; from?: string }): Promise<Verification> {
@@ -362,7 +362,7 @@ class Verify {
 }
 
 class Numbers {
-  constructor(private readonly client: Delivered) {}
+  constructor(private readonly client: Resms) {}
 
   available(params: { areaCode?: string } = {}): Promise<Page<AvailableNumber>> {
     return this.client.request({
@@ -386,7 +386,7 @@ class Numbers {
 }
 
 class LookupResource {
-  constructor(private readonly client: Delivered) {}
+  constructor(private readonly client: Resms) {}
 
   phone(phoneNumber: string): Promise<Lookup> {
     return this.client.request({ method: 'GET', path: `/lookup/${encodeURIComponent(phoneNumber)}`, retryable: true });
@@ -402,7 +402,7 @@ class LookupResource {
 }
 
 class Events {
-  constructor(private readonly client: Delivered) {}
+  constructor(private readonly client: Resms) {}
 
   list(params: { limit?: number; cursor?: string; type?: string } = {}): Promise<Page<SmsEvent>> {
     return this.client.request({ method: 'GET', path: `/events${query(params)}`, retryable: true });
@@ -416,9 +416,9 @@ function query(params: Record<string, unknown>): string {
 }
 
 // Back-compat aliases for code written against the ghost-sms package.
-export const Ghost = Delivered;
-export type Ghost = Delivered;
-export const GhostError = DeliveredError;
-export type GhostError = DeliveredError;
+export const Ghost = Resms;
+export type Ghost = Resms;
+export const GhostError = ResmsError;
+export type GhostError = ResmsError;
 
-export default Delivered;
+export default Resms;

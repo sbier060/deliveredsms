@@ -1,15 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <!--
-    The wordmark reduced to a tile: the D of "Delivered" and the accent-green
+    The wordmark reduced to a tile: the S of "Resms" and the accent-green
     period that ends it. Geometry is hand-drawn rather than <text> so it renders
-    identically everywhere (favicon SVGs get no webfont). Sized so the counter
-    of the D still reads at 16px.
+    identically everywhere (favicon SVGs get no webfont). Stroke kept heavy so
+    the spine of the S still reads at 16px.
   -->
   <rect width="64" height="64" rx="14" fill="#0A0A0B"/>
   <rect x="0.5" y="0.5" width="63" height="63" rx="13.5" fill="none" stroke="#2E2C28"/>
   <path
-    fill="#EFEEEC"
-    fill-rule="evenodd"
-    d="M12 11h15a19 19 0 0 1 0 38H12V11Zm10 9v20h5a10 10 0 0 0 0-20h-5Z"/>
+    fill="none"
+    stroke="#EFEEEC"
+    stroke-width="10"
+    stroke-linecap="round"
+    d="M38 17c-4-3-16-4-19 3s5 9 10 10 13 3 10 11c-2.5 6.5-14 6-19 2"/>
   <circle cx="54" cy="43" r="5.5" fill="#00D26A"/>
 </svg>

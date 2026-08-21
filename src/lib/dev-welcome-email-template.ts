@@ -1,4 +1,4 @@
-// Pure, dependency-free HTML template for the Delivered developer welcome
+// Pure, dependency-free HTML template for the Resms developer welcome
 // email, sent when a sandbox tenant is provisioned. Mirrors the other
 // transactional emails (trial-welcome etc.): black canvas, system-ui
 // headline, Pulse Gradient pill CTA, raised-surface callouts, muted prose.
@@ -29,7 +29,7 @@ export function buildDevWelcomeEmailHtml(params: DevWelcomeEmailParams): string 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Your Delivered sandbox is live</title>
+    <title>Your Resms sandbox is live</title>
     <style>/system-ui-Regular.woff2') format('woff2');
         font-weight: 400;
         font-style: normal;
@@ -43,7 +43,7 @@ export function buildDevWelcomeEmailHtml(params: DevWelcomeEmailParams): string 
           <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width: 560px; width: 100%;">
             <tr>
               <td style="padding-bottom: 28px; font-family: ${fontStack}; color: #00D26A; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;">
-                Delivered · Sandbox
+                Resms · Sandbox
               </td>
             </tr>
             <tr>
@@ -55,7 +55,7 @@ export function buildDevWelcomeEmailHtml(params: DevWelcomeEmailParams): string 
             <tr>
               <td style="padding-top: 20px; font-family: ${fontStack}; color: #C9C6BF; font-size: 15px; line-height: 1.65;">
                 ${greeting}<br /><br />
-                Your Delivered account is ready. We minted a test key ending in
+                Your Resms account is ready. We minted a test key ending in
                 <span style="color: #FFFFFF;">…${keyLast4}</span> and a sandbox number
                 (<span style="color: #FFFFFF;">${sandboxNumber}</span>). Keys are shown
                 once at creation, so if you didn't copy yours, roll it from the console.
@@ -91,7 +91,7 @@ export function buildDevWelcomeEmailHtml(params: DevWelcomeEmailParams): string 
             </tr>
             <tr>
               <td style="padding-top: 40px; border-top: 1px solid #1F1E1C; margin-top: 24px; font-family: ${fontStack}; color: #918E86; font-size: 12px; line-height: 1.6;">
-                Block Apps LLC · You received this because you created a Delivered account.
+                Block Apps LLC · You received this because you created a Resms account.
               </td>
             </tr>
           </table>

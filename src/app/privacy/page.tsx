@@ -8,7 +8,7 @@ import Wordmark from '@/components/Wordmark';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Privacy Policy',
-  description: 'How Truelabel Inc (Delivered) collects, uses, and protects data.',
+  description: 'How Truelabel Inc (Resms) collects, uses, and protects data.',
   path: '/privacy',
 });
 

@@ -22,29 +22,29 @@ const md = (body: string) =>
   });
 
 function landingMd(): string {
-  return `# Delivered · SMS for Developers
+  return `# Resms · SMS for Developers
 
 Send and receive texts, verify phone numbers, and provision real US/Canada
 numbers with one REST API. The same rates for everyone: ${formatRate(RATES.outbound_sms.microUsd)}/SMS,
 ${formatRate(RATES.verifications.microUsd)}/verification (charged only on success), ${formatMoney(RATES.numbers.microUsd)}/mo numbers
 with 10DLC included. Free tier: ${FREE_TIER.outboundSmsPerMonth} texts + ${FREE_TIER.verificationsPerMonth} verifications/month, no card.
 
-- Base URL: ${API_URL}/v1 (Bearer dsms_sk_...)
+- Base URL: ${API_URL}/v1 (Bearer resms_sk_...)
 - Console (free sandbox key, instant): ${SITE_URL}/console
 - Docs: ${SITE_URL}/docs; every page has a .md twin; llms-full at ${SITE_URL}/docs/llms-full.txt
 - llms.txt: ${SITE_URL}/llms.txt
 - MCP: ${MCP_URL} (discovery: ${SITE_URL}/.well-known/mcp.json)
-- Skills: npx skills add sbier060/deliveredsms
-- SDK + CLI: npm install deliveredsms; try \`npx deliveredsms verify +14155550132\`
+- Skills: npx skills add sbier060/resms
+- SDK + CLI: npm install resms; try \`npx resms verify +14155550132\`
 - Pricing (markdown): ${SITE_URL}/pricing.md
 `;
 }
 
 function agentsMd(): string {
-  return `# Phone numbers and SMS for AI agents · Delivered
+  return `# Phone numbers and SMS for AI agents · Resms
 
 Agents keep hitting the same wall: the real world runs on phone numbers.
-Delivered turns that into API calls an agent can make.
+Resms turns that into API calls an agent can make.
 
 - **A real phone number of its own**: POST /v1/numbers, ${formatMoney(RATES.numbers.microUsd)}/mo, 10DLC included.
 - **An SMS inbox it can act on**: inbound texts as JSON via GET /v1/events.
@@ -53,7 +53,7 @@ Delivered turns that into API calls an agent can make.
 
 Machine-readable everything:
 - MCP: ${MCP_URL}
-- Skills: npx skills add sbier060/deliveredsms
+- Skills: npx skills add sbier060/resms
 - Docs (single file): ${SITE_URL}/docs/llms-full.txt
 - OpenAPI: ${API_URL}/v1/openapi.yaml
 
@@ -66,9 +66,9 @@ function toolMd(slug: string): string | null {
   if (!tool) return null;
   const lead =
     tool.lead === 'mcp'
-      ? `## 1. Connect the MCP server\n\nAdd to ${tool.name}'s MCP configuration:\n\n\`\`\`json\n{ "mcpServers": { "delivered": { "url": "${MCP_URL}", "headers": { "Authorization": "Bearer dsms_sk_test_YOUR_KEY" } } } }\n\`\`\`\n\n## 2. Install the skills\n\n\`\`\`bash\nnpx skills add sbier060/deliveredsms\n\`\`\``
-      : `## 1. Install the skills\n\n\`\`\`bash\nnpx skills add sbier060/deliveredsms\n\`\`\`\n\n## 2. Connect the MCP server\n\n\`\`\`json\n{ "mcpServers": { "delivered": { "url": "${MCP_URL}", "headers": { "Authorization": "Bearer dsms_sk_test_YOUR_KEY" } } } }\n\`\`\``;
-  return `# Use Delivered with ${tool.name}
+      ? `## 1. Connect the MCP server\n\nAdd to ${tool.name}'s MCP configuration:\n\n\`\`\`json\n{ "mcpServers": { "resms": { "url": "${MCP_URL}", "headers": { "Authorization": "Bearer resms_sk_test_YOUR_KEY" } } } }\n\`\`\`\n\n## 2. Install the skills\n\n\`\`\`bash\nnpx skills add sbier060/resms\n\`\`\``
+      : `## 1. Install the skills\n\n\`\`\`bash\nnpx skills add sbier060/resms\n\`\`\`\n\n## 2. Connect the MCP server\n\n\`\`\`json\n{ "mcpServers": { "resms": { "url": "${MCP_URL}", "headers": { "Authorization": "Bearer resms_sk_test_YOUR_KEY" } } } }\n\`\`\``;
+  return `# Use Resms with ${tool.name}
 
 ${tool.pitch}
 
@@ -76,7 +76,7 @@ ${lead}
 
 ## 3. Ask for the feature
 
-"Add phone verification to signup using Delivered Verify (POST /v1/verify,
+"Add phone verification to signup using Resms Verify (POST /v1/verify,
 then /v1/verify/check). Docs: ${SITE_URL}/docs/verify.md"
 
 Everything ${tool.name} needs is machine-readable: ${SITE_URL}/llms.txt ·

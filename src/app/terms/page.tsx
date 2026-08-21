@@ -8,7 +8,7 @@ import Wordmark from '@/components/Wordmark';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Terms of Service',
-  description: 'Terms of Service for the Delivered SMS and phone verification API, operated by Truelabel Inc.',
+  description: 'Terms of Service for the Resms SMS and phone verification API, operated by Truelabel Inc.',
   path: '/terms',
 });
 

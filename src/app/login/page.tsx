@@ -12,9 +12,9 @@ import Wordmark from '@/components/Wordmark';
 export const metadata: Metadata = buildMetadata({
   title: 'Log in',
   description:
-    'Log in to Delivered to manage your API keys, phone numbers, webhooks, and usage. Do not have an account? Create one free, no card required.',
+    'Log in to Resms to manage your API keys, phone numbers, webhooks, and usage. Do not have an account? Create one free, no card required.',
   path: '/login',
-  keywords: ['delivered login', 'delivered sms login', 'sms api console'],
+  keywords: ['resms login', 'delivered login', 'delivered sms login', 'sms api console'],
 });
 
 export default function LoginPage() {
@@ -33,7 +33,7 @@ export default function LoginPage() {
             <Wordmark />
           </div>
           <h1 className="mt-6 text-[26px] leading-tight text-[#EFEEEC]">
-            Log in to Delivered
+            Log in to Resms
           </h1>
           <p className="mt-2 text-[14px] text-[#918E86]">
             Don&apos;t have an account?{' '}

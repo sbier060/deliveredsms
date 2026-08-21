@@ -79,7 +79,7 @@ export default function JoinPage() {
         ) : (
           <>
             <h1 className="mb-3 text-[26px] leading-tight text-[#EFEEEC]">
-              Join {invite.teamName} on Delivered
+              Join {invite.teamName} on Resms
             </h1>
             <p className="mb-6 text-[15px] leading-relaxed text-[#918E86]">
               You are joining as {invite.role === 'admin' ? 'an admin' : 'a member'}.

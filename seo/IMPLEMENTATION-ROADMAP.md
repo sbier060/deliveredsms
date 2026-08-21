@@ -1,4 +1,4 @@
-# Delivered - SEO/AEO Implementation Roadmap
+# Resms - SEO/AEO Implementation Roadmap
 
 Companion to [SEO-STRATEGY.md](SEO-STRATEGY.md). Ordered by what unblocks what,
 not by phase aesthetics. Items marked **[human]** cannot be done from code.
@@ -9,14 +9,14 @@ Nothing else matters until this is done. The site is currently invisible.
 
 | # | Task | Owner |
 |---|---|---|
-| 1.1 | Submit `https://deliveredsms.com/sitemap.xml` in Search Console | **[human]** |
+| 1.1 | Submit `https://resms.com/sitemap.xml` in Search Console | **[human]** |
 | 1.2 | URL-inspect + request indexing for `/`, `/pricing`, `/docs`, `/login`, `/signup` | **[human]** |
-| 1.3 | Publish `deliveredsms` to npm (blocked on npm web login / passkey) | **[human]** |
+| 1.3 | Publish `resms` to npm (blocked on npm web login / passkey) | **[human]** |
 | 1.4 | Set the GitHub repo description + topics, and link the site from it | code/human |
 | 1.5 | Verify Bing Webmaster Tools + submit the same sitemap | **[human]** |
 | 1.6 | Add the 305-page gap and any missing routes to the sitemap generators | code |
 
-Phase 1 exit: at least the five nav pages appear in `site:deliveredsms.com`.
+Phase 1 exit: at least the five nav pages appear in `site:resms.com`.
 
 ## Phase 2 - The agent channel (weeks 2–4)
 
@@ -25,11 +25,11 @@ Highest leverage per hour, and the least dependent on domain authority.
 | # | Task | Owner |
 |---|---|---|
 | 2.1 | Submit the MCP server to the public MCP registries and awesome-mcp lists | **[human]** |
-| 2.2 | Publish the skills repo so `npx skills add sbier060/deliveredsms` resolves | code |
+| 2.2 | Publish the skills repo so `npx skills add sbier060/resms` resolves | code |
 | 2.3 | Expand `/{tool}`: windsurf, cline, zed, n8n, zapier, langchain, vercel-ai-sdk | code |
 | 2.4 | Add each new tool page to `llms.txt`, the sitemap, and `SITE_NAV` if primary | code |
 | 2.5 | Start reporting `/api/agent-log` hits monthly - which crawlers, which paths | code |
-| 2.6 | Manually check whether ChatGPT / Claude / Perplexity can answer "how do I send an SMS with Delivered" using only the live site | **[human]** |
+| 2.6 | Manually check whether ChatGPT / Claude / Perplexity can answer "how do I send an SMS with Resms" using only the live site | **[human]** |
 
 2.6 is the real acceptance test for the whole agent surface. If an assistant
 cannot get from cold start to a working `curl` using only what is published,

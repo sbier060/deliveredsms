@@ -32,11 +32,11 @@ const IS_LIVE = KEY.startsWith('sk_live_') || KEY.startsWith('rk_live_');
 const PRODUCT_LOOKUP = 'ghost_api_v1';
 
 const METERS = [
-  { unit: 'outbound_sms', event: 'ghost_api_outbound_sms', display: 'Delivered - Outbound SMS' },
-  { unit: 'inbound_sms', event: 'ghost_api_inbound_sms', display: 'Delivered - Inbound SMS' },
-  { unit: 'lookups', event: 'ghost_api_lookups', display: 'Delivered - Carrier lookups' },
-  { unit: 'spam_scores', event: 'ghost_api_spam_scores', display: 'Delivered - Spam scores' },
-  { unit: 'verifications', event: 'ghost_api_verifications', display: 'Delivered - Phone verifications' },
+  { unit: 'outbound_sms', event: 'ghost_api_outbound_sms', display: 'Resms - Outbound SMS' },
+  { unit: 'inbound_sms', event: 'ghost_api_inbound_sms', display: 'Resms - Inbound SMS' },
+  { unit: 'lookups', event: 'ghost_api_lookups', display: 'Resms - Carrier lookups' },
+  { unit: 'spam_scores', event: 'ghost_api_spam_scores', display: 'Resms - Spam scores' },
+  { unit: 'verifications', event: 'ghost_api_verifications', display: 'Resms - Phone verifications' },
 ] as const;
 
 const ENV_VAR: Record<string, string> = {
@@ -116,14 +116,14 @@ async function main() {
     console.log(`product: reuse ${productId}`);
   } else if (APPLY) {
     const p = await stripe.products.create({
-      name: 'Delivered',
+      name: 'Resms',
       description: 'Programmable SMS, phone numbers, and spam intelligence.',
       metadata: { lookup_key: PRODUCT_LOOKUP, ghost_surface: 'developer_api' },
     });
     productId = p.id;
     console.log(`product: created ${productId}`);
   } else {
-    console.log('product: would create "Delivered"');
+    console.log('product: would create "Resms"');
   }
 
   // ── meters ────────────────────────────────────────────────────────────────
@@ -202,7 +202,7 @@ async function main() {
   let portalId = process.env.STRIPE_API_PORTAL_CONFIG_ID || null;
   if (!portalId && APPLY) {
     const cfg = await stripe.billingPortal.configurations.create({
-      business_profile: { headline: 'Delivered billing' },
+      business_profile: { headline: 'Resms billing' },
       features: {
         payment_method_update: { enabled: true },
         invoice_history: { enabled: true },

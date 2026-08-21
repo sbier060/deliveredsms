@@ -13,9 +13,9 @@ export const runtime = 'nodejs';
  * on someone's behalf, here is where a key actually comes from.
  */
 export async function GET() {
-  const body = `# Sign in to Delivered
+  const body = `# Sign in to Resms
 
-A sign-in form for the Delivered console. There is no sign-in API and no
+A sign-in form for the Resms console. There is no sign-in API and no
 programmatic way through this page: keys are created in the console, by a human,
 once.
 

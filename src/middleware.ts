@@ -2,7 +2,20 @@ import { NextResponse } from 'next/server';
 import type { NextRequest, NextFetchEvent } from 'next/server';
 import { resolveGeoConsentRequirement } from './lib/consent';
 
-const SITE_DOMAIN = process.env.NEXT_PUBLIC_SITE_DOMAIN || 'deliveredsms.com';
+const SITE_DOMAIN = process.env.NEXT_PUBLIC_SITE_DOMAIN || 'resms.com';
+
+// Delivered-era hostnames. SDKs and CLIs published before the Resms rebrand
+// have api.deliveredsms.com baked in and will never be upgraded, so the
+// machine hosts stay first-class here rather than being redirected: a 308
+// preserves method and body, but it still costs every legacy client an extra
+// round trip on every call. The apex is a different story - browsers and
+// crawlers should be pushed to the new canonical host.
+const LEGACY_SITE_DOMAIN = 'deliveredsms.com';
+
+const isApiHost = (host: string) =>
+  host === `api.${SITE_DOMAIN}` || host === `api.${LEGACY_SITE_DOMAIN}`;
+const isMcpHost = (host: string) =>
+  host === `mcp.${SITE_DOMAIN}` || host === `mcp.${LEGACY_SITE_DOMAIN}`;
 
 // AI crawlers/agents identify themselves; analytics never sees them because
 // they don't run JS. Counted server-side instead ("check your server logs").
@@ -38,10 +51,26 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
     );
   }
 
+  // The skills shipped as /skills/delivered* before the Resms rebrand. Agents
+  // that installed them have the old URL baked into their config and the
+  // .well-known index was crawled at that path, so these have to keep
+  // resolving rather than 404.
+  const RENAMED_SKILL = /^\/skills\/delivered(-verify)?(\/.*)?$/;
+  const skillMatch = pathname.match(RENAMED_SKILL);
+  if (skillMatch) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/skills/resms${skillMatch[1] || ''}${skillMatch[2] || ''}`;
+    return NextResponse.redirect(url, 308);
+  }
+
   // Canonical host is the apex. www served an identical 200 for every path,
   // which is site-wide duplicate content - the canonical tags pointed at the
   // apex and mitigated it, but a 308 is what actually settles it.
-  if (host === `www.${SITE_DOMAIN}`) {
+  if (
+    host === `www.${SITE_DOMAIN}` ||
+    host === LEGACY_SITE_DOMAIN ||
+    host === `www.${LEGACY_SITE_DOMAIN}`
+  ) {
     const url = request.nextUrl.clone();
     url.host = SITE_DOMAIN;
     return NextResponse.redirect(url, 308);
@@ -49,7 +78,7 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
 
   // The API hosts answer JSON, not pages. Without this they are crawlable and
   // will get indexed as thin duplicates of the docs.
-  if (host === `api.${SITE_DOMAIN}` || host === `mcp.${SITE_DOMAIN}`) {
+  if (isApiHost(host) || isMcpHost(host)) {
     if (pathname === '/robots.txt') {
       return new NextResponse('User-agent: *\nDisallow: /\n', {
         headers: { 'Content-Type': 'text/plain' },
@@ -63,13 +92,13 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
   // before the filesystem. (next.config.js rewrites don't work either: a
   // `rewrites` block in vercel.json overrides them entirely, and the /v1/*
   // host rule lives there.)
-  if (host === `api.${SITE_DOMAIN}` && pathname === '/') {
+  if (isApiHost(host) && pathname === '/') {
     return NextResponse.rewrite(new URL('/api/v1/root', request.url));
   }
 
   // mcp.<domain> IS the MCP server - every path maps to the endpoint, so
   // whatever base URL an MCP client is configured with just works.
-  if (host === `mcp.${SITE_DOMAIN}`) {
+  if (isMcpHost(host)) {
     return NextResponse.rewrite(new URL('/api/mcp', request.url));
   }
 
@@ -99,12 +128,12 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
   }
 
   // Geo-consent cookie for the analytics gate (EU/EEA + US consent states).
-  if (!request.cookies.has('dsms_geo_requires_consent') && !pathname.startsWith('/api')) {
+  if (!request.cookies.has('resms_geo_requires_consent') && !pathname.startsWith('/api')) {
     const country = request.geo?.country || request.headers.get('x-vercel-ip-country') || '';
     const region = request.geo?.region || request.headers.get('x-vercel-ip-country-region') || '';
     const { requiresConsent } = resolveGeoConsentRequirement(country, region);
     const response = NextResponse.next();
-    response.cookies.set('dsms_geo_requires_consent', requiresConsent ? '1' : '0', {
+    response.cookies.set('resms_geo_requires_consent', requiresConsent ? '1' : '0', {
       maxAge: 60 * 60 * 24 * 90,
       path: '/',
       sameSite: 'lax',

@@ -1,10 +1,10 @@
-# Delivered Design System
+# Resms Design System
 
 Inherited layout discipline from the platform's first life; own identity.
 
 ## Identity
-- **Wordmark:** "Delivered" in `#EFEEEC` with a trailing period in the
-  accent green; the punctuation IS the brand mark (delivered. done.). Set in
+- **Wordmark:** "Resms" in `#EFEEEC` with a trailing period in the
+  accent green; the punctuation IS the brand mark (sent. done.). Set in
   the system stack; no logo image until one exists.
 - **Voice:** plain, technical, confident. Numbers over adjectives. No em-dash
   clutter in marketing copy; every claim checkable.

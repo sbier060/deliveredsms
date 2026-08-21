@@ -16,8 +16,8 @@ export function generateMetadata({ params }: { params: { tool: string } }): Meta
   const tool = toolBySlug(params.tool);
   if (!tool) return {};
   return buildMetadata({
-    title: `Use Delivered with ${tool.name} · SMS & phone verification`,
-    description: `Send SMS, verify phone numbers, and provision real US/Canada numbers from ${tool.name} with the Delivered. Free sandbox key, no card.`,
+    title: `Use Resms with ${tool.name} · SMS & phone verification`,
+    description: `Send SMS, verify phone numbers, and provision real US/Canada numbers from ${tool.name} with Resms. Free sandbox key, no card.`,
     path: `/${tool.slug}`,
     keywords: [
       `${tool.name.toLowerCase()} sms`,
@@ -39,18 +39,18 @@ const CODE_BLOCK = `overflow-x-auto rounded-xl border border-[#2E2C28] bg-[#0F0E
 
 const MCP_SNIPPET = `{
   "mcpServers": {
-    "ghost": {
-      "url": "https://deliveredsms.com/api/mcp",
-      "headers": { "Authorization": "Bearer dsms_sk_test_YOUR_KEY" }
+    "resms": {
+      "url": "https://resms.com/api/mcp",
+      "headers": { "Authorization": "Bearer resms_sk_test_YOUR_KEY" }
     }
   }
 }`;
 
-const SKILLS_SNIPPET = `npx skills add sbier060/deliveredsms`;
+const SKILLS_SNIPPET = `npx skills add sbier060/resms`;
 
-const PROMPT_SNIPPET = `Add phone verification to signup using Delivered Verify
+const PROMPT_SNIPPET = `Add phone verification to signup using Resms Verify
 (POST /v1/verify, then /v1/verify/check). Docs:
-https://deliveredsms.com/docs/verify.md`;
+https://resms.com/docs/verify.md`;
 
 export default function ToolPage({ params }: { params: { tool: string } }) {
   const tool = toolBySlug(params.tool);
@@ -63,7 +63,7 @@ export default function ToolPage({ params }: { params: { tool: string } }) {
     '@type': 'WebPage',
     '@id': `${BASE_URL}/${tool.slug}`,
     url: `${BASE_URL}/${tool.slug}`,
-    name: `Use Delivered with ${tool.name}`,
+    name: `Use Resms with ${tool.name}`,
     description: tool.pitch,
   };
 
@@ -73,7 +73,7 @@ export default function ToolPage({ params }: { params: { tool: string } }) {
         {mcpFirst ? '1.' : '2.'} Connect the MCP server
       </h2>
       <p className="mt-2 max-w-[62ch] text-[15px] leading-[1.65] text-[#C9C6BF]">
-        Delivered speaks Model Context Protocol. Add this to {tool.name}&apos;s MCP
+        Resms speaks Model Context Protocol. Add this to {tool.name}&apos;s MCP
         configuration and messages, verification, numbers, and lookup become
         tool calls:
       </p>
@@ -96,7 +96,7 @@ export default function ToolPage({ params }: { params: { tool: string } }) {
       </p>
       <pre className={`mt-4 ${CODE_BLOCK}`}><code>{SKILLS_SNIPPET}</code></pre>
       <p className={`mt-3 text-[13px] text-[#918E86] ${MONO}`}>
-        delivered · delivered-verify · sms-best-practices
+        resms · resms-verify · sms-best-practices
       </p>
     </section>
   );
@@ -116,7 +116,7 @@ export default function ToolPage({ params }: { params: { tool: string } }) {
         </p>
         <h1 className={`mt-4 ${HEADLINE}`}>
           <span className="block text-[#EFEEEC]">
-            Use Delivered with {tool.name}.
+            Use Resms with {tool.name}.
           </span>
           <span className="block text-[#918E86]">
             SMS, phone verification, and real numbers, as capabilities.

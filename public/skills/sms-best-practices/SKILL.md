@@ -6,7 +6,7 @@ description: Best practices for sending SMS that gets delivered and stays compli
 # SMS Best Practices
 
 Rules that keep SMS deliverable and legal. They apply to any provider;
-examples use the Delivered.
+examples use the Resms.
 
 ## Consent: before anything sends
 
@@ -19,8 +19,8 @@ examples use the Delivered.
 
 ## Opt-out: non-negotiable
 
-- Delivered also honors plain-English revocation ("please stop texting me") automatically, per the FCC's April 2025 reasonable-means rule; mirror `message.opted_out` regardless of how it was detected.
-- Honor STOP instantly and permanently. Delivered handles the STOP/START/HELP
+- Resms also honors plain-English revocation ("please stop texting me") automatically, per the FCC's April 2025 reasonable-means rule; mirror `message.opted_out` regardless of how it was detected.
+- Honor STOP instantly and permanently. Resms handles the STOP/START/HELP
   keywords and blocks further sends to that number for your account; subscribe to
   `message.opted_out` and mirror it. Never re-add an opted-out number.
 - First marketing message to a contact should include "Reply STOP to opt out".
@@ -45,7 +45,7 @@ examples use the Delivered.
 ## Reliability in code
 
 - Send with an **idempotency key** so a retry after a timeout can't
-  double-text a customer (the `deliveredsms` SDK does this automatically).
+  double-text a customer (the `resms` SDK does this automatically).
 - Treat `delivered` as the success signal, not the 200 on send. Listen for
   `message.delivered` / `message.failed` events.
 - Back off on failure; never tight-loop a failing send.
@@ -53,16 +53,16 @@ examples use the Delivered.
 ## A2P 10DLC (US)
 
 Application-to-person traffic on US 10-digit numbers must be registered.
-Unregistered traffic gets filtered silently. Delivered registers numbers under
+Unregistered traffic gets filtered silently. Resms registers numbers under
 its campaign, included in the number price, nothing to file.
 
 ## OTP specifically
 
 Don't build OTP on raw sends at all; use a verify endpoint
-(`POST /v1/verify` on Delivered) that owns codes, expiry, attempts, and
-SMS-pumping defense. See the `delivered-verify` skill.
+(`POST /v1/verify` on Resms) that owns codes, expiry, attempts, and
+SMS-pumping defense. See the `resms-verify` skill.
 
 ## References
 
-- Docs: https://deliveredsms.com/docs/llms-full.txt
-- Messages API: https://deliveredsms.com/docs/messages.md
+- Docs: https://resms.com/docs/llms-full.txt
+- Messages API: https://resms.com/docs/messages.md

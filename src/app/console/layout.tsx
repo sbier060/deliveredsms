@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import ConsoleShell from './ConsoleShell';
 
 export const metadata: Metadata = {
-  title: 'Console | Delivered',
+  title: 'Console | Resms',
   robots: 'noindex, nofollow',
 };
 

@@ -28,7 +28,7 @@ const OAUTH_BTN =
 
 /** Which methods can carry the "Last used" chip. */
 type AuthMethod = 'google' | 'github' | 'email';
-const LAST_AUTH_KEY = 'delivered-last-auth';
+const LAST_AUTH_KEY = 'resms-last-auth';
 
 /**
  * Password policy: at least 12 characters with upper- and lowercase letters,
@@ -50,7 +50,7 @@ const passwordOk = (p: string) => PASSWORD_RULES.every((r) => r.test(p));
  * Firebase additionally throttles repeated failures server-side
  * (auth/too-many-requests); this makes the policy explicit and user-visible.
  */
-const FAILS_KEY = 'delivered-auth-fails';
+const FAILS_KEY = 'resms-auth-fails';
 const MAX_FAILED_ATTEMPTS = 12;
 const LOCKOUT_MS = 15 * 60 * 1000;
 

@@ -1,7 +1,7 @@
 import { SITE_DOMAIN, SITE_URL } from '@/lib/urls';
 
 /**
- * Legal documents for the Delivered service, operated by Truelabel Inc.
+ * Legal documents for the Resms service, operated by Truelabel Inc.
  * Drafted to CPaaS norms (consent warranty, indemnity, carrier disclaimers);
  * have an attorney review before relying on them in a dispute.
  *
@@ -16,7 +16,7 @@ import { SITE_DOMAIN, SITE_URL } from '@/lib/urls';
 
 export const COMPANY = {
   legalName: 'Truelabel Inc',
-  dba: 'Delivered',
+  dba: 'Resms',
   entityType: 'corporation',
   address: '5830 E 2nd St, Ste 7000, PMB 35111, Casper, WY 82609, USA',
   state: 'Wyoming',
@@ -31,16 +31,16 @@ export const TERMS_MD = `# Terms of Service
 
 **Last updated: ${TERMS_UPDATED}**
 
-These Terms of Service ("Terms") govern access to and use of the Delivered
+These Terms of Service ("Terms") govern access to and use of the Resms
 platform, APIs, SDKs, console, and websites (the "Service"), operated by
 **${COMPANY.legalName}**, a ${COMPANY.state} ${COMPANY.entityType} doing
-business as "${COMPANY.dba}" ("Delivered", "we", "us"). By creating an
+business as "${COMPANY.dba}" ("Resms", "we", "us"). By creating an
 account or using the Service you agree to these Terms on behalf of yourself
 and any organization you represent ("you", "Customer").
 
 ## 1. The Service
 
-Delivered provides programmable SMS messaging, phone verification, phone
+Resms provides programmable SMS messaging, phone verification, phone
 number provisioning, and phone intelligence via API. Test ("sandbox") keys
 simulate the Service without carrier traffic; live keys transmit real
 messages over telecommunications carriers.
@@ -65,7 +65,7 @@ can produce evidence of such consent for every recipient, and that you will
 provide that evidence to us within five (5) business days of our request.
 
 **3.2 Opt-outs and help.** You must honor opt-out requests immediately and
-permanently. Delivered enforces the standard opt-out keywords - STOP,
+permanently. Resms enforces the standard opt-out keywords - STOP,
 STOPALL, END, CANCEL, UNSUBSCRIBE, and QUIT - at the platform level, and
 replies to HELP with program information and support contact details. You
 must also never re-add an opted-out recipient in your own systems; a
@@ -82,7 +82,7 @@ generates traffic for revenue-share; snowshoeing or evading carrier
 filtering; or messages to emergency services.
 
 In addition, the following campaign types are prohibited on 10DLC traffic
-unless expressly approved in advance by the carriers and by Delivered:
+unless expressly approved in advance by the carriers and by Resms:
 third-party lead generation, affiliate marketing, and the sale or sharing of
 consumer data; payday, short-term high-interest, or title loans; debt
 relief, debt consolidation, debt reduction, or credit repair; cannabis,
@@ -96,7 +96,7 @@ sender. You may not impersonate any person or organization, including in the
 **3.5 Compliance.** You are responsible for compliance with all laws that
 apply to your messaging, including the TCPA, CAN-SPAM where applicable,
 state telemarketing laws, CTIA Messaging Principles and Best Practices, and
-carrier codes of conduct. Delivered registers numbers under its A2P 10DLC
+carrier codes of conduct. Resms registers numbers under its A2P 10DLC
 campaigns; you agree to provide accurate information we reasonably request
 for such registration.
 
@@ -201,7 +201,7 @@ export const PRIVACY_MD = `# Privacy Policy
 
 This policy describes how **${COMPANY.legalName}**, doing business as
 "${COMPANY.dba}" ("we", "us"), handles personal data in connection with the
-Delivered platform and websites (the "Service").
+Resms platform and websites (the "Service").
 
 Two roles matter here. For data about **our customers** (developers and
 their teams) we are the controller. For data about **our customers' message

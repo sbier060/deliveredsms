@@ -63,7 +63,7 @@ export async function ensureApiSubscription(
     collection_method: 'charge_automatically',
     billing_cycle_anchor: firstOfNextMonthUnix(),
     proration_behavior: 'none',
-    description: 'Delivered usage',
+    description: 'Resms usage',
     // ghost_api_tenant_id ONLY. `userId` is the first thing the consumer
     // subscription.deleted handler reads; it must never appear here.
     metadata: { ghost_api_tenant_id: tenantId, ghost_surface: 'developer_api' },

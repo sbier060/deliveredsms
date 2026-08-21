@@ -8,7 +8,7 @@
 require('dotenv').config({ path: '.env.local' });
 const admin = require('firebase-admin');
 
-const BASE = process.env.E2E_BASE || 'https://deliveredsms.com';
+const BASE = process.env.E2E_BASE || 'https://resms.com';
 const TENANT = 'tn_WUzMljSTvH2W';
 const API_KEY = process.env.NEXT_PUBLIC_FIREBASE_API_KEY;
 const KEY = process.env.QA_KEY || require('fs').readFileSync(process.env.QA_KEY_FILE, 'utf8').trim();

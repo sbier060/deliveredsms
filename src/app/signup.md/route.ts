@@ -11,13 +11,13 @@ export const runtime = 'nodejs';
  * description of a form it cannot fill in.
  */
 export async function GET() {
-  const body = `# Create a Delivered account
+  const body = `# Create a Resms account
 
 Free sandbox key, instantly, no card. Sign-up is a human step: there is no API
 that creates accounts.
 
 1. Open ${SITE_URL}/signup and sign up (email or Google).
-2. Copy the test key (\`dsms_sk_test_...\`) from the console.
+2. Copy the test key (\`resms_sk_test_...\`) from the console.
 3. Every endpoint works in test mode against ${API_URL}/v1, including magic
    numbers for verification. See ${SITE_URL}/docs/sandbox.md.
 

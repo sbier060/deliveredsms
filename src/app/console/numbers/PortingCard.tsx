@@ -65,7 +65,7 @@ export default function PortingCard({ isAdmin }: { isAdmin: boolean }) {
         <div>
           <p className="text-[12px] uppercase tracking-[0.06em] text-[#918E86]">Bring your number</p>
           <p className="mt-1 text-[13px] text-[#918E86]">
-            Port an existing business number to Delivered. Multi-day carrier
+            Port an existing business number to Resms. Multi-day carrier
             process; keep your old service active until it completes.
           </p>
         </div>

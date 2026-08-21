@@ -1,6 +1,6 @@
 import { SITE_URL, API_URL, MCP_URL } from '@/lib/urls';
 /**
- * OpenAPI 3.0 spec for the Delivered - the machine-readable source of truth.
+ * OpenAPI 3.0 spec for the Resms - the machine-readable source of truth.
  * Served at /api/v1/openapi.json and /api/v1/openapi.yaml (small local YAML
  * serializer - no yaml dependency in this repo).
  */
@@ -62,9 +62,9 @@ const errorResponses = {
 export const openApiSpec = {
   openapi: '3.0.3',
   info: {
-    title: 'Delivered',
+    title: 'Resms',
     description:
-      'Programmable SMS and phone numbers for developers. Send and receive texts, provision numbers, and screen spam with one REST API. Test keys (dsms_sk_test_...) work instantly against the sandbox; live keys are enabled after a short live-access review.',
+      'Programmable SMS and phone numbers for developers. Send and receive texts, provision numbers, and screen spam with one REST API. Test keys (resms_sk_test_...) work instantly against the sandbox; live keys are enabled after a short live-access review.',
     version: '1.0.0',
     contact: { url: SITE_URL },
   },
@@ -143,7 +143,7 @@ export const openApiSpec = {
         operationId: 'sendVerification',
         summary: 'Send a verification code',
         description:
-          'Generates a one-time code, sends it, and enforces expiry, attempt limits and anti-pumping controls. You do NOT need to own a phone number; Delivered sends from its own verification pool. Nothing is billed here; a verification is charged only when the code is checked successfully.',
+          'Generates a one-time code, sends it, and enforces expiry, attempt limits and anti-pumping controls. You do NOT need to own a phone number; Resms sends from its own verification pool. Nothing is billed here; a verification is charged only when the code is checked successfully.',
         requestBody: {
           required: true,
           content: {
@@ -154,7 +154,7 @@ export const openApiSpec = {
                 properties: {
                   phone: { type: 'string', example: '+14155550132' },
                   app_name: { type: 'string', maxLength: 24, description: "Your product name, shown in the message" },
-                  from: { type: 'string', description: 'Optional: send from a number you own instead of the Delivered pool' },
+                  from: { type: 'string', description: 'Optional: send from a number you own instead of the Resms pool' },
                 },
               },
             },
@@ -438,7 +438,7 @@ export const openApiSpec = {
       apiKey: {
         type: 'http',
         scheme: 'bearer',
-        description: 'Your API key, e.g. Authorization: Bearer dsms_sk_test_...',
+        description: 'Your API key, e.g. Authorization: Bearer resms_sk_test_...',
       },
     },
     schemas: {

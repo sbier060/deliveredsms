@@ -49,7 +49,7 @@ const capabilities = [
   },
   {
     title: 'Phone verification as a primitive',
-    body: 'When an agent signs something up, the OTP flow is two calls. Delivered generates and delivers the code, enforces expiry and attempts, and blocks SMS pumping. Billed only on success.',
+    body: 'When an agent signs something up, the OTP flow is two calls. Resms generates and delivers the code, enforces expiry and attempts, and blocks SMS pumping. Billed only on success.',
     code: 'POST /v1/verify → POST /v1/verify/check',
   },
   {
@@ -84,7 +84,7 @@ export default function AgentsPage() {
         <p className="mt-5 max-w-[62ch] text-[16px] leading-[1.65] text-[#C9C6BF]">
           Agents keep hitting the same wall: the real world runs on phone
           numbers. Signups want SMS verification. People reply by text.
-          Unknown callers need screening. Delivered turns all of that into API
+          Unknown callers need screening. Resms turns all of that into API
           calls an agent can make.
         </p>
 
@@ -110,10 +110,10 @@ export default function AgentsPage() {
             every docs page, and a sandbox where test keys simulate the whole
             carrier so agents can iterate for free.
           </p>
-          <pre className={`mt-5 ${CODE_BLOCK}`}><code>{`MCP     https://deliveredsms.com/api/mcp
-Skills  npx skills add sbier060/deliveredsms
-Docs    https://deliveredsms.com/docs/llms-full.txt
-Spec    https://api.deliveredsms.com/v1/openapi.yaml`}</code></pre>
+          <pre className={`mt-5 ${CODE_BLOCK}`}><code>{`MCP     https://resms.com/api/mcp
+Skills  npx skills add sbier060/resms
+Docs    https://resms.com/docs/llms-full.txt
+Spec    https://api.resms.com/v1/openapi.yaml`}</code></pre>
           <div className="mt-8 flex flex-wrap items-center gap-2">
             <Link href="/console" className={PRIMARY_CTA}>
               Get started <span aria-hidden="true">→</span>

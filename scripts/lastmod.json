@@ -1,142 +1,142 @@
 {
-  "https://deliveredsms.com/": {
-    "hash": "2ae5c537dac999e7",
-    "date": "2026-08-17"
+  "https://resms.com/": {
+    "hash": "2362737e40d95867",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/agents": {
-    "hash": "4a9f8dfeb98c8248",
-    "date": "2026-08-17"
+  "https://resms.com/agents": {
+    "hash": "9fb2079eb2825629",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/claude": {
-    "hash": "3f5525503d21a5e6",
-    "date": "2026-08-17"
+  "https://resms.com/claude": {
+    "hash": "f7fdc7cb488e9d70",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/claude-code": {
-    "hash": "9686a07453a3c292",
-    "date": "2026-08-17"
+  "https://resms.com/claude-code": {
+    "hash": "30c00ea4fb391b8e",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/codex": {
-    "hash": "0ce94900c52df732",
-    "date": "2026-08-17"
+  "https://resms.com/codex": {
+    "hash": "bdd5e42a0fd45493",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/copilot": {
-    "hash": "9daff83ad89206f8",
-    "date": "2026-08-17"
+  "https://resms.com/copilot": {
+    "hash": "67c87e823d5edc22",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/cursor": {
-    "hash": "38bd1e89cd71f4d8",
-    "date": "2026-08-17"
+  "https://resms.com/cursor": {
+    "hash": "375cd66e98755304",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/devin": {
-    "hash": "bc80c5fc560883aa",
-    "date": "2026-08-17"
+  "https://resms.com/devin": {
+    "hash": "eee0bce452dc3c1a",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/docs": {
-    "hash": "15f8d2ca5c7e3d03",
-    "date": "2026-08-17"
+  "https://resms.com/docs": {
+    "hash": "4432439531e6aa50",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/docs/authentication": {
-    "hash": "5db303040286bf43",
-    "date": "2026-08-17"
+  "https://resms.com/docs/authentication": {
+    "hash": "c47ef8a801097533",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/docs/auto-reply": {
+  "https://resms.com/docs/auto-reply": {
     "hash": "79ec472f3735d047",
     "date": "2026-08-17"
   },
-  "https://deliveredsms.com/docs/broadcasts": {
+  "https://resms.com/docs/broadcasts": {
     "hash": "0b2ad63355aedae7",
     "date": "2026-08-17"
   },
-  "https://deliveredsms.com/docs/changelog": {
-    "hash": "4b6da38a666a71e0",
-    "date": "2026-08-17"
+  "https://resms.com/docs/changelog": {
+    "hash": "bcbeca4f8acecbfe",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/docs/contacts": {
+  "https://resms.com/docs/contacts": {
     "hash": "b665c4b288442ab1",
     "date": "2026-08-17"
   },
-  "https://deliveredsms.com/docs/errors": {
+  "https://resms.com/docs/errors": {
     "hash": "e981ffa1f9d5146b",
     "date": "2026-08-17"
   },
-  "https://deliveredsms.com/docs/inbox": {
+  "https://resms.com/docs/inbox": {
     "hash": "f28db11ad4f03a13",
     "date": "2026-08-17"
   },
-  "https://deliveredsms.com/docs/lookup": {
+  "https://resms.com/docs/lookup": {
     "hash": "2b7d1da0bb3648ab",
     "date": "2026-08-17"
   },
-  "https://deliveredsms.com/docs/messages": {
-    "hash": "9b73c8813854bc5c",
-    "date": "2026-08-17"
+  "https://resms.com/docs/messages": {
+    "hash": "7fcd603cddb15dc2",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/docs/migrate-from-twilio": {
-    "hash": "adf64ced2ecc831f",
-    "date": "2026-08-17"
+  "https://resms.com/docs/migrate-from-twilio": {
+    "hash": "4f657809aabe47a5",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/docs/numbers": {
+  "https://resms.com/docs/numbers": {
     "hash": "0b69a2f0f818fee9",
     "date": "2026-08-17"
   },
-  "https://deliveredsms.com/docs/opt-out": {
-    "hash": "e64f1c6765f2f95a",
-    "date": "2026-08-17"
+  "https://resms.com/docs/opt-out": {
+    "hash": "2070ac11d56f15f8",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/docs/porting": {
-    "hash": "d0f0033951b2c46c",
-    "date": "2026-08-17"
+  "https://resms.com/docs/porting": {
+    "hash": "938cbc755fad42f5",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/docs/pricing": {
-    "hash": "d037e2653035692f",
-    "date": "2026-08-17"
+  "https://resms.com/docs/pricing": {
+    "hash": "7b374427a7ab4d13",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/docs/quickstart": {
-    "hash": "8132044a734d2a3c",
-    "date": "2026-08-17"
+  "https://resms.com/docs/quickstart": {
+    "hash": "3cc1fe647065863b",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/docs/sandbox": {
-    "hash": "969e802e3033cd22",
-    "date": "2026-08-17"
+  "https://resms.com/docs/sandbox": {
+    "hash": "f80726c85c3fd040",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/docs/scheduled": {
-    "hash": "261783361debc183",
-    "date": "2026-08-17"
+  "https://resms.com/docs/scheduled": {
+    "hash": "e9c1277006258c31",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/docs/security": {
-    "hash": "4b4d564e959f87dd",
-    "date": "2026-08-17"
+  "https://resms.com/docs/security": {
+    "hash": "f6f47d721759f3ed",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/docs/teams": {
+  "https://resms.com/docs/teams": {
     "hash": "bca2a6ab23496398",
     "date": "2026-08-17"
   },
-  "https://deliveredsms.com/docs/verify": {
-    "hash": "54c9f016a386db82",
-    "date": "2026-08-17"
+  "https://resms.com/docs/verify": {
+    "hash": "e4f7579baa822540",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/docs/webhooks": {
-    "hash": "1364b96910086255",
-    "date": "2026-08-17"
+  "https://resms.com/docs/webhooks": {
+    "hash": "f311d460bdabcf25",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/login": {
-    "hash": "464a3da3a5208e44",
-    "date": "2026-08-17"
+  "https://resms.com/login": {
+    "hash": "1bdca7889263a04e",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/pricing": {
-    "hash": "d1a917c1120531a2",
-    "date": "2026-08-17"
+  "https://resms.com/pricing": {
+    "hash": "7caf6516f398d9b8",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/privacy": {
-    "hash": "7c8ffb808d1ce733",
-    "date": "2026-08-17"
+  "https://resms.com/privacy": {
+    "hash": "e982cbd8f3eed45d",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/signup": {
-    "hash": "fa1505f15e38463f",
-    "date": "2026-08-17"
+  "https://resms.com/signup": {
+    "hash": "0182b64a674c4a53",
+    "date": "2026-08-21"
   },
-  "https://deliveredsms.com/terms": {
-    "hash": "7df2d5265392eddf",
-    "date": "2026-08-17"
+  "https://resms.com/terms": {
+    "hash": "a1049f08daadb999",
+    "date": "2026-08-21"
   }
 }

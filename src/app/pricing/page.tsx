@@ -21,7 +21,7 @@ import { PRIMARY_CTA, SECONDARY_CTA } from '@/lib/cta';
 export const metadata: Metadata = buildMetadata({
   title: 'Pricing',
   description:
-    'Delivered pricing: $0.005 per outbound SMS all-in: no carrier surcharge, no platform fee, A2P 10DLC included. Cheaper all-in than Twilio, Telnyx and Plivo. Free tier with 100 live texts a month, no credit card.',
+    'Resms pricing: $0.005 per outbound SMS all-in: no carrier surcharge, no platform fee, A2P 10DLC included. Cheaper all-in than Twilio, Telnyx and Plivo. Free tier with 100 live texts a month, no credit card.',
   path: '/pricing',
   keywords: [
     'sms api pricing',
@@ -44,11 +44,11 @@ const rateList = Object.values(RATES) as UnitRate[];
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Product',
-  name: 'Delivered',
+  name: 'Resms',
   description:
     'Programmable SMS and phone numbers for developers. All-in per-message pricing with no carrier surcharge and A2P 10DLC registration included.',
   url: `${BASE_URL}/pricing`,
-  brand: { '@type': 'Brand', name: 'Delivered' },
+  brand: { '@type': 'Brand', name: 'Resms' },
   offers: rateList.map((rate) => ({
     '@type': 'Offer',
     name: rate.label,
@@ -274,7 +274,7 @@ export default function DeveloperPricingPage() {
               </thead>
               <tbody>
                 <tr className="border-t border-[#2E2C28] bg-[#0F0E0C]">
-                  <td className="px-5 py-4 text-[#EFEEEC]">Delivered</td>
+                  <td className="px-5 py-4 text-[#EFEEEC]">Resms</td>
                   <td className={`px-5 py-4 tabular-nums text-[#C9C6BF] ${MONO}`}>
                     {formatRate(RATES.outbound_sms.microUsd)}
                   </td>

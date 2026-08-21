@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       expired: 'This invite link has expired. Ask for a new one.',
       used: 'This invite link was already used.',
       already_elsewhere:
-        'This account already belongs to a different Delivered team. Use another Google account or email.',
+        'This account already belongs to a different Resms team. Use another Google account or email.',
       team_full: 'This team is full.',
     };
     return NextResponse.json({ error: messages[result.reason] }, { status: 409 });
@@ -43,7 +43,7 @@ export async function GET(req: NextRequest) {
   const tenant = await getTenant(invite.tenantId);
   return NextResponse.json({
     valid: true,
-    teamName: tenant?.name || 'a Delivered team',
+    teamName: tenant?.name || 'a Resms team',
     role: invite.role,
   });
 }

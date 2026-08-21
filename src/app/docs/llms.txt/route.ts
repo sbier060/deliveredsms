@@ -14,13 +14,13 @@ export async function GET() {
     (p) => `- [${p.title}](${SITE_URL}/docs/${p.slug}.md): ${p.description}`,
   ).join('\n');
 
-  const body = `# Delivered Documentation
+  const body = `# Resms Documentation
 
 > REST API for sending and receiving SMS, verifying phone numbers, provisioning
 > US and Canada numbers.
 
 Base URL: ${API_URL}/v1
-Auth: Authorization: Bearer dsms_sk_test_... (free sandbox keys, instant)
+Auth: Authorization: Bearer resms_sk_test_... (free sandbox keys, instant)
 
 ## Pages
 

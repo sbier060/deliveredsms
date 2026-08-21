@@ -18,7 +18,7 @@ export function generateMetadata({
   const page = getDocsPage(params.slug);
   if (!page) return {};
   return buildMetadata({
-    title: `${page.title} | Delivered Docs`,
+    title: `${page.title} | Resms Docs`,
     description: page.description,
     path: `/docs/${page.slug}`,
   });

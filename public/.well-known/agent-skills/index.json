@@ -1,22 +1,22 @@
 {
   "version": "1.0",
-  "repository": "https://github.com/sbier060/deliveredsms",
-  "install": "npx skills add sbier060/deliveredsms",
+  "repository": "https://github.com/sbier060/resms",
+  "install": "npx skills add sbier060/resms",
   "skills": [
     {
-      "name": "delivered",
-      "description": "Send and receive SMS and provision US/Canada phone numbers through the Delivered API.",
-      "url": "https://deliveredsms.com/skills/delivered/SKILL.md"
+      "name": "resms",
+      "description": "Send and receive SMS and provision US/Canada phone numbers through the Resms API.",
+      "url": "https://resms.com/skills/resms/SKILL.md"
     },
     {
-      "name": "delivered-verify",
+      "name": "resms-verify",
       "description": "Phone verification (OTP / 2FA) in two API calls. No phone number purchase required; billed only on successful checks.",
-      "url": "https://deliveredsms.com/skills/delivered-verify/SKILL.md"
+      "url": "https://resms.com/skills/resms-verify/SKILL.md"
     },
     {
       "name": "sms-best-practices",
       "description": "Consent, opt-out, message shape, segments, quiet hours, and A2P 10DLC: how to send SMS that gets delivered and stays compliant.",
-      "url": "https://deliveredsms.com/skills/sms-best-practices/SKILL.md"
+      "url": "https://resms.com/skills/sms-best-practices/SKILL.md"
     }
   ]
 }

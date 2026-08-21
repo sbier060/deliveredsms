@@ -24,7 +24,7 @@ const COLUMNS: Array<{ title: string; links: Array<{ label: string; href: string
       { label: 'AI agents', href: '/agents' },
       { label: 'llms.txt', href: '/llms.txt' },
       { label: 'MCP server', href: '/.well-known/mcp.json' },
-      { label: 'Skills', href: 'https://github.com/sbier060/deliveredsms' },
+      { label: 'Skills', href: 'https://github.com/sbier060/resms' },
     ],
   },
   {
@@ -72,7 +72,7 @@ export default function DevFooter() {
           ))}
         </div>
         <p className="mt-12 text-[13px] text-[#918E86]">
-          © {new Date().getFullYear()} Truelabel Inc, d/b/a Delivered
+          © {new Date().getFullYear()} Truelabel Inc, d/b/a Resms
         </p>
       </div>
     </footer>

@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { KEY, KEY_FILE } = require('./indexnow');
 
-const DOMAIN = process.env.NEXT_PUBLIC_SITE_DOMAIN || 'deliveredsms.com';
+const DOMAIN = process.env.NEXT_PUBLIC_SITE_DOMAIN || 'resms.com';
 
 const robots = `User-agent: *
 Allow: /

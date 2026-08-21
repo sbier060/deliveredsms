@@ -47,15 +47,15 @@ function homeSnippets(): Record<string, string> {
     Ruby: base.Ruby,
     Go: base.Go,
     cURL: base.cURL,
-    CLI: `# one-time: store your key (or set DELIVERED_API_KEY)
-npx deliveredsms login
+    CLI: `# one-time: store your key (or set RESMS_API_KEY)
+npx resms login
 
-npx deliveredsms send --from {{FROM_NUMBER}} \\
-  --to +15005550006 "Hello from Delivered"`,
+npx resms send --from {{FROM_NUMBER}} \\
+  --to +15005550006 "Hello from Resms"`,
     MCP: `{
   "mcpServers": {
-    "delivered": {
-      "url": "https://mcp.deliveredsms.com",
+    "resms": {
+      "url": "https://mcp.resms.com",
       "headers": { "Authorization": "Bearer {{API_KEY}}" }
     }
   }
@@ -72,14 +72,14 @@ const jsonLd = {
       '@type': 'WebPage',
       '@id': `${BASE_URL}/#webpage`,
       url: BASE_URL,
-      name: 'Delivered · SMS for developers',
+      name: 'Resms · SMS for developers',
       description:
         'Programmable SMS and phone numbers for developers. Send and receive texts, verify phone numbers, and provision real numbers with one REST API.',
       isPartOf: { '@id': `${BASE_URL}/#website` },
     },
     {
       '@type': 'SoftwareApplication',
-      name: 'Delivered',
+      name: 'Resms',
       applicationCategory: 'DeveloperApplication',
       operatingSystem: 'Any',
       url: BASE_URL,
@@ -161,7 +161,7 @@ const featureSections = [
     eyebrow: 'VERIFY',
     bright: 'Phone verification in two calls.',
     muted: 'No number to buy. Billed only on success.',
-    body: "Send a code, check a code: Delivered generates it, delivers it from our own verified pool, enforces expiry and attempt limits, and blocks SMS pumping. Blocked, expired, and abandoned attempts cost you nothing. Half of what Twilio Verify charges.",
+    body: "Send a code, check a code: Resms generates it, delivers it from our own verified pool, enforces expiry and attempt limits, and blocks SMS pumping. Blocked, expired, and abandoned attempts cost you nothing. Half of what Twilio Verify charges.",
     endpoints: ['POST /v1/verify', 'POST /v1/verify/check'],
     visual: (
       <div className="p-5">
@@ -264,7 +264,7 @@ const featureSections = [
     eyebrow: 'COMPLIANCE',
     bright: 'STOP means stop. Automatically.',
     muted: 'CTIA keywords handled on every number.',
-    body: 'Reply STOP, or just say it in plain English, and Delivered confirms it, blocks every future send to that person, and emits message.opted_out so your app can mirror it. Every consent change lands in an exportable ledger. START opts back in, and auto-replies never touch keywords or verification codes.',
+    body: 'Reply STOP, or just say it in plain English, and Resms confirms it, blocks every future send to that person, and emits message.opted_out so your app can mirror it. Every consent change lands in an exportable ledger. START opts back in, and auto-replies never touch keywords or verification codes.',
     endpoints: ['STOP / START / HELP', 'message.opted_out', 'Auto-reply with office hours'],
     visual: (
       <div className="space-y-3 p-5">
@@ -351,7 +351,7 @@ export default function DevelopersPage() {
               href="#code"
               className="hero-rise inline-flex items-center gap-1.5 rounded-full border border-[#2E2C28] px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-[#00D26A] transition-colors duration-150 hover:border-[#918E86]"
             >
-              Delivered · SMS for developers <span aria-hidden="true">→</span>
+              Resms · SMS for developers <span aria-hidden="true">→</span>
             </a>
             <h1 className={`hero-rise mt-6 [animation-delay:60ms] ${HEADLINE}`}>
               <span className="block text-[#EFEEEC]">SMS for developers.</span>

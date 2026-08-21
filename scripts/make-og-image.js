@@ -10,7 +10,7 @@
 // dependency for something that changes when the tagline changes, i.e. almost
 // never, and a failure there is invisible until someone pastes a link. A file
 // in public/ is one CDN fetch, cannot fail at request time, and `curl -I
-// https://deliveredsms.com/og.png` after a deploy is the whole verification.
+// https://resms.com/og.png` after a deploy is the whole verification.
 //
 // ── Why it exists ───────────────────────────────────────────────────────────
 //
@@ -32,7 +32,7 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const REAL = path.join(ROOT, 'public', 'og.png');
 const CHECK = process.argv.includes('--check');
-const OUT = CHECK ? path.join(mkdtempSync(path.join(tmpdir(), 'dsms-og-')), 'og.png') : REAL;
+const OUT = CHECK ? path.join(mkdtempSync(path.join(tmpdir(), 'resms-og-')), 'og.png') : REAL;
 
 const FONT = '/usr/share/fonts/truetype/dejavu';
 if (!existsSync(FONT)) {
@@ -74,7 +74,7 @@ card.alpha_composite(glow)
 # Wordmark: a green dot and the name. The site has no logotype file, so this is
 # the name set in type rather than an invented mark.
 d.ellipse([80, 92, 104, 116], fill=ACCENT)
-d.text((120, 78), 'Delivered', font=ImageFont.truetype('${FONT}/DejaVuSans-Bold.ttf', 38), fill=INK)
+d.text((120, 78), 'Resms', font=ImageFont.truetype('${FONT}/DejaVuSans-Bold.ttf', 38), fill=INK)
 
 d.text((80, 210), 'SMS for developers', font=bold, fill=INK)
 d.text((80, 320), 'Send and receive texts, verify phone numbers, and', font=body, fill=MUTED)
@@ -83,10 +83,10 @@ d.text((80, 362), 'provision real US and Canada numbers with one API.', font=bod
 # The one concrete fact worth putting on a card someone glances at: a free
 # sandbox key, instantly, is the objection this removes.
 d.rounded_rectangle([80, 436, 720, 502], radius=12, fill=CARD, outline=LINE, width=1)
-d.text((104, 456), 'curl -H "Authorization: Bearer dsms_sk_test_..."', font=mono, fill=MUTED)
+d.text((104, 456), 'curl -H "Authorization: Bearer resms_sk_test_..."', font=mono, fill=MUTED)
 
-d.text((80, H - 76), 'deliveredsms.com', font=meta, fill=INK)
-d.text((80 + d.textlength('deliveredsms.com', font=meta) + 24, H - 76),
+d.text((80, H - 76), 'resms.com', font=meta, fill=INK)
+d.text((80 + d.textlength('resms.com', font=meta) + 24, H - 76),
        'Free sandbox, no card', font=meta, fill=ACCENT)
 
 out = pathlib.Path(${JSON.stringify(OUT)})

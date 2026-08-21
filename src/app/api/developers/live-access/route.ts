@@ -40,11 +40,11 @@ export async function POST(req: NextRequest) {
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: `*Delivered: live access request*\n*Tenant:* \`${tenantId}\` (${tenant.email})\n*Use case:* ${useCase}\n\nApprove with:\n\`curl -X POST -H "x-api-secret: $ADMIN_API_SECRET" https://deliveredsms.com/api/admin/api-tenants/${tenantId}/approve-live\``,
+          text: `*Resms: live access request*\n*Tenant:* \`${tenantId}\` (${tenant.email})\n*Use case:* ${useCase}\n\nApprove with:\n\`curl -X POST -H "x-api-secret: $ADMIN_API_SECRET" https://resms.com/api/admin/api-tenants/${tenantId}/approve-live\``,
         },
       },
     ],
-    `Delivered live access request from ${tenant.email}`
+    `Resms live access request from ${tenant.email}`
   ).catch(() => {});
 
   return NextResponse.json({ ok: true, liveAccess: 'requested' });

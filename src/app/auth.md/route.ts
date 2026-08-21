@@ -13,7 +13,7 @@ export const runtime = 'nodejs';
 export async function GET() {
   const body = `# auth.md
 
-You are an agent that wants to call the Delivered API on a user's behalf. This
+You are an agent that wants to call the Resms API on a user's behalf. This
 file describes how to obtain credentials and how to handle them safely.
 
 Two hosts are relevant:
@@ -23,17 +23,17 @@ Two hosts are relevant:
 
 ## Current state
 
-Delivered does not support agentic registration today. There is no OAuth flow
+Resms does not support agentic registration today. There is no OAuth flow
 and no dynamic client registration. Keys are issued to the user out of band;
 this file tells you how to pick one up and use it without putting it at risk.
 
 ## Use the existing tooling first
 
 Before you do anything credential-shaped, check whether the user has already
-wired Delivered into your environment.
+wired Resms into your environment.
 
 1. **MCP server**: if you are an MCP client (Claude, Claude Code, Cursor,
-   Codex, etc.), Delivered ships a streamable-HTTP MCP server that exposes
+   Codex, etc.), Resms ships a streamable-HTTP MCP server that exposes
    messages, numbers, verification, lookup, and events as tools. The user
    configures it once with their key; you call the tools and never see the key.
    Endpoint: \`${MCP_URL}\` (also \`${SITE_URL}/api/mcp\`).
@@ -42,11 +42,11 @@ wired Delivered into your environment.
    opt-out, message segments, quiet hours, 10DLC, webhook signature
    verification, sandbox magic numbers). Index:
    \`${SITE_URL}/.well-known/agent-skills/index.json\`. Install with
-   \`npx skills add sbier060/deliveredsms\`. Load the relevant \`SKILL.md\` before
+   \`npx skills add sbier060/resms\`. Load the relevant \`SKILL.md\` before
    calling the API directly.
-3. **CLI**: if you are running shell commands, prefer \`npx deliveredsms\` over
+3. **CLI**: if you are running shell commands, prefer \`npx resms\` over
    hand-rolled \`curl\`. It resolves auth, retries, and takes \`--json\` for
-   machine-readable output. Auth via \`DELIVERED_API_KEY\` or \`deliveredsms login\`.
+   machine-readable output. Auth via \`RESMS_API_KEY\` or \`resms login\`.
 
 If any of these is already configured, use it and stop. Do not ask the user for
 an API key you do not need.
@@ -61,8 +61,8 @@ Key shapes:
 
 | Prefix | Mode | Behavior |
 | --- | --- | --- |
-| \`dsms_sk_test_\` | Sandbox | Instant, free, fully simulated. No real SMS ever leaves the sandbox. |
-| \`dsms_sk_live_\` | Live | Real numbers, real delivery, real money. Requires live access. |
+| \`resms_sk_test_\` | Sandbox | Instant, free, fully simulated. No real SMS ever leaves the sandbox. |
+| \`resms_sk_live_\` | Live | Real numbers, real delivery, real money. Requires live access. |
 
 \`ghost_sk_test_\` / \`ghost_sk_live_\` are legacy prefixes from the Ghost era and
 are still accepted; do not treat them as invalid.
@@ -71,23 +71,23 @@ Send the key as a bearer token:
 
 \`\`\`bash
 curl ${API_URL}/v1/messages \\
-  -H "Authorization: Bearer $DELIVERED_API_KEY" \\
+  -H "Authorization: Bearer $RESMS_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{"to":"+15005550006","from":"<your sandbox number>","body":"hello"}'
 \`\`\`
 
 ## Handling the key safely
 
-- **Read it from the environment.** \`DELIVERED_API_KEY\` is the expected variable.
+- **Read it from the environment.** \`RESMS_API_KEY\` is the expected variable.
   Never inline a key into source, a config file you commit, a test fixture, or a
   shell command that lands in history.
 - **Never print it.** Not in logs, not in a summary to the user, not in an error
   message, not in a commit message. If you must refer to a key, use its prefix
   and last four characters.
-- **Never send it anywhere but \`api.deliveredsms.com\`.** No third-party service,
+- **Never send it anywhere but \`api.resms.com\`.** No third-party service,
   no pastebin, no issue tracker, no other model provider.
 - **Prefer a test key.** If the task is "build the integration" rather than "send
-  this specific message to this specific person", a \`dsms_sk_test_\` key does
+  this specific message to this specific person", a \`resms_sk_test_\` key does
   everything a live key does. Ask for a live key only when real delivery is the
   actual goal, and tell the user that is what you are asking for.
 - **Keys cannot be re-displayed.** They are stored hashed (SHA-256). If one is
@@ -114,7 +114,7 @@ recipient rules are not optional:
 
 - Only message recipients who opted in. You are not the one who obtained
   consent, so confirm with the user that they did.
-- Honor STOP / opt-out. Delivered blocks sends to a number that opted out of
+- Honor STOP / opt-out. Resms blocks sends to a number that opted out of
   this account and returns 403 on \`POST /v1/messages\`; one-time passcodes are
   exempt so a login code still reaches the user. Subscribe to
   \`message.opted_out\` and mirror it in your own store. Details:

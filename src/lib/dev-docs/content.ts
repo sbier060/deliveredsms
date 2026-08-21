@@ -26,19 +26,19 @@ works instantly against the sandbox.
 ## 1. Get a key
 
 Create a free account at [the console](/console). A sandbox tenant
-is provisioned automatically with a test key (\`dsms_sk_test_...\`) and a
+is provisioned automatically with a test key (\`resms_sk_test_...\`) and a
 sandbox number. The key is shown once, so copy it.
 
 ## 2. Send a message
 
 \`\`\`bash
-curl -X POST https://api.deliveredsms.com/v1/messages \\
-  -H "Authorization: Bearer dsms_sk_test_YOUR_KEY" \\
+curl -X POST https://api.resms.com/v1/messages \\
+  -H "Authorization: Bearer resms_sk_test_YOUR_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
     "from": "+15005550100",
     "to": "+15005550006",
-    "body": "Hello from Delivered"
+    "body": "Hello from Resms"
   }'
 \`\`\`
 
@@ -53,7 +53,7 @@ is a magic sandbox number that simulates successful delivery.
   "object": "message",
   "to": "+15005550006",
   "from": "+15005550100",
-  "body": "Hello from Delivered",
+  "body": "Hello from Resms",
   "direction": "outbound",
   "status": "sent",
   "test": true,
@@ -67,8 +67,8 @@ lifecycle in \`GET /v1/events\`; a \`message.delivered\` event follows ~2s later
 ## 4. Simulate a reply
 
 \`\`\`bash
-curl -X POST https://api.deliveredsms.com/v1/test/inbound \\
-  -H "Authorization: Bearer dsms_sk_test_YOUR_KEY" \\
+curl -X POST https://api.resms.com/v1/test/inbound \\
+  -H "Authorization: Bearer resms_sk_test_YOUR_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
     "to": "+15005550100",
@@ -105,18 +105,18 @@ access.
 Every request is authenticated with an API key in the \`Authorization\` header:
 
 \`\`\`bash
-Authorization: Bearer dsms_sk_test_...
+Authorization: Bearer resms_sk_test_...
 \`\`\`
 
 ## Test and live keys
 
 | Prefix | Mode | Behavior |
 | --- | --- | --- |
-| \`dsms_sk_test_\` | Sandbox | Instant, free, simulated delivery; no real SMS ever leaves the sandbox. |
-| \`dsms_sk_live_\` | Live | Real numbers and real delivery. Mintable once your account has live access. |
+| \`resms_sk_test_\` | Sandbox | Instant, free, simulated delivery; no real SMS ever leaves the sandbox. |
+| \`resms_sk_live_\` | Live | Real numbers and real delivery. Mintable once your account has live access. |
 
-\`ghost_sk_test_\` and \`ghost_sk_live_\` are legacy prefixes from the Ghost era.
-They are still accepted and will not be revoked, but new keys mint as \`dsms_\`.
+\`dsms_sk_*\` (Delivered era) and \`ghost_sk_*\` (Ghost era) are legacy prefixes.
+They are still accepted and will not be revoked, but new keys mint as \`resms_\`.
 
 Keys never expire, but you can roll or revoke them anytime from the
 [console](/console/keys). Rolling revokes the old key immediately
@@ -142,7 +142,7 @@ minting it. If you lose one, roll it.
     description: 'How test mode works, including magic numbers.',
     markdown: `# Sandbox & test numbers
 
-Test keys (\`dsms_sk_test_\`) run against a fully simulated environment: no
+Test keys (\`resms_sk_test_\`) run against a fully simulated environment: no
 carrier traffic, no charges, and nothing real ever sent. Every endpoint works,
 so you can build your whole integration, including webhooks, before going
 live.
@@ -160,7 +160,7 @@ Send **to** these numbers to trigger fixed behaviors:
 
 | Number | Behavior |
 | --- | --- |
-| \`+15005550006\` | Delivered: status \`sent\`, then a \`message.delivered\` event ~2s later. Any other number behaves the same. |
+| \`+15005550006\` | Resms: status \`sent\`, then a \`message.delivered\` event ~2s later. Any other number behaves the same. |
 | \`+15005550001\` | Stuck: status stays \`queued\` forever, no delivery event. |
 | \`+15005550002\` | Failed: status \`failed\` and a \`message.failed\` event with code \`undeliverable\`. |
 
@@ -188,8 +188,8 @@ not a product quota. If you legitimately hit it, tell us.
 \`POST /v1/messages\`
 
 \`\`\`bash
-curl -X POST https://api.deliveredsms.com/v1/messages \\
-  -H "Authorization: Bearer dsms_sk_test_YOUR_KEY" \\
+curl -X POST https://api.resms.com/v1/messages \\
+  -H "Authorization: Bearer resms_sk_test_YOUR_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{ "from": "+15005550100", "to": "+15005550006", "body": "Hello" }'
 \`\`\`
@@ -232,7 +232,7 @@ direction \`inbound\` and status \`received\`.
     description: 'Phone verification (OTP) in two API calls.',
     markdown: `# Verify
 
-Phone verification in two calls. Delivered generates the code, sends it, enforces
+Phone verification in two calls. Resms generates the code, sends it, enforces
 expiry and attempt limits, and defends against SMS pumping. You never store a
 code, and you don't need to own a phone number.
 
@@ -241,15 +241,15 @@ code, and you don't need to own a phone number.
 Two calls, no dependency required:
 
 \`\`\`js
-const send = (to) => fetch('https://api.deliveredsms.com/v1/verify', {
+const send = (to) => fetch('https://api.resms.com/v1/verify', {
   method: 'POST',
-  headers: { Authorization: \`Bearer \${process.env.DELIVERED_API_KEY}\`, 'Content-Type': 'application/json' },
+  headers: { Authorization: \`Bearer \${process.env.RESMS_API_KEY}\`, 'Content-Type': 'application/json' },
   body: JSON.stringify({ to }),
 }).then((r) => r.json());
 
-const check = (to, code) => fetch('https://api.deliveredsms.com/v1/verify/check', {
+const check = (to, code) => fetch('https://api.resms.com/v1/verify/check', {
   method: 'POST',
-  headers: { Authorization: \`Bearer \${process.env.DELIVERED_API_KEY}\`, 'Content-Type': 'application/json' },
+  headers: { Authorization: \`Bearer \${process.env.RESMS_API_KEY}\`, 'Content-Type': 'application/json' },
   body: JSON.stringify({ to, code }),
 }).then((r) => r.json());
 \`\`\`
@@ -258,30 +258,30 @@ Or from the terminal: the CLI ships inside the SDK package, so \`npx\` needs
 no install at all:
 
 \`\`\`bash
-DELIVERED_API_KEY=dsms_sk_test_... npx deliveredsms verify +14155550132
-npx deliveredsms verify +14155550132 482193   # check the code
+RESMS_API_KEY=resms_sk_test_... npx resms verify +14155550132
+npx resms verify +14155550132 482193   # check the code
 \`\`\`
 
 Or with the official SDK, which adds retries, typed errors and automatic
 idempotency keys:
 
 \`\`\`bash
-npm install deliveredsms
+npm install resms
 \`\`\`
 
 \`\`\`js
-import { Delivered } from 'deliveredsms';
-const delivered = new Delivered(process.env.DELIVERED_API_KEY);
+import { Resms } from 'resms';
+const resms = new Resms(process.env.RESMS_API_KEY);
 
-await delivered.verify.send({ to: '+14155550132' });
-const { verified } = await delivered.verify.check({ to: '+14155550132', code });
+await resms.verify.send({ to: '+14155550132' });
+const { verified } = await resms.verify.check({ to: '+14155550132', code });
 \`\`\`
 
 ## Send a code
 
 \`\`\`bash
-curl -X POST https://api.deliveredsms.com/v1/verify \\
-  -H "Authorization: Bearer dsms_sk_test_YOUR_KEY" \\
+curl -X POST https://api.resms.com/v1/verify \\
+  -H "Authorization: Bearer resms_sk_test_YOUR_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{ "phone": "+14155550132" }'
 \`\`\`
@@ -299,12 +299,12 @@ curl -X POST https://api.deliveredsms.com/v1/verify \\
 \`\`\`
 
 Optional \`app_name\` (24 chars max) puts your product's name in the message.
-The body is a fixed Delivered template; you can't set the text, which is what
+The body is a fixed Resms template; you can't set the text, which is what
 keeps verification traffic out of spam filtering.
 
 ## You don't need a phone number
 
-Verify sends from Delivered's own verification numbers, registered under our 10DLC
+Verify sends from Resms's own verification numbers, registered under our 10DLC
 campaign. You don't buy a number, you don't provision anything, and you pay no
 monthly number fee; verification is the whole product.
 
@@ -320,8 +320,8 @@ If you'd rather codes came from a number you own, pass it as \`from\`:
 ## Check the code
 
 \`\`\`bash
-curl -X POST https://api.deliveredsms.com/v1/verify/check \\
-  -H "Authorization: Bearer dsms_sk_test_YOUR_KEY" \\
+curl -X POST https://api.resms.com/v1/verify/check \\
+  -H "Authorization: Bearer resms_sk_test_YOUR_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{ "phone": "+14155550132", "code": "482193" }'
 \`\`\`
@@ -338,7 +338,7 @@ A verification is billed **only** when a code is actually verified. Wrong
 codes, expiries, abandoned flows and anything Shield blocks are free;
 every response tells you plainly with \`charged\`.
 
-## Rules Delivered enforces for you
+## Rules Resms enforces for you
 
 | | |
 | --- | --- |
@@ -352,7 +352,7 @@ Statuses: \`pending\`, \`approved\`, \`expired\`, \`max_attempts\`, \`blocked\`.
 ## Shield
 
 SMS pumping is fraud where someone farms revenue-share by triggering
-verification codes to numbers they control. Delivered blocks it before you're
+verification codes to numbers they control. Resms blocks it before you're
 charged:
 
 - **US and Canada only.** Country code +1 also covers Jamaica, the Dominican
@@ -440,11 +440,14 @@ one to filter.
 
 ## Verify signatures
 
-Every request carries a \`dsms-signature\` header:
+Every request carries a \`resms-signature\` header:
 
 \`\`\`
-dsms-signature: t=1755043260,v1=5257a869e7...
+resms-signature: t=1755043260,v1=5257a869e7...
 \`\`\`
+
+(A duplicate \`dsms-signature\` header with the same value is sent for
+consumers wired before the Resms rebrand.)
 
 \`v1\` is \`HMAC-SHA256(secret, \\\`\${t}.\${rawBody}\\\`)\`, the same scheme
 Stripe uses. Your signing secret (\`whsec_...\`) is shown next to the endpoint
@@ -484,7 +487,7 @@ inbound handler before going live.
   {
     slug: 'migrate-from-twilio',
     title: 'Migrate from Twilio Verify',
-    description: 'Line-by-line mapping from Twilio Verify to Delivered Verify.',
+    description: 'Line-by-line mapping from Twilio Verify to Resms Verify.',
     markdown: `# Migrate from Twilio Verify
 
 Two calls become two calls. The main differences: no Verify Service to create,
@@ -497,10 +500,10 @@ no phone number to buy, and you're billed only when a code actually verifies.
 await twilio.verify.v2.services(SERVICE_SID)
   .verifications.create({ to: phone, channel: 'sms' });
 
-// Delivered
-await fetch('https://api.deliveredsms.com/v1/verify', {
+// Resms
+await fetch('https://api.resms.com/v1/verify', {
   method: 'POST',
-  headers: { Authorization: \`Bearer \${process.env.DELIVERED_API_KEY}\`, 'Content-Type': 'application/json' },
+  headers: { Authorization: \`Bearer \${process.env.RESMS_API_KEY}\`, 'Content-Type': 'application/json' },
   body: JSON.stringify({ to: phone }),
 });
 \`\`\`
@@ -513,10 +516,10 @@ const check = await twilio.verify.v2.services(SERVICE_SID)
   .verificationChecks.create({ to: phone, code });
 if (check.status === 'approved') { /* ... */ }
 
-// Delivered
-const res = await fetch('https://api.deliveredsms.com/v1/verify/check', {
+// Resms
+const res = await fetch('https://api.resms.com/v1/verify/check', {
   method: 'POST',
-  headers: { Authorization: \`Bearer \${process.env.DELIVERED_API_KEY}\`, 'Content-Type': 'application/json' },
+  headers: { Authorization: \`Bearer \${process.env.RESMS_API_KEY}\`, 'Content-Type': 'application/json' },
   body: JSON.stringify({ to: phone, code }),
 });
 const { verified } = await res.json();
@@ -525,7 +528,7 @@ if (verified) { /* ... */ }
 
 ## What maps to what
 
-| Twilio | Delivered |
+| Twilio | Resms |
 | --- | --- |
 | \`to\` | \`to\` (or \`phone\`, both work) |
 | Account SID + Auth Token | one API key |
@@ -776,8 +779,8 @@ Pass \`scheduled_at\` (ISO timestamp or epoch ms, up to 30 days out) to
 \`POST /v1/messages\` and the message is queued instead of sent:
 
 \`\`\`bash
-curl -X POST https://api.deliveredsms.com/v1/messages \
-  -H "Authorization: Bearer $DELIVERED_API_KEY" \
+curl -X POST https://api.resms.com/v1/messages \
+  -H "Authorization: Bearer $RESMS_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"to":"+14155550132","from":"+15005550110","body":"Reminder!","scheduled_at":"2026-09-01T15:00:00Z"}'
 \`\`\`
@@ -834,7 +837,7 @@ Works identically in sandbox: simulate an inbound with
   {
     slug: 'porting',
     title: 'Number porting',
-    description: 'Bring an existing business number to Delivered.',
+    description: 'Bring an existing business number to Resms.',
     markdown: `# Number porting
 
 You can bring a number you already own. Porting is a carrier-side process with
@@ -856,7 +859,7 @@ Submit from Console → Numbers → Port a number (admins only).
 | \`requested\` | We received your request. |
 | \`submitted\` | Filed with the carrier. |
 | \`foc_set\` | The carrier set a Firm Order Commitment date. |
-| \`complete\` | The number is live on Delivered. |
+| \`complete\` | The number is live on Resms. |
 | \`rejected\` | The carrier rejected it; the note says why (usually a detail mismatch). |
 
 The status timeline is visible in the console; keep the old service active
@@ -869,7 +872,7 @@ until the port completes.
     description: 'Revocation in plain English, the consent ledger, and what is blocked.',
     markdown: `# Opt-out, consent & TCPA
 
-Honouring opt-out is a legal obligation, not a feature. Delivered enforces it on
+Honouring opt-out is a legal obligation, not a feature. Resms enforces it on
 your behalf for every send, keeps an append-only consent ledger you can export,
 and gives you the events to keep your own systems in sync. There is nothing to
 configure; every account gets this by default.
@@ -877,7 +880,7 @@ configure; every account gets this by default.
 ## Revocation in plain English
 
 The FCC's April 2025 revocation rule requires honouring a revocation expressed
-by any reasonable means, not just the standard keywords. Delivered detects
+by any reasonable means, not just the standard keywords. Resms detects
 revocation in three tiers, in order:
 
 | Tier | Detects | Example |
@@ -936,28 +939,28 @@ verification exemptions. That history is your TCPA audit trail.
 
 \`\`\`bash
 # Current state + full history for one number
-curl https://api.deliveredsms.com/v1/consent/+14155550132 \\
-  -H "Authorization: Bearer $DELIVERED_API_KEY"
+curl https://api.resms.com/v1/consent/+14155550132 \\
+  -H "Authorization: Bearer $RESMS_API_KEY"
 
 # Set consent from your own system (CRM sync, web form, support tool)
-curl -X POST https://api.deliveredsms.com/v1/consent/+14155550132 \\
-  -H "Authorization: Bearer $DELIVERED_API_KEY" \\
+curl -X POST https://api.resms.com/v1/consent/+14155550132 \\
+  -H "Authorization: Bearer $RESMS_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{"status": "opted_out", "note": "revoked by email"}'
 
 # The whole suppression list, paginated
-curl "https://api.deliveredsms.com/v1/consent?limit=100" \\
-  -H "Authorization: Bearer $DELIVERED_API_KEY"
+curl "https://api.resms.com/v1/consent?limit=100" \\
+  -H "Authorization: Bearer $RESMS_API_KEY"
 
 # Bulk import (up to 500 per request), e.g. when migrating from Twilio
-curl -X POST https://api.deliveredsms.com/v1/consent/import \\
-  -H "Authorization: Bearer $DELIVERED_API_KEY" \\
+curl -X POST https://api.resms.com/v1/consent/import \\
+  -H "Authorization: Bearer $RESMS_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{"phone_numbers": ["+14155550132", "+16155550176"]}'
 
 # Export everything as CSV
-curl https://api.deliveredsms.com/v1/consent/export \\
-  -H "Authorization: Bearer $DELIVERED_API_KEY"
+curl https://api.resms.com/v1/consent/export \\
+  -H "Authorization: Bearer $RESMS_API_KEY"
 \`\`\`
 
 The [console Compliance page](/console/compliance) shows the same ledger with
@@ -982,8 +985,8 @@ you can rehearse the whole path before going live. The phrase tier is
 deterministic, so it is testable too:
 
 \`\`\`bash
-curl -X POST https://api.deliveredsms.com/v1/test/inbound \\
-  -H "Authorization: Bearer $DELIVERED_API_KEY" \\
+curl -X POST https://api.resms.com/v1/test/inbound \\
+  -H "Authorization: Bearer $RESMS_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{"from":"+15005550006","to":"<your sandbox number>","body":"please stop texting me"}'
 \`\`\`
@@ -994,7 +997,7 @@ The next send to that number returns 403, and
 both entries.
 
 This page is educational, not legal advice. Your own counsel decides what your
-consent program needs; Delivered gives you enforcement and records by default.
+consent program needs; Resms gives you enforcement and records by default.
 `,
   },
   {
@@ -1003,7 +1006,7 @@ consent program needs; Delivered gives you enforcement and records by default.
     description: 'Protect your account, API keys, and users: key hygiene, phishing awareness, and how we handle your data.',
     markdown: `# Security best practices
 
-Delivered secures the platform; you secure your side of it. This page covers
+Resms secures the platform; you secure your side of it. This page covers
 what we do, what you should do, and how to recognize the attacks that target
 messaging accounts.
 
@@ -1040,11 +1043,11 @@ keys, or your customers' trust.
   through a channel you already trust (the console, or a contact you already
   have) before acting.
 - Check sender addresses carefully. Our email comes from the
-  deliveredsms.com domain; lookalike domains are the most common phishing
+  resms.com domain; lookalike domains are the most common phishing
   tell.
 - Spear phishing is personalized - a message knowing your name, role, or
   vendor list is not proof it is genuine.
-- Report anything suspicious to [support@deliveredsms.com](mailto:support@deliveredsms.com);
+- Report anything suspicious to [support@resms.com](mailto:support@resms.com);
   we investigate every report.
 
 ## Protect your users
@@ -1066,7 +1069,7 @@ keys, or your customers' trust.
 - Production access restricted to authorized personnel and audited.
 - Details in the [Privacy Policy](/privacy).
 
-Found a vulnerability? Email [support@deliveredsms.com](mailto:support@deliveredsms.com)
+Found a vulnerability? Email [support@resms.com](mailto:support@resms.com)
 with details; we respond quickly and appreciate responsible disclosure.
 `,
   },
@@ -1114,7 +1117,7 @@ Successful quota-limited calls include \`X-Quota-Remaining\`.
   {
     slug: 'pricing',
     title: 'Pricing',
-    description: 'What the Delivered costs, and what the free tier includes.',
+    description: 'What the Resms costs, and what the free tier includes.',
     markdown: `# Pricing
 
 ${pricingTableMarkdown()}
@@ -1144,7 +1147,7 @@ cost estimator.
   {
     slug: 'changelog',
     title: 'Changelog',
-    description: 'What changed in the Delivered.',
+    description: 'What changed in the Resms.',
     markdown: `# Changelog
 
 ## 2026-08-14: Consent autopilot (TCPA)
@@ -1176,7 +1179,7 @@ cost estimator.
   [json](/api/v1/openapi.json)), \`llms.txt\`, single-file docs
   (\`llms-full.txt\`), markdown twins of every docs page, an
   [MCP server](/api/mcp), and an agent skill
-  ([delivered](/skills/delivered/SKILL.md)).
+  ([resms](/skills/resms/SKILL.md)).
 
 ### Known limitations
 
@@ -1193,12 +1196,12 @@ export function getDocsPage(slug: string): DocsPage | undefined {
 
 /** Full docs as one markdown document (llms-full.txt). */
 export function fullDocsMarkdown(): string {
-  const header = `# Delivered · SMS for Developers
+  const header = `# Resms · SMS for Developers
 
-Programmable SMS and phone numbers. Base URL: https://api.deliveredsms.com/v1
-Authentication: Authorization: Bearer dsms_sk_test_... (or dsms_sk_live_...)
-Console (free sandbox keys): https://deliveredsms.com/console
-OpenAPI: https://deliveredsms.com/api/v1/openapi.yaml (also .json)
+Programmable SMS and phone numbers. Base URL: https://api.resms.com/v1
+Authentication: Authorization: Bearer resms_sk_test_... (or resms_sk_live_...)
+Console (free sandbox keys): https://resms.com/console
+OpenAPI: https://resms.com/api/v1/openapi.yaml (also .json)
 
 ---
 `;

@@ -11,7 +11,7 @@ export const maxDuration = 60;
 export const dynamic = 'force-dynamic';
 
 /**
- * Delivered billing webhook - a SEPARATE Stripe endpoint with its own signing
+ * Resms billing webhook - a SEPARATE Stripe endpoint with its own signing
  * secret. It is deliberately not the consumer webhook
  * (src/app/api/webhook/route.ts), whose event list must not change.
  *
@@ -83,11 +83,11 @@ export async function POST(req: NextRequest) {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: `*Delivered meter errors*\nStripe is rejecting meter events for tenant \`${tenantId}\`. Usage may not be billed.`,
+            text: `*Resms meter errors*\nStripe is rejecting meter events for tenant \`${tenantId}\`. Usage may not be billed.`,
           },
         },
       ],
-      `Delivered meter error for ${tenantId}`
+      `Resms meter error for ${tenantId}`
     ).catch(() => {});
     return NextResponse.json({ received: true });
   }
@@ -171,11 +171,11 @@ export async function POST(req: NextRequest) {
               type: 'section',
               text: {
                 type: 'mrkdwn',
-                text: `*Delivered payment failed*\nTenant \`${tenantId}\` is now past_due (limits drop to free tier).`,
+                text: `*Resms payment failed*\nTenant \`${tenantId}\` is now past_due (limits drop to free tier).`,
               },
             },
           ],
-          `Delivered payment failed for ${tenantId}`
+          `Resms payment failed for ${tenantId}`
         ).catch(() => {});
         break;
       }

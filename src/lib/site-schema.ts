@@ -18,8 +18,8 @@ export const SITE_NAV = [
   { name: 'SMS for developers', path: '/', description: 'Send and receive SMS, verify phone numbers, and provision real US and Canada numbers with one REST API.' },
   { name: 'Pricing', path: '/pricing', description: 'Usage-based pricing with no platform fee. Free sandbox, no card required.' },
   { name: 'Documentation', path: '/docs', description: 'Quickstart, API reference, webhooks, and migration guides.' },
-  { name: 'Log in', path: '/login', description: 'Log in to the Delivered console to manage API keys, numbers, and usage.' },
-  { name: 'Create an account', path: '/signup', description: 'Create a free Delivered account and get a sandbox API key instantly.' },
+  { name: 'Log in', path: '/login', description: 'Log in to the Resms console to manage API keys, numbers, and usage.' },
+  { name: 'Create an account', path: '/signup', description: 'Create a free Resms account and get a sandbox API key instantly.' },
 ] as const
 
 export function organizationSchema() {
@@ -27,13 +27,13 @@ export function organizationSchema() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     '@id': `${SITE_URL}/#organization`,
-    name: 'Delivered',
+    name: 'Resms',
     legalName: COMPANY.legalName,
     url: SITE_URL,
     logo: `${SITE_URL}/icon.svg`,
     description:
       'Programmable SMS, phone verification, and real US and Canada phone numbers with one REST API.',
-    sameAs: ['https://github.com/sbier060/deliveredsms'],
+    sameAs: ['https://github.com/sbier060/resms'],
   }
 }
 
@@ -42,7 +42,7 @@ export function websiteSchema() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     '@id': `${SITE_URL}/#website`,
-    name: 'Delivered',
+    name: 'Resms',
     url: SITE_URL,
     publisher: { '@id': `${SITE_URL}/#organization` },
   }

@@ -1,5 +1,5 @@
 /**
- * Delivered pricing - the single source of truth.
+ * Resms pricing - the single source of truth.
  *
  * Imported by the pricing page, the estimator, the docs generator, the console
  * billing page, and (later) the Stripe bootstrap script. Change a number here

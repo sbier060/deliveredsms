@@ -15,17 +15,17 @@ export async function GET() {
     .map((p) => `- **${p.title}** - ${SITE_URL}/docs/${p.slug}.md: ${p.description}`)
     .join('\n');
 
-  const body = `# Migrating to Delivered
+  const body = `# Migrating to Resms
 
 Moving from another SMS or verification provider. Each guide maps the old API's
-calls, parameters, and webhooks onto Delivered's, endpoint by endpoint.
+calls, parameters, and webhooks onto Resms's, endpoint by endpoint.
 
 ${rows || '- No migration guides published yet.'}
 
 ## What is the same everywhere
 
 - Base URL: \`${API_URL}/v1\`
-- Auth: \`Authorization: Bearer dsms_sk_test_...\` (sandbox keys are free and instant)
+- Auth: \`Authorization: Bearer resms_sk_test_...\` (sandbox keys are free and instant)
 - Test first: every endpoint works against the sandbox, including webhooks, so a
   migration can be built and verified before a single live message is sent.
 - Credential handling for agents: ${SITE_URL}/auth.md

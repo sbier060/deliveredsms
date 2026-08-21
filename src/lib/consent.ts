@@ -1,6 +1,10 @@
-const CONSENT_COOKIE = 'dsms_tracking_consent';
-const GEO_COOKIE = 'dsms_geo_requires_consent';
-const GEO_DETECTION_FAILED_COOKIE = 'dsms_geo_detection_failed';
+const CONSENT_COOKIE = 'resms_tracking_consent';
+// The recorded choice shipped under the Delivered-era name. A visitor who
+// already accepted or declined must not be re-prompted just because the brand
+// changed, so the old cookie is still read (never written) as a fallback.
+const LEGACY_CONSENT_COOKIE = 'dsms_tracking_consent';
+const GEO_COOKIE = 'resms_geo_requires_consent';
+const GEO_DETECTION_FAILED_COOKIE = 'resms_geo_detection_failed';
 
 export type ConsentStatus = 'accepted' | 'declined' | 'pending';
 
@@ -41,7 +45,9 @@ export function getGeoDetectionFailed(): boolean | null {
 
 export function getConsentStatus(): ConsentStatus {
   if (typeof document === 'undefined') return 'pending';
-  const match = document.cookie.match(new RegExp(`${CONSENT_COOKIE}=([^;]+)`));
+  const match =
+    document.cookie.match(new RegExp(`${CONSENT_COOKIE}=([^;]+)`)) ??
+    document.cookie.match(new RegExp(`${LEGACY_CONSENT_COOKIE}=([^;]+)`));
   return (match?.[1] as ConsentStatus) || 'pending';
 }
 

@@ -12,7 +12,7 @@ import type { ApiEventType, PublicEvent } from './types';
  *   apiWebhookOutbox/{pushKey}                     = RetryJob (failed deliveries)
  *   apiWebhookDeliveries/{tenantId}/{endpointId}/  = push log (console reads last 20)
  *
- * Every request is signed: `dsms-signature: t=<unix seconds>,v1=<hex>` where
+ * Every request is signed: `resms-signature: t=<unix seconds>,v1=<hex>` where
  * v1 = HMAC-SHA256(secret, `${t}.${rawBody}`). Same scheme Stripe uses, so
  * every "verify a Stripe webhook" snippet on the internet adapts in one line.
  */
@@ -147,14 +147,19 @@ async function attemptDelivery(
   const t = Math.floor(Date.now() / 1000);
   const started = Date.now();
   try {
+    const signature = `t=${t},v1=${signPayload(endpoint.secret, t, body)}`;
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), DELIVERY_TIMEOUT_MS);
     const res = await fetch(endpoint.url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'User-Agent': 'Delivered-Webhooks/1.0',
-        'dsms-signature': `t=${t},v1=${signPayload(endpoint.secret, t, body)}`,
+        'User-Agent': 'Resms-Webhooks/1.0',
+        'resms-signature': signature,
+        'resms-event-id': event.id,
+        // Legacy duplicates from the Delivered era. Consumers wired before the
+        // Resms rebrand verify these; keep sending both forever.
+        'dsms-signature': signature,
         'dsms-event-id': event.id,
       },
       body,

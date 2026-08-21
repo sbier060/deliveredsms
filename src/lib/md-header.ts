@@ -11,8 +11,8 @@ import { SITE_URL } from '@/lib/urls';
  *
  * Same three lines the whole property uses, so the shape is learnable:
  *
- *   Source: https://deliveredsms.com/docs/verify
- *   Index: https://deliveredsms.com/llms.txt
+ *   Source: https://resms.com/docs/verify
+ *   Index: https://resms.com/llms.txt
  *
  * `Index` points at the file to fetch NEXT if the twin is not the answer. That
  * is Resend's convention (they lead their markdown with a pointer to their docs

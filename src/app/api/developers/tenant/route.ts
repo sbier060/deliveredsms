@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
   const ban = await checkBanned(user.uid, user.email, getClientIp(req));
   if (ban.banned) {
     return NextResponse.json(
-      { error: 'This account is not permitted to use Delivered.' },
+      { error: 'This account is not permitted to use Resms.' },
       { status: 403 }
     );
   }
@@ -51,13 +51,13 @@ export async function POST(req: NextRequest) {
   if (result.isNew && process.env.DEV_API_EMAILS_ENABLED === 'true' && user.email) {
     sendNoReplyMail({
       to: user.email,
-      subject: 'Your Delivered sandbox is live',
+      subject: 'Your Resms sandbox is live',
       html: buildDevWelcomeEmailHtml({
         name: user.name === 'Developer' ? null : user.name,
         keyLast4: result.initialKey ? result.initialKey.secret.slice(-4) : '????',
         sandboxNumber: result.sandboxNumber || '+1 500-555-XXXX',
-        consoleUrl: 'https://deliveredsms.com/console',
-        quickstartUrl: 'https://deliveredsms.com/docs/quickstart',
+        consoleUrl: 'https://resms.com/console',
+        quickstartUrl: 'https://resms.com/docs/quickstart',
       }),
     }).catch(() => {});
   }

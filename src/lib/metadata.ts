@@ -6,7 +6,7 @@ export const BASE_URL = SITE_URL;
 // "Brand · Tagline" is the shape Google renders as the headline of a brand
 // result (resend.com uses "Resend · Email for developers"). Keep it short: the
 // homepage title is the anchor for every branded search.
-const SITE_TITLE = 'Delivered · SMS for developers';
+const SITE_TITLE = 'Resms · SMS for developers';
 const DEFAULT_DESCRIPTION =
   'Programmable SMS, phone verification, and real US/Canada phone numbers with one REST API. Built for developers and AI agents. Free sandbox, no card.';
 
@@ -38,7 +38,7 @@ export function generateMetadata(props: PageMetadataProps): Metadata {
   const normalizedPath =
     !path || path === '/' ? '' : path.endsWith('/') ? path.slice(0, -1) : path;
   const canonicalUrl = `${BASE_URL}${normalizedPath}` || BASE_URL;
-  const fullTitle = title ? `${title} | Delivered` : SITE_TITLE;
+  const fullTitle = title ? `${title} | Resms` : SITE_TITLE;
 
   return {
     title: fullTitle,
@@ -55,7 +55,7 @@ export function generateMetadata(props: PageMetadataProps): Metadata {
       url: canonicalUrl,
       title: fullTitle,
       description: description || DEFAULT_DESCRIPTION,
-      siteName: 'Delivered',
+      siteName: 'Resms',
       // Every page had og:title and og:description and NO image, so every link
       // to a doc page unfurled in Slack and iMessage as a grey box with a
       // hostname — for a product whose docs get pasted between developers all

@@ -1,5 +1,5 @@
 /**
- * NANP area codes (NPAs) that Delivered Verify will send to.
+ * NANP area codes (NPAs) that Resms Verify will send to.
  *
  * WHY THIS EXISTS: country code +1 is not 'US and Canada' - it covers ~25
  * NANP territories including Jamaica (+1876), the Dominican Republic

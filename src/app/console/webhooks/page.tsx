@@ -140,7 +140,7 @@ export default function WebhooksPage() {
         <input
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          placeholder="https://yourapp.com/webhooks/delivered"
+          placeholder="https://yourapp.com/webhooks/sms"
           className={`flex-1 rounded-lg border border-[#2E2C28] bg-[#0F0E0C] px-3.5 py-2.5 text-[14px] text-[#EFEEEC] placeholder-[#5C5A55] outline-none transition-colors duration-150 focus:border-[#918E86] ${MONO}`}
         />
         <button

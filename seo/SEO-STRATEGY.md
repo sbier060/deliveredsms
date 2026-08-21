@@ -1,10 +1,10 @@
-# Delivered - SEO & AEO Strategy
+# Resms - SEO & AEO Strategy
 
 _Written 2026-08-13. Domain age at writing: 1 day._
 
 ## The honest starting position
 
-| | Delivered | Twilio | Telnyx | Plivo |
+| | Resms | Twilio | Telnyx | Plivo |
 |---|---|---|---|---|
 | Domain age | 1 day | 18 years | 16 years | 13 years |
 | Referring domains | 0 | ~500,000 | ~30,000 | ~15,000 |
@@ -39,7 +39,7 @@ Already shipped: `/llms.txt`, `/llms-full.txt`, `/docs/llms.txt`, `/auth.md`,
 three `SKILL.md` files, and a `.md` twin of every page.
 
 **The gap is distribution, not surface.** An MCP server nobody has installed and
-a skill nobody has added are invisible. Getting `deliveredsms` into the MCP
+a skill nobody has added are invisible. Getting `resms` into the MCP
 registries, the skills directories, and the "awesome-mcp" style lists matters more
 than any further on-page work.
 

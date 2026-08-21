@@ -6,7 +6,7 @@ artifacts, never hand-edited.
 
 ## Search engine submission
 
-Sitemap index: `https://deliveredsms.com/sitemap.xml`
+Sitemap index: `https://resms.com/sitemap.xml`
 (children: `sitemap-main.xml`, `sitemap-docs.xml`)
 
 Submit the index only — Google, Bing, and Yandex follow the children
@@ -20,13 +20,13 @@ announcing early re-indexes the old page. The script fetches `<key>.txt` from
 the domain root first and refuses to submit if it is missing or stale — a key
 whose file is not live yet earns a 403 on every submission.
 
-**The key for deliveredsms.com is `658e0a42de5c4ddb9a369b1f79fc8e17`**, issued
+**The key for resms.com is `658e0a42de5c4ddb9a369b1f79fc8e17`**, issued
 by Bing Webmaster Tools on 2026-08-17. It lives in two places that must never
 drift apart:
 
 - `KEY` in [`scripts/indexnow.js`](scripts/indexnow.js) — the one submitted
 - `public/658e0a42de5c4ddb9a369b1f79fc8e17.txt`, served at
-  `https://deliveredsms.com/658e0a42de5c4ddb9a369b1f79fc8e17.txt`, contents =
+  `https://resms.com/658e0a42de5c4ddb9a369b1f79fc8e17.txt`, contents =
   the key and nothing else. Written by `scripts/generate-robots.js` from that
   same constant, so changing `KEY` is what rotates the key.
 

@@ -56,7 +56,7 @@ export default function PricingEstimator() {
 
       <div className="mt-6 border-t border-[#2E2C28] pt-5">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <span className="text-[14px] text-[#C9C6BF]">Delivered, all-in</span>
+          <span className="text-[14px] text-[#C9C6BF]">Resms, all-in</span>
           <span className={`text-[28px] tabular-nums text-[#EFEEEC] ${MONO}`}>
             {formatMoney(ours.subtotalMicroUsd)}
             <span className="ml-1 text-[14px] text-[#918E86]">/mo</span>

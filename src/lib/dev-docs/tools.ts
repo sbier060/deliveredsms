@@ -27,7 +27,7 @@ export const AGENT_TOOLS: AgentTool[] = [
     tag: "Anthropic's assistant, via MCP",
     lead: 'mcp',
     pitch:
-      "Connect the Delivered MCP server and Claude can send texts, run phone verification, and buy numbers as native tool calls, no glue code.",
+      "Connect the Resms MCP server and Claude can send texts, run phone verification, and buy numbers as native tool calls, no glue code.",
   },
   {
     slug: 'claude-code',
@@ -35,7 +35,7 @@ export const AGENT_TOOLS: AgentTool[] = [
     tag: "Anthropic's coding agent",
     lead: 'skills',
     pitch:
-      "Install the Delivered skills once and Claude Code ships SMS and OTP features against the real API, sandbox-first, with the gotchas already encoded.",
+      "Install the Resms skills once and Claude Code ships SMS and OTP features against the real API, sandbox-first, with the gotchas already encoded.",
   },
   {
     slug: 'cursor',
@@ -43,7 +43,7 @@ export const AGENT_TOOLS: AgentTool[] = [
     tag: 'The AI code editor',
     lead: 'mcp',
     pitch:
-      "Add Delivered to Cursor's MCP config and the agent tab can send test messages and wire verification flows while you watch the diff.",
+      "Add Resms to Cursor's MCP config and the agent tab can send test messages and wire verification flows while you watch the diff.",
   },
   {
     slug: 'codex',
@@ -51,7 +51,7 @@ export const AGENT_TOOLS: AgentTool[] = [
     tag: "OpenAI's coding agent",
     lead: 'skills',
     pitch:
-      "Codex reads SKILL.md files; give it Delivered's and it stops hand-rolling OTP over raw SMS and uses the verify primitive instead.",
+      "Codex reads SKILL.md files; give it Resms's and it stops hand-rolling OTP over raw SMS and uses the verify primitive instead.",
   },
   {
     slug: 'devin',
@@ -59,7 +59,7 @@ export const AGENT_TOOLS: AgentTool[] = [
     tag: 'The autonomous software engineer',
     lead: 'skills',
     pitch:
-      "Point Devin at the Delivered skills and long-running tasks like 'add SMS 2FA' resolve against a real sandbox it can test end to end.",
+      "Point Devin at the Resms skills and long-running tasks like 'add SMS 2FA' resolve against a real sandbox it can test end to end.",
   },
   {
     slug: 'copilot',
@@ -67,7 +67,7 @@ export const AGENT_TOOLS: AgentTool[] = [
     tag: 'Your AI pair programmer',
     lead: 'skills',
     pitch:
-      "Copilot's agent mode picks up Delivered skills from your repo, so generated SMS code matches the API instead of hallucinating one.",
+      "Copilot's agent mode picks up Resms skills from your repo, so generated SMS code matches the API instead of hallucinating one.",
   },
 ];
 

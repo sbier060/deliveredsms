@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
   return new NextResponse(toCsv(rows), {
     headers: {
       'Content-Type': 'text/csv; charset=utf-8',
-      'Content-Disposition': 'attachment; filename="delivered-contacts.csv"',
+      'Content-Disposition': 'attachment; filename="resms-contacts.csv"',
     },
   });
 }

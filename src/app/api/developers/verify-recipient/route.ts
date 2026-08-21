@@ -138,7 +138,7 @@ export async function POST(req: NextRequest) {
   const code = generateCode();
   await createVerification({ tenantId, phone: e164, code, test: false });
   try {
-    await sendVerificationSms({ from, to: e164, code, appName: 'Delivered' });
+    await sendVerificationSms({ from, to: e164, code, appName: 'Resms' });
   } catch (error) {
     if (error instanceof VerifySendError) {
       console.error('[developers/verify-recipient] send failed:', error.message);

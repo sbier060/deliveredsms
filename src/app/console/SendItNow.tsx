@@ -53,7 +53,7 @@ export default function SendItNow({
         body: JSON.stringify({
           from,
           to: '+15005550006',
-          body: 'Hello from Delivered',
+          body: 'Hello from Resms',
         }),
       });
       const body = (await res.json()) as Record<string, unknown>;

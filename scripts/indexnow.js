@@ -30,7 +30,7 @@
 const fs = require('fs');
 const path = require('path');
 
-// Issued by Bing Webmaster Tools for deliveredsms.com, 2026-08-17, replacing a
+// Issued by Bing Webmaster Tools for resms.com, 2026-08-17, replacing a
 // self-generated key. Either kind is valid — any 8-128 hex characters work and
 // the proof is that the same string is served from the domain root — but this
 // one is the one Bing has on file, so it can be checked from their side.
@@ -39,7 +39,7 @@ const path = require('path');
 // earns a 403. Delete the superseded public/<oldkey>.txt in the same commit;
 // generate-robots.js only writes the current one, it never cleans up.
 const KEY = '658e0a42de5c4ddb9a369b1f79fc8e17';
-const DOMAIN = process.env.NEXT_PUBLIC_SITE_DOMAIN || 'deliveredsms.com';
+const DOMAIN = process.env.NEXT_PUBLIC_SITE_DOMAIN || 'resms.com';
 const BASE = `https://${DOMAIN}`;
 const ENDPOINT = 'https://api.indexnow.org/indexnow';
 
